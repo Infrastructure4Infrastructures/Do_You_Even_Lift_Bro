@@ -15,56 +15,69 @@ router.use((req, res, next) => {
 /** Sends all tasks */
 router.get("/", async (req, res, next) => {
   try {
-    const tasks = await prisma.task.findMany({
+    const users = await prisma.user.findMany({
       where: { userId: res.locals.user.id },
     });
-    res.json(tasks);
+    res.json(users);
   } catch (err) {
     next(err);
   }
 });
 
 /** Creates new task and sends it */
-router.post("/", async (req, res, next) => {
+router.post("/:userId/journal", async (req, res, next) => {
+  const userId = +req.params.userId;
+  const exerciseName = req.body.userId;
+  const exerciseSets = req.body.userId;
+  const foodEntry = req.body.userId;
+  const calories = +req.body.userId;
+  const totalCalories = +req.body.userId;
+
   try {
     const { description, done } = req.body;
     if (!description) {
       throw new ServerError(400, "Description required.");
     }
 
-    const task = await prisma.task.create({
+    const user = await prisma.user.create({
       data: {
-        description,
+        date,
+        exerciseName,
+        exerciseSets,
+        foodEntry,
+        calories,
+        totalCalories,
+        userId,
         done: done ?? false,
         user: { connect: { id: res.locals.user.id } },
       },
     });
-    res.json(task);
+    res.json(user);
   } catch (err) {
     next(err);
   }
 });
 
 /** Checks if task exists and belongs to given user */
-const validateTask = (user, task) => {
-  if (!task) {
-    throw new ServerError(404, "Task not found.");
+const validateJournal = (user, journal) => {
+  if (!journal) {
+    throw new ServerError(404, "Journal entry not found.");
   }
 
-  if (task.userId !== user.id) {
-    throw new ServerError(403, "This task does not belong to you.");
+  if (journal.userId !== user.id) {
+    throw new ServerError(403, "This journal does not belong to you.");
   }
 };
 
-/** Sends single task by id */
+/** Sends single journal entry by id */
 router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    const task = await prisma.task.findUnique({ where: { id } });
-    validateTask(res.locals.user, task);
+    const journal = await prisma.journal.findUnique({ where: { id } });
+    validateJournal(res.locals.user, journal);
 
-    res.json(task);
+    res.json(journal);
   } catch (err) {
     next(err);
   }
