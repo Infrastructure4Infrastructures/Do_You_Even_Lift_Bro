@@ -52,13 +52,13 @@ model Exercises {
 }
 
 model Food {
-  id            Int      @id @default(autoincrement())
+  id            Int    @id @default(autoincrement())
   foodEntry     String
-  date          DateTime
+  date          Int
   calories      Int
   totalCalories Int
   userId        Int
-  user          User     @relation(fields: [userId], references: [id])
+  user          User   @relation(fields: [userId], references: [id])
 }
 
 model Journal {
