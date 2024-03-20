@@ -44,6 +44,9 @@ const seed = async () => {
       update: {},
       create: {
         foodEntry: randomFood,
+        date: i,
+        calories: i,
+        totalCalories: i,
         userId: i,
       },
     });
@@ -58,9 +61,6 @@ const seed = async () => {
         exerciseName: randomEntry,
         exerciseSets: i,
         exerciseReps: i,
-        foodEntry: randomEntry,
-        calories: i,
-        totalCalories: i,
         userId: i,
       },
     });
