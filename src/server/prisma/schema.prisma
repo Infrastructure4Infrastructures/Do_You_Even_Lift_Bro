@@ -1,5 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,81 +12,92 @@ datasource db {
 
 model User {
   id       Int        @id @default(autoincrement())
-  username String     @unique
+  username String
   password String
-  journal  Journal[]
-  workouts Workouts[]
-  meals    Meals[]
+  Workouts Workouts[]
+  Meal     Meal[]
+  Journal  Journal[]
 }
 
 model Workouts {
   id                Int                 @id @default(autoincrement())
+  name              String
   difficulty        String
-  description       String
-  user              User                @relation(fields: [], references: [])
+  user              User                @relation(fields: [userId], references: [id])
   userId            Int
-  workout_exercises Workout_Exercises[]
-  journal_entry     Journal_Entry[]
-}
-
-model Workout_Exercises {
-  id         Int         @id @default(autoincrement())
-  exerciseId Int         @unique
-  workoutId  Int
-  setsGoal   Int
-  repsGoal   Int
-  mySets     Int
-  myReps     Int
-  workouts   Workouts    @relation(fields: [workoutId], references: [id])
-  exercises  Exercises[]
+  Workout_Exercises Workout_Exercises[]
+  Journal_Entry     Journal_Entry[]
 }
 
 model Exercises {
-  id                Int               @id @default(autoincrement())
+  id                Int                 @id @default(autoincrement())
   name              String
   description       String
-  category          Enum
-  workout_exercises Workout_Exercises @relation(fields: [id], references: [exerciseId])
-  journal_entry     Journal_Entry[]
+  category          String
+  Workout_Exercises Workout_Exercises[]
+  Journal_Entry     Journal_Entry[]
 }
 
-model Food_item {
+model Workout_Exercises {
+  id          Int       @id @default(autoincrement())
+  setsGoals   Int
+  repsGoals   Int
+  mySets      Int
+  myReps      Int
+  workouts    Workouts  @relation(fields: [workoutsId], references: [id])
+  workoutsId  Int
+  exercises   Exercises @relation(fields: [exercisesId], references: [id])
+  exercisesId Int
+}
+
+model Meal {
   id              Int               @id @default(autoincrement())
-  foodEntry       String
+  type            String
+  dow             String
+  user            User              @relation(fields: [userId], references: [id])
+  userId          Int
+  Meal_Food_Items Meal_Food_Items[]
+  Journal_Entry   Journal_Entry[]
+}
+
+model Food_Item {
+  id              Int               @id @default(autoincrement())
+  name            String
   description     String
   calories        Int
-  journal_entry   Journal_Entry[]
-  meal_food_items Meal_Food_Items[]
-}
-
-model Meals {
-  id              Int               @id @default(autoincrement())
-  userId          Int
-  type            Enum
-  dow             String
-  meal_food_items Meal_Food_Items[]
+  Meal_Food_Items Meal_Food_Items[]
+  Journal_Entry   Journal_Entry[]
 }
 
 model Meal_Food_Items {
-  id     Int     @id @default(autoincrement())
-  mealId Int
-  foodId Int
-  meals  Meals[]
-}
-
-model Journal_Entry {
-  id          Int      @id @default(autoincrement())
-  date        DateTime @default(now())
+  id          Int       @id @default(autoincrement())
+  meal        Meal      @relation(fields: [mealId], references: [id])
   mealId      Int
+  food_item   Food_Item @relation(fields: [food_ItemId], references: [id])
+  food_itemId Int
   food_ItemId Int
-  journalId   Int
-  exerciseId  Int
-  workoutId   Int
-  note        String
 }
 
 model Journal {
   id            Int             @id @default(autoincrement())
+  user          User            @relation(fields: [userId], references: [id])
   userId        Int
-  journal_entry Journal_Entry[]
+  Journal_Entry Journal_Entry[]
+}
+
+model Journal_Entry {
+  id          Int       @id @default(autoincrement())
+  note        String
+  date        String
+  journal     Journal   @relation(fields: [journalId], references: [id])
+  journalId   Int
+  workouts    Workouts  @relation(fields: [workoutsId], references: [id])
+  workoutsId  Int
+  exercises   Exercises @relation(fields: [exercisesId], references: [id])
+  exercisesId Int
+  meal        Meal      @relation(fields: [mealId], references: [id])
+  mealId      Int
+  food_item   Food_Item @relation(fields: [food_ItemId], references: [id])
+  food_itemId Int
+  food_ItemId Int
 }
