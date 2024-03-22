@@ -84,17 +84,17 @@ model Journal {
 }
 
 model Journal_Entry {
-  id          Int       @id @default(autoincrement())
-  date        DateTime  @default(now())
+  id          Int        @id @default(autoincrement())
+  date        DateTime   @default(now())
   note        String
-  journal     Journal   @relation(fields: [journalId], references: [id])
+  journal     Journal    @relation(fields: [journalId], references: [id])
   journalId   Int
-  workouts    Workouts  @relation(fields: [workoutsId], references: [id])
-  workoutsId  Int
-  exercises   Exercises @relation(fields: [exercisesId], references: [id])
-  exercisesId Int
-  meal        Meal      @relation(fields: [mealId], references: [id])
-  mealId      Int
-  food_item   Food_Item @relation(fields: [food_ItemId], references: [id])
-  food_ItemId Int
+  workouts    Workouts?  @relation(fields: [workoutsId], references: [id])
+  workoutsId  Int?
+  exercises   Exercises? @relation(fields: [exercisesId], references: [id])
+  exercisesId Int?
+  meal        Meal?      @relation(fields: [mealId], references: [id])
+  mealId      Int?
+  food_item   Food_Item? @relation(fields: [food_ItemId], references: [id])
+  food_ItemId Int?
 }
