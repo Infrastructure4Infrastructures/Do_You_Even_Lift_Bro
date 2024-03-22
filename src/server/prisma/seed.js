@@ -53,6 +53,21 @@ const seed = async () => {
   }
 
   for (let i = 1; i <= 10; i++) {
+    const randomName = faker.lorem.words();
+    const randomWorkout = faker.lorem.word();
+
+    await prisma.workouts.upsert({
+      where: { id: i },
+      update: {},
+      create: {
+        name: randomName,
+        difficulty: randomWorkout,
+        userId: i,
+      },
+    });
+  }
+
+  for (let i = 1; i <= 10; i++) {
     const random = (n) => Math.floor(Math.random() * n) + 1;
 
     await prisma.workout_Exercises.upsert({
@@ -65,21 +80,6 @@ const seed = async () => {
         myReps: random(20),
         workoutsId: i,
         exercisesId: i,
-      },
-    });
-  }
-
-  for (let i = 1; i <= 10; i++) {
-    const randomName = faker.lorem.words();
-    const randomWorkout = faker.lorem.word();
-
-    await prisma.workouts.upsert({
-      where: { id: i },
-      update: {},
-      create: {
-        name: randomName,
-        difficulty: randomWorkout,
-        userId: i,
       },
     });
   }
@@ -157,11 +157,26 @@ const seed = async () => {
       create: {
         date: randomDate,
         note: randomJournalEntry,
-        // journalId: i,
-        // workoutsId: i,
-        // exercisesId: i,
-        // mealId: i,
-        // food_ItemId: i,
+        journalId: i,
+        /**journal: {
+          connect: i,
+        },
+        workoutsId: i,
+        workouts: {
+          connect: i,
+        },
+        exercisesId: i,
+        exercises: {
+          connect: i,
+        },
+        mealId: i,
+        meal: {
+          connect: i,
+        },
+        food_ItemId: i,
+        food_Item: {
+          connect: i,
+        },*/
       },
     });
   }
