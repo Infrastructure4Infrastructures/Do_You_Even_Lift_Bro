@@ -7,10 +7,9 @@ module.exports = router;
 /** Gets list of all exercises*/
 router.get("/exercises", async (req, res, next) => {
   try {
-    const exercises = req.body.exercise;
-
-    const exercise = await prisma.exercises.findUnique({ where: { exercises } });
-    validateWorkouts(res.locals.exercises, exercise);
+    const exercise = await prisma.exercises.findMany({
+      where: { userId: res.locals.user.id },
+    });
 
     res.json(exercise);
   } catch (err) {
@@ -18,77 +17,84 @@ router.get("/exercises", async (req, res, next) => {
   }
 });
 
-/** Adds a exercises*/
-router.post("/exercise", async (req, res, next) => {
-    const exercises = req.body.exercises;
-    const name = req.body.name;
-    const description = req.body.description;
-    const category = req.body.category;
-  
-    try {
-      const { name, description} = req.body;
-      if (!name) {
-        throw new ServerError(400, "Name required.");
-      }
-  
-      const exercise = await prisma.exercise.create({
-        data: {
-          name,
-          difficulty,
-          category,
-          //user: { connect: { id: res.locals.user.id } },
-        },
-      });
-      res.json(workout);
-    } catch (err) {
-      next(err);
-    }
-  });
-
-  /** Gets single exercises by id */
+/** Gets single exercises by id */
 router.get("/exercises/:id", async (req, res, next) => {
-    try {
-      const id = +req.params.id;
-  
-      const exercises = await prisma.exercise.findUnique({ where: { id } });
-      validateExcerise(res.locals.exercise, exercises);
-  
-      res.json(exercises);
-    } catch (err) {
-      next(err);
-    }
-  });
+  try {
+    const id = +req.params.id;
 
-  /** Edit exercise  */
-router.patch("/exercises/:id", async (req, res, next) => {
-    try {
-      const id = +req.params.id;
-      const { exercise. id } = req.body;
-  
-      const exercises = await prisma.exercise.findUnique({ where: { id } });
-      validateExercise(res.locals.exercise, exercises);
-  
-      const updatedExercises = await prisma.exercises.update({
-        where: { id },
-        data: { exercise, id },
-      });
-      res.json(updatedExercises);
-    } catch (err) {
-      next(err);
-    }
-  });
-  
-  /** Deletes exercises user by id */
-router.delete("/exercises/:id", async (req, res, next) => {
-    try {
-      const id = +req.params.id;
-  
-      const exercises = await prisma.exercise.findUnique({ where: { id } });
-      validateExercise(res.locals.exercise, exercise);
-  
-      await prisma.exercise.delete({ where: { id } });
-      res.sendStatus(204);
-    } catch (err) {
-      next(err);
-    }
-  });
+    const exercises = await prisma.exercises.findUnique({ where: { id } });
+    // validateExcerise(res.locals.exercise, exercises);
+
+    res.json(exercises);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// /** Adds a exercises*/
+// router.post("/exercise", async (req, res, next) => {
+
+//   try {
+//     const { name, description, category } = req.body;
+//     if (!name) {
+//       throw new ServerError(400, "Name required.");
+//     }
+
+//     const exercise = await prisma.exercises.create({
+//       data: {
+//         name,
+//         description,
+//         category,
+//         user: { connect: { id: res.locals.user.id } },
+//       },
+//     });
+//     res.json(exercise);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
+// /** Checks if task exists and belongs to given user */
+// const validateExercise = (user, exercise) => {
+//   if (!exercise) {
+//     throw new ServerError(404, "Exercise not found.");
+//   }
+
+//   if (exercise.userId !== prisma.exercises.id) {
+//     throw new ServerError(403, "This exercise does not belong to you.");
+//   }
+// };
+
+// /** Edit exercise  */
+// router.patch("/exercises/:id", async (req, res, next) => {
+//   try {
+//     const id = +req.params.id;
+//     const { name, description, category } = req.body;
+
+//     const exercises = await prisma.exercises.findUnique({ where: { id } });
+//     // validateExercise(res.locals.user, exercises);
+
+//     const updatedExercises = await prisma.exercises.update({
+//       where: { id },
+//       data: { name, description, category },
+//     });
+//     res.json(updatedExercises);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
+
+// /** Deletes exercises user by id */
+// router.delete("/exercises/:id", async (req, res, next) => {
+//   try {
+//     const id = +req.params.id;
+
+//     const exercises = await prisma.exercises.findUnique({ where: { id } });
+//     validateExercise(res.locals.user, exercises);
+
+//     await prisma.exercises.delete({ where: { id } });
+//     res.sendStatus(204);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
