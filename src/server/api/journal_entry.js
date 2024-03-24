@@ -4,46 +4,47 @@ const prisma = require("../prisma");
 const router = require("express").Router();
 module.exports = router;
 
-/** Adds a new journal entry*/
+/** Adds a note to the journal entry*/
 router.post("/journal_entry", async (req, res, next) => {
-
-    try {
-      const { note } = req.body;
-      if (!note) {
-        throw new ServerError(400, "Note required.");
-      }
-  
-      const journal_entry = await prisma.journal_entry.create({
-        data: {
-            note,
-          user: { connect: { id: res.locals.user.id } },
-        },
-      });
-      res.json(journal_entry);
-    } catch (err) {
-      next(err);
+  try {
+    const { note } = req.body;
+    if (!note) {
+      throw new ServerError(400, "Note required.");
     }
+
+    const journal_entry = await prisma.journal_Entry.create({
+      data: {
+        note,
+        user: { connect: { id: res.locals.user.id } },
+      },
+    });
+    res.json(journal_entry);
+  } catch (err) {
+    next(err);
+  }
 });
 
 /** Edit Journal Entry, specifically, note  */
 router.patch("/journal_entry/:journal_entryId", async (req, res, next) => {
   try {
     const id = +req.params.id;
-    const { note } = req.body;
+    // ?????? date ????? string or dateTime
+    const { date, note, workoutsId, exercisesId, mealId, food_ItemId } =
+      req.body;
 
     //const journal_entry = await prisma.journal_entry.findUnique({ where: { id } });
     // validateExercise(res.locals.user, exercises);
 
-    const updated_journal_entry = await prisma.journal_entry.update({
+    const updated_journal_entry = await prisma.journal_Entry.update({
       where: { id },
-      data: { note },
+      // ?????? date ????? string or dateTime
+      data: { date, note, workoutsId, exercisesId, mealId, food_ItemId },
     });
     res.json(updated_journal_entry);
   } catch (err) {
     next(err);
   }
 });
-
 
 /** Deletes journal_entry by id */
 router.delete("/journal_entry/:journal_entryId", async (req, res, next) => {
@@ -53,7 +54,7 @@ router.delete("/journal_entry/:journal_entryId", async (req, res, next) => {
     // const exercises = await prisma.exercises.findUnique({ where: { id } });
     // validateExercise(res.locals.user, exercises);
 
-    await prisma.journal_entry.delete({ where: { id } });
+    await prisma.journal_Entry.delete({ where: { id } });
     res.sendStatus(204);
   } catch (err) {
     next(err);
