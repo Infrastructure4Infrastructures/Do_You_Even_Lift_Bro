@@ -52,7 +52,7 @@ model Workout_Exercises {
 
 model Meal {
   id              Int               @id @default(autoincrement())
-  category        String
+  mealNum         Int
   user            User              @relation(fields: [userId], references: [id])
   userId          Int
   Meal_Food_Items Meal_Food_Items[]
