@@ -87,28 +87,48 @@ router.get("/workouts/advanced/:id", async (req, res, next) => {
     next(err);
   }
 });
-/** Creates new workout and sends it */
-router.post("/workouts", async (req, res, next) => {
-  const beginner = req.body.beginner;
-  const intermediate = req.body.intermediate;
-  const advanced = req.body.advanced;
-  const name = req.body.name;
 
-  try {
-    const { name, difficulty } = req.body;
-    if (!difficulty) {
-      throw new ServerError(400, "Difficulty required.");
-    }
+//   /** Edit workout  */
+//   router.patch("/exercises/:id", async (req, res, next) => {
+//     try {
+//       const id = +req.params.id;
+//       // const { exerciseId } = req.body;
 
-    const workout = await prisma.workout.create({
-      data: {
-        name,
-        difficulty,
-        //user: { connect: { id: res.locals.user.id } },
-      },
-    });
-    res.json(workout);
-  } catch (err) {
-    next(err);
-  }
-});
+//       const exercises = await prisma.exercises.findUnique({ where: { id } });
+//       validateExercise(res.locals.exercise, exercises);
+
+//       const updatedExercises = await prisma.exercises.update({
+//         where: { id },
+//         data: { exercises, id },
+//       });
+//       res.json(updatedExercises);
+//     } catch (err) {
+//       next(err);
+//     }
+//   });
+
+// /** Creates new workout and sends it */
+// router.post("/workouts", async (req, res, next) => {
+//   const beginner = req.body.beginner;
+//   const intermediate = req.body.intermediate;
+//   const advanced = req.body.advanced;
+//   const name = req.body.name;
+
+//   try {
+//     const { name, difficulty } = req.body;
+//     if (!difficulty) {
+//       throw new ServerError(400, "Difficulty required.");
+//     }
+
+//     const workout = await prisma.workout.create({
+//       data: {
+//         name,
+//         difficulty,
+//         //user: { connect: { id: res.locals.user.id } },
+//       },
+//     });
+//     res.json(workout);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
