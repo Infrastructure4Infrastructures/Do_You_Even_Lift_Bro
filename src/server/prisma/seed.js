@@ -114,13 +114,11 @@ const seed = async () => {
   }
 
   for (let i = 1; i <= 10; i++) {
-    const randomMealCategory = faker.lorem.words();
-
     await prisma.meal.upsert({
       where: { id: i },
       update: {},
       create: {
-        category: randomMealCategory,
+        mealNum: i,
         userId: i,
       },
     });
