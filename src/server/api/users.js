@@ -15,9 +15,7 @@ router.use((req, res, next) => {
 /** Sends all users */
 router.get("/", async (req, res, next) => {
   try {
-    const users = await prisma.user.findMany({
-      where: { userId: res.locals.user.id },
-    });
+    const users = await prisma.user.findMany({});
     res.json(users);
   } catch (err) {
     next(err);
