@@ -56,12 +56,25 @@ const seed = async () => {
     const randomName = faker.lorem.words();
     const randomWorkout = faker.lorem.word();
 
+    const array = ["beginner", "intermediate", "advanced"];
+
+    const result = randomDifficulty(array);
+
+    function randomDifficulty(arr) {
+      // get random index value
+      const randomIndex = Math.floor(Math.random() * arr.length);
+
+      // get random item
+      const item = arr[randomIndex];
+
+      return item;
+    }
     await prisma.workouts.upsert({
       where: { id: i },
       update: {},
       create: {
         name: randomName,
-        difficulty: randomWorkout,
+        difficulty: result,
         userId: i,
       },
     });

@@ -4,8 +4,21 @@ const prisma = require("../prisma");
 const router = require("express").Router();
 module.exports = router;
 
+/** Gets list of all exercises*/
+router.get("/", async (req, res, next) => {
+  try {
+    const journalEntry = await prisma.journal_Entry.findMany({
+      // where: { userId: res.locals.user.id },
+    });
+
+    res.json(journalEntry);
+  } catch (err) {
+    next(err);
+  }
+});
+
 /** Adds a note to the journal entry*/
-router.post("/journal_entry", async (req, res, next) => {
+router.post("/:id", async (req, res, next) => {
   try {
     const { note } = req.body;
     if (!note) {
@@ -25,7 +38,7 @@ router.post("/journal_entry", async (req, res, next) => {
 });
 
 /** Edit Journal Entry, specifically, note  */
-router.patch("/journal_entry/:journal_entryId", async (req, res, next) => {
+router.patch("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
     // ?????? date ????? string or dateTime
