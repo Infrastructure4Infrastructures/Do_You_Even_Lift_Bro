@@ -7,12 +7,11 @@ module.exports = router;
 /** Gets user workouts by difficulty (beginner)*/
 router.get("/workouts/beginner", async (req, res, next) => {
   try {
-    const workouts = req.body.beginner;
+    const workouts = await prisma.workouts.findUnique({
+      where: { difficulty: "deprecator" },
+    });
 
-    const workout = await prisma.workouts.findUnique({ where: { workouts } });
-    validateWorkouts(res.locals.workouts, workout);
-
-    res.json(workout);
+    res.json(workouts);
   } catch (err) {
     next(err);
   }
