@@ -40,10 +40,10 @@ model Exercises {
 
 model Workout_Exercises {
   id          Int       @id @default(autoincrement())
-  setsGoals   Int
-  repsGoals   Int
-  mySets      Int
-  myReps      Int
+  setsGoals   Int?
+  repsGoals   Int?
+  mySets      Int?
+  myReps      Int?
   workouts    Workouts  @relation(fields: [workoutsId], references: [id])
   workoutsId  Int
   exercises   Exercises @relation(fields: [exercisesId], references: [id])

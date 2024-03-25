@@ -15,7 +15,9 @@ router.use((req, res, next) => {
 /** Sends all users */
 router.get("/", async (req, res, next) => {
   try {
-    const users = await prisma.user.findMany({});
+    const users = await prisma.user.findMany({
+      select: { id: true, username: true },
+    });
     res.json(users);
   } catch (err) {
     next(err);
@@ -27,10 +29,13 @@ router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    const users = await prisma.user.findUnique({ where: { id } });
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: { id: true, username: true },
+    });
     // validateJournal(res.locals.user, users);
 
-    res.json(users);
+    res.json(user);
   } catch (err) {
     next(err);
   }

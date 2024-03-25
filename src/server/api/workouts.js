@@ -4,11 +4,61 @@ const prisma = require("../prisma");
 const router = require("express").Router();
 module.exports = router;
 
+/** Checks if workout exists and belongs to given user */
+const validateWorkouts = (user, workout) => {
+  if (!workout) {
+    throw new ServerError(404, "Workout not found.");
+  }
+
+  if (workout.userId !== user.id) {
+    throw new ServerError(403, "This workout does not belong to you.");
+  }
+};
+
 /** Gets user workouts by difficulty (beginner)*/
-router.get("/workouts/beginner", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-    const workouts = await prisma.workouts.findUnique({
-      where: { difficulty: "deprecator" },
+    const workouts = await prisma.workouts.findMany({
+      include: { Workout_Exercises: { include: { exercises: true } } },
+    });
+
+    res.json(workouts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Gets user workouts by difficulty (beginner)*/
+router.get("/beginner", async (req, res, next) => {
+  try {
+    const workout = await prisma.workouts.findMany({
+      where: { difficulty: "beginner" },
+    });
+
+    res.json(workout);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Gets user workouts by difficulty (intermediate)*/
+router.get("/intermediate", async (req, res, next) => {
+  try {
+    const workouts = await prisma.workouts.findMany({
+      where: { difficulty: "intermediate" },
+    });
+
+    res.json(workouts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Gets user workouts by difficulty (advanced)*/
+router.get("/advanced", async (req, res, next) => {
+  try {
+    const workouts = await prisma.workouts.findMany({
+      where: { difficulty: "advanced" },
     });
 
     res.json(workouts);
@@ -18,68 +68,11 @@ router.get("/workouts/beginner", async (req, res, next) => {
 });
 
 /** Gets a single user, one workout, by difficulty (beginner)*/
-router.get("/workouts/beginner/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
-    const workouts = +req.params.id;
+    const id = +req.params.id;
 
-    const workout = await prisma.workouts.findUnique({ where: { workouts } });
-    validateWorkouts(res.locals.workouts.id, workout);
-
-    res.json(workout);
-  } catch (err) {
-    next(err);
-  }
-});
-
-/** Gets user workouts by difficulty (intermediate) */
-router.get("/workouts/intermediate", async (req, res, next) => {
-  try {
-    const workouts = req.body.intermediate;
-
-    const workout = await prisma.workouts.findUnique({ where: { workouts } });
-    validateWorkouts(res.locals.workouts, workout);
-
-    res.json(workout);
-  } catch (err) {
-    next(err);
-  }
-});
-
-/** Gets a single user, one workout, by difficulty (intermediate)*/
-router.get("/workouts/intermediate/:id", async (req, res, next) => {
-  try {
-    const workouts = +req.params.id;
-
-    const workout = await prisma.workouts.findUnique({ where: { workouts } });
-    validateWorkouts(res.locals.workouts.id, workout);
-
-    res.json(workout);
-  } catch (err) {
-    next(err);
-  }
-});
-
-/** Gets user workouts by difficulty (advanced) */
-router.get("/workouts/advanced", async (req, res, next) => {
-  try {
-    const workouts = req.body.advanced;
-
-    const workout = await prisma.workouts.findUnique({ where: { workouts } });
-    validateWorkouts(res.locals.workouts, workout);
-
-    res.json(workout);
-  } catch (err) {
-    next(err);
-  }
-});
-
-/** Gets a single user, one workout, by difficulty (advanced)*/
-router.get("/workouts/advanced/:id", async (req, res, next) => {
-  try {
-    const workouts = +req.params.id;
-
-    const workout = await prisma.workouts.findUnique({ where: { workouts } });
-    validateWorkouts(res.locals.workouts.id, workout);
+    const workout = await prisma.workouts.findUnique({ where: { id } });
 
     res.json(workout);
   } catch (err) {

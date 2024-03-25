@@ -5,10 +5,10 @@ const router = require("express").Router();
 module.exports = router;
 
 /** Gets list of all exercises*/
-router.get("/exercises", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const exercise = await prisma.exercises.findMany({
-      where: { userId: res.locals.user.id },
+      // where: { userId: res.locals.user.id },
     });
 
     res.json(exercise);
@@ -18,7 +18,7 @@ router.get("/exercises", async (req, res, next) => {
 });
 
 /** Gets single exercises by id */
-router.get("/exercises/:id", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 

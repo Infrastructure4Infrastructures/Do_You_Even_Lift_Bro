@@ -5,10 +5,13 @@ const router = require("express").Router();
 module.exports = router;
 
 /** Gets list of all meals*/
-router.get("/meal", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
+    const id = +req.params.id;
+
     const meals = await prisma.meal.findMany({
-      where: { userId: res.locals.user.id },
+      // where: { userId: res.locals.user.id },
+      where: { id },
     });
 
     res.json(meals);
@@ -18,14 +21,18 @@ router.get("/meal", async (req, res, next) => {
 });
 
 /** Add meal entry  */
-router.post("/meal", async (req, res, next) => {
+router.post("/:id", async (req, res, next) => {
   try {
-    const { mealNum } = req.body;
+    const userId = +req.params.userId;
+    // const id = +req.params.id;
+    const mealNum = +req.body.mealNum;
 
     const meals = await prisma.meal.create({
+      where: { id },
       data: {
         mealNum,
-        user: { connect: { id: res.locals.user.id } },
+        userId,
+        //   user: { connect: { id } },
       },
     });
     res.json(meals);
@@ -35,7 +42,7 @@ router.post("/meal", async (req, res, next) => {
 });
 
 /** Edit meal entry by id */
-router.patch("/meal/:id", async (req, res, next) => {
+router.patch("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
     const { mealNum } = req.body;
@@ -54,7 +61,7 @@ router.patch("/meal/:id", async (req, res, next) => {
 });
 
 /** Deletes meal entry by id */
-router.delete("/meal/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
