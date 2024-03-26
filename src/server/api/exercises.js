@@ -43,7 +43,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const updatedExercises = await prisma.exercises.update({
       where: { id },
-      data: { name, description, category },
+      data: { name, description, category }
     });
     res.json(updatedExercises);
   } catch (err) {
@@ -51,28 +51,27 @@ router.patch("/:id", async (req, res, next) => {
   }
 });
 
-// /** Adds a exercises*/
-// router.post("/exercise", async (req, res, next) => {
+/** Adds a exercises*/
+router.post("/", async (req, res, next) => {
+  try {
+    const { name, description, category } = req.body;
+    if (!name) {
+      throw new ServerError(400, "Name required.");
+    }
 
-//   try {
-//     const { name, description, category } = req.body;
-//     if (!name) {
-//       throw new ServerError(400, "Name required.");
-//     }
-
-//     const exercise = await prisma.exercises.create({
-//       data: {
-//         name,
-//         description,
-//         category,
-//         user: { connect: { id: res.locals.user.id } },
-//       },
-//     });
-//     res.json(exercise);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    const exercise = await prisma.exercises.create({
+      data: {
+        name,
+        description,
+        category,
+        user: { connect: { id: res.locals.user.id } }
+      }
+    });
+    res.json(exercise);
+  } catch (err) {
+    next(err);
+  }
+});
 
 // /** Checks if task exists and belongs to given user */
 // const validateExercise = (user, exercise) => {
@@ -85,14 +84,14 @@ router.patch("/:id", async (req, res, next) => {
 //   }
 // };
 
-// /** Deletes exercises user by id */
-// router.delete("/:id", async (req, res, next) => {
-//   try {
-//     const id = +req.params.id;
+/** Deletes exercise by id */
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const id = +req.params.id;
 
-//     await prisma.exercises.delete({ where: { id } });
-//     res.sendStatus(204);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    await prisma.exercises.delete({ where: { id } });
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});

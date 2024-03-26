@@ -4,7 +4,7 @@ const prisma = require("../prisma");
 const router = require("express").Router();
 module.exports = router;
 
-/** Add food with food data to a meal number entry */
+/** Add food_item to meal */
 router.post("/:mealId/:food_ItemId", async (req, res, next) => {
   try {
     const { mealId, food_ItemId } = req.params;
@@ -12,8 +12,8 @@ router.post("/:mealId/:food_ItemId", async (req, res, next) => {
     const meal_food_item = await prisma.meal_Food_Items.create({
       data: {
         meal: { connect: { id: +mealId } },
-        food_item: { connect: { id: +food_ItemId } },
-      },
+        food_item: { connect: { id: +food_ItemId } }
+      }
     });
     res.json(meal_food_item);
   } catch (err) {
@@ -32,8 +32,8 @@ router.delete("/:mealId/:food_ItemId", async (req, res, next) => {
     const meal_food_items = await prisma.meal_Food_Items.findFirst({
       where: {
         mealId: +mealId,
-        AND: { food_ItemId: +food_ItemId },
-      },
+        AND: { food_ItemId: +food_ItemId }
+      }
     });
 
     await prisma.meal_Food_Items.delete({ where: { id: meal_food_items.id } });

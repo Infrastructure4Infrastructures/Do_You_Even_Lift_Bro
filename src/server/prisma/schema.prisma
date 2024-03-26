@@ -17,6 +17,7 @@ model User {
   Workouts Workouts[]
   Meal     Meal[]
   Journal  Journal[]
+  isAdmin  Boolean?
 }
 
 model Workouts {

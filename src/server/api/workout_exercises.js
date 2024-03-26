@@ -17,8 +17,8 @@ router.post("/:workoutId/:exerciseId", async (req, res, next) => {
         mySets: +mySets,
         myReps: +myReps,
         workoutsId: +workoutId,
-        exercisesId: +exerciseId,
-      },
+        exercisesId: +exerciseId
+      }
     });
 
     res.json(workout_exercise);
@@ -32,21 +32,23 @@ router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
   try {
     const { workoutId, exerciseId } = req.params;
     const { setsGoals, repsGoals, mySets, myReps } = req.body;
+    // if any values coming in from the body are null, we do NOT
+    // want to send those values to the DB
+    const dataToSendToDB = {};
+    if (setsGoals) {
+      dataToSendToDB.setsGoals = +setsGoals;
+    }
+    // Keep writing if statements for each property coming in through the BODY
 
     const workout_exercise = await prisma.workout_Exercises.findFirst({
       where: {
         workoutsId: +workoutId,
-        AND: { exercisesId: +exerciseId },
-      },
+        AND: { exercisesId: +exerciseId }
+      }
     });
     const updated_workout_exercise = await prisma.workout_Exercises.update({
       where: { id: workout_exercise.id },
-      data: {
-        setsGoals: +setsGoals,
-        repsGoals: +repsGoals,
-        mySets: +mySets,
-        myReps: +myReps,
-      },
+      data: dataToSendToDB
     });
     res.json(updated_workout_exercise);
   } catch (err) {
@@ -54,7 +56,7 @@ router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
   }
 });
 
-/** Deletes journal_entry by id */
+/** Deletes and exercise from a workout*/
 router.delete("/:workoutId/:exerciseId", async (req, res, next) => {
   try {
     // const id = +req.params.id;
@@ -64,11 +66,11 @@ router.delete("/:workoutId/:exerciseId", async (req, res, next) => {
     const workout_exercise = await prisma.workout_Exercises.findFirst({
       where: {
         workoutsId: +workoutId,
-        AND: { exercisesId: +exerciseId },
-      },
+        AND: { exercisesId: +exerciseId }
+      }
     });
     const deleted_workout_exercises = await prisma.workout_Exercises.delete({
-      where: { id: workout_exercise.id },
+      where: { id: workout_exercise.id }
       // data: { setsGoals, repsGoals, mySets, myReps },
     });
     res.json(deleted_workout_exercises);
