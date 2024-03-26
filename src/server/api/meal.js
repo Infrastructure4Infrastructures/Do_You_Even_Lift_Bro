@@ -53,39 +53,36 @@ router.patch("/:id", async (req, res, next) => {
   }
 });
 
-// /** Add meal entry  */
-// router.post("/:mealId", async (req, res, next) => {
-//   try {
-//     // const { mealId } = req.params;
-//     const { id } = +req.params.id;
-//     const { mealNum } = req.body;
+/** Add meal entry  */
+router.post("/:mealId", async (req, res, next) => {
+  try {
+    const { mealId } = req.params;
+    const { mealNum } = req.body;
 
-//     const meals = await prisma.meal.create({
-//       // where: { id: +id },
-//       data: {
-//         mealNum: +mealNum,
-//         // mealId: +mealId,
-//         // user: ,
-//         user: { connect: { id: +id } },
-//       },
-//     });
-//     res.json(meals);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    const meal = await prisma.meal.create({
+      data: {
+        mealNum: +mealNum,
+        user: { connect: { id: +mealId } },
+      },
+    });
+    res.json(meal);
+  } catch (err) {
+    next(err);
+  }
+});
 
-// /** Deletes meal entry by id */
-// router.delete("/:id", async (req, res, next) => {
-//   try {
-//     // const { mealId } = +req.params.id;
-//     const mealId = +req.params.id;
-//     // const exercises = await prisma.exercises.findUnique({ where: { id } });
-//     // validateExercise(res.locals.user, exercises);
+/** Deletes meal entry by id */
+router.delete("/:mealId/:userId", async (req, res, next) => {
+  try {
+    const { mealId } = req.params;
 
-//     await prisma.meal.delete({ where: { id: mealId } });
-//     res.sendStatus(204);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    const meal = await prisma.meal.findFirst({
+      where: { userId: +mealId },
+    });
+
+    const deleted_meal = await prisma.meal.delete({ where: { id: meal.id } });
+    res.json(deleted_meal);
+  } catch (err) {
+    next(err);
+  }
+});

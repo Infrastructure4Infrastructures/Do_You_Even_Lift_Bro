@@ -7,13 +7,12 @@ module.exports = router;
 /** Add food with food data to a meal number entry */
 router.post("/:mealId/:food_ItemId", async (req, res, next) => {
   try {
-    const mealId = +req.params.mealId;
-    const food_ItemId = +req.params.food_ItemId;
+    const { mealId, food_ItemId } = req.params;
 
     const meal_food_item = await prisma.meal_Food_Items.create({
       data: {
-        mealId,
-        food_ItemId,
+        meal: { connect: { id: +mealId } },
+        food_item: { connect: { id: +food_ItemId } },
       },
     });
     res.json(meal_food_item);
@@ -23,14 +22,21 @@ router.post("/:mealId/:food_ItemId", async (req, res, next) => {
 });
 
 //delete a food item from a meal number
-router.delete("/:mealid/:foodId", async (req, res, next) => {
+router.delete("/:mealId/:food_ItemId", async (req, res, next) => {
   try {
-    const id = +req.params.id;
-
+    // const id = +req.params.id;
+    const { mealId, food_ItemId } = req.params;
     // const exercises = await prisma.exercises.findUnique({ where: { id } });
     // validateExercise(res.locals.user, exercises);
 
-    await prisma.meal_Food_Items.delete({ where: { id } });
+    const meal_food_items = await prisma.meal_Food_Items.findFirst({
+      where: {
+        mealId: +mealId,
+        AND: { food_ItemId: +food_ItemId },
+      },
+    });
+
+    await prisma.meal_Food_Items.delete({ where: { id: meal_food_items.id } });
     res.sendStatus(204);
   } catch (err) {
     next(err);

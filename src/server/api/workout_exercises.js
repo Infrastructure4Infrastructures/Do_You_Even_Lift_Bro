@@ -8,13 +8,14 @@ module.exports = router;
 router.post("/:workoutId/:exerciseId", async (req, res, next) => {
   try {
     const { workoutId, exerciseId } = req.params;
+    const { setsGoals, repsGoals, mySets, myReps } = req.body;
 
     const workout_exercise = await prisma.workout_Exercises.create({
       data: {
-        setsGoals: 3,
-        repsGoals: 3,
-        mySets: 1,
-        myReps: 3,
+        setsGoals: +setsGoals,
+        repsGoals: +repsGoals,
+        mySets: +mySets,
+        myReps: +myReps,
         workoutsId: +workoutId,
         exercisesId: +exerciseId,
       },
@@ -29,8 +30,9 @@ router.post("/:workoutId/:exerciseId", async (req, res, next) => {
 /** Edit sets and reps in a workout */
 router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
   try {
-    // const id = +req.params.id;
     const { workoutId, exerciseId } = req.params;
+    const { setsGoals, repsGoals, mySets, myReps } = req.body;
+
     const workout_exercise = await prisma.workout_Exercises.findFirst({
       where: {
         workoutsId: +workoutId,
@@ -39,7 +41,12 @@ router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
     });
     const updated_workout_exercise = await prisma.workout_Exercises.update({
       where: { id: workout_exercise.id },
-      data: { setsGoals: 5, repsGoals: 12, mySets: 3, myReps: 30 },
+      data: {
+        setsGoals: +setsGoals,
+        repsGoals: +repsGoals,
+        mySets: +mySets,
+        myReps: +myReps,
+      },
     });
     res.json(updated_workout_exercise);
   } catch (err) {
