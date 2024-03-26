@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     const users = await prisma.user.findMany({
-      select: { id: true, username: true },
+      select: { id: true, username: true }
     });
     res.json(users);
   } catch (err) {
@@ -31,7 +31,8 @@ router.get("/:id", async (req, res, next) => {
 
     const user = await prisma.user.findUnique({
       where: { id },
-      select: { id: true, username: true },
+      select: { id: true, username: true }
+      // Include other data you may want to send back
     });
     // validateJournal(res.locals.user, users);
 
@@ -41,59 +42,29 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// /** Creates new task and sends it */
-// router.post("/:userId/journal", async (req, res, next) => {
-//   const userId = +req.params.userId;
-//   const exerciseName = req.body.userId;
-//   const exerciseSets = req.body.userId;
-//   const foodEntry = req.body.userId;
-//   const calories = +req.body.userId;
-//   const totalCalories = +req.body.userId;
+/** Edits single user by id */
+// This would be if you forgot your password
+router.patch("/:id", async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+    const { username, password } = req.body;
 
-//   try {
-//     const { description, done } = req.body;
-//     if (!description) {
-//       throw new ServerError(400, "Description required.");
-//     }
+    // Check to see if a user with that username exists...
 
-//     const user = await prisma.user.create({
-//       data: {
-//         date,
-//         exerciseName,
-//         exerciseSets,
-//         foodEntry,
-//         calories,
-//         totalCalories,
-//         userId,
-//         done: done ?? false,
-//         user: { connect: { id: res.locals.user.id } },
-//       },
-//     });
-//     res.json(user);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    const users = await prisma.user.update({
+      where: { id },
+      data: { username, password }
+    });
+    // validateJournal(res.locals.user, users);
 
-// /** Edits single user by id */
-// router.patch("/:id", async (req, res, next) => {
-//   try {
-//     const id = +req.params.id;
-//     const { username, password } = req.body;
-
-//     const users = await prisma.user.update({
-//       where: { id },
-//       data: { username, password },
-//     });
-//     // validateJournal(res.locals.user, users);
-
-//     res.json(users);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
+});
 
 /** Deletes single user by id */
+// Check if the user is admin, or the user who is deleting the account is the logged in user
 router.delete("/:id", async (req, res, next) => {
   try {
     const userId = +req.params.id;
@@ -118,13 +89,13 @@ const validateMeal = (user, meal) => {
   }
 };
 
-/** Gets single user by id */
-router.get("/:id/meal", async (req, res, next) => {
+/** Gets All Meals for a specific user */
+router.get("/:userId/meal", async (req, res, next) => {
   try {
-    const id = +req.params.id;
+    const userId = +req.params.userId;
 
-    const meals = await prisma.meal.findUnique({
-      where: { id },
+    const meals = await prisma.meal.findMany({
+      where: { userId }
     });
     // validateJournal(res.locals.user, users);
 
@@ -145,12 +116,19 @@ const validateJournal = (user, journal) => {
   }
 };
 
-/** Sends single journal entry by id */
-router.get("/:id/journal", async (req, res, next) => {
+/** Get the user's journal */
+// Use the table relations to join data you may need (journal entries)
+router.get("/:userId/journal", async (req, res, next) => {
   try {
-    const userId = +req.params.id;
+    const userId = +req.params.userId;
+    // The userId could potentially come from the req.locals....
 
-    const journals = await prisma.journal.findUnique({ where: { id: userId } });
+    const journals = await prisma.journal.findUnique({
+      where: { id: userId },
+      include: {
+        Journal_Entry: true
+      }
+    });
     // validateJournal(res.locals.user, journals);
 
     res.json(journals);
@@ -171,48 +149,24 @@ const validateWorkouts = (user, workouts) => {
 };
 
 /** Sends single workout entry by id */
-router.get("/:id/workouts", async (req, res, next) => {
+// include exercises with the workouts
+router.get("/:userId/workouts", async (req, res, next) => {
   try {
-    const id = +req.params.id;
+    const id = +req.params.userId;
 
-    const workout = await prisma.workouts.findUnique({ where: { id } });
+    const workout = await prisma.workouts.findUnique({
+      where: { id },
+      include: {
+        Workout_Exercises: {
+          include: {
+            exercises: true
+          }
+        }
+      }
+    });
     // validateWorkouts(res.locals.user, workout);
 
     res.json(workout);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// /** Updates single task by id */
-// router.put("/:id", async (req, res, next) => {
-//   try {
-//     const id = +req.params.id;
-//     const { description, done } = req.body;
-
-//     const task = await prisma.task.findUnique({ where: { id } });
-//     validateTask(res.locals.user, task);
-
-//     const updatedTask = await prisma.task.update({
-//       where: { id },
-//       data: { description, done },
-//     });
-//     res.json(updatedTask);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-/** Deletes single task by id */
-router.delete("/:id/journal", async (req, res, next) => {
-  try {
-    const journalId = +req.params.id;
-
-    // const task = await prisma.task.findUnique({ where: { id } });
-    // validateTask(res.locals.user, task);
-
-    await prisma.journal.delete({ where: { id: journalId } });
-    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

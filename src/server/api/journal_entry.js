@@ -4,11 +4,11 @@ const prisma = require("../prisma");
 const router = require("express").Router();
 module.exports = router;
 
-/** Gets list of all exercises*/
+// Gets all journal entries for a logged in user
 router.get("/", async (req, res, next) => {
   try {
     const journalEntry = await prisma.journal_Entry.findMany({
-      // where: { userId: res.locals.user.id },
+      where: { userId: +res.locals.user.id }
     });
 
     res.json(journalEntry);
@@ -23,7 +23,7 @@ router.get("/:id", async (req, res, next) => {
     const id = +req.params.id;
 
     const journalEntry = await prisma.journal_Entry.findUnique({
-      where: { id },
+      where: { id }
     });
 
     res.json(journalEntry);
@@ -33,10 +33,9 @@ router.get("/:id", async (req, res, next) => {
 });
 
 /** Adds a note to the JournalID*/
-router.post("/:journalId", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const { journalId } = req.params;
-    const { note } = req.body;
+    const { note, journalId } = req.body;
     // if (!note) {
     //   throw new ServerError(400, "Note required.");
     // }
@@ -44,9 +43,9 @@ router.post("/:journalId", async (req, res, next) => {
     const journal_entry = await prisma.journal_Entry.create({
       data: {
         note: note,
-        journalId: +journalId,
+        journalId: +journalId
         // journal_entryId: +journal_entryId,
-      },
+      }
     });
     res.json(journal_entry);
   } catch (err) {
@@ -54,28 +53,27 @@ router.post("/:journalId", async (req, res, next) => {
   }
 });
 
-// /** Edit Journal Entry by journal_entryID/JournalID, specifically, note  */
-// router.patch("/:id/:journalId", async (req, res, next) => {
-//   try {
-//     const journal_entryId = +req.params.id;
+/** Edit Journal Entry by journal_entryID (pk) specifically editing only the note field  */
+router.patch("/:id", async (req, res, next) => {
+  try {
+    const journal_entryId = +req.params.id;
 
-//     const journalId = req.params;
-//     const { note } = req.body;
+    const { note } = req.body;
 
-//     //const journal_entry = await prisma.journal_entry.findUnique({ where: { id } });
-//     // validateExercise(res.locals.user, exercises);
+    //const journal_entry = await prisma.journal_entry.findUnique({ where: { id } });
+    // validateExercise(res.locals.user, exercises);
 
-//     const update_journal_entry = await prisma.journal_Entry.update({
-//       where: { id: journal_entryId, journalId },
-//       data: { note },
-//     });
-//     res.json(update_journal_entry);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    const update_journal_entry = await prisma.journal_Entry.update({
+      where: { id: journal_entryId },
+      data: { note }
+    });
+    res.json(update_journal_entry);
+  } catch (err) {
+    next(err);
+  }
+});
 
-/** Deletes journal_entry by id */
+/** Deletes journal_entry by journal_entryId */
 router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;

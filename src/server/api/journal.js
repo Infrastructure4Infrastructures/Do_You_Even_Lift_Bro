@@ -5,12 +5,11 @@ const router = require("express").Router();
 module.exports = router;
 
 /** Gets all journals */
+// Is this some sort of admin route?
 router.get("/", async (req, res, next) => {
   try {
-    // const id = +req.params.id;
-
     const journals = await prisma.journal.findMany({
-      include: { Journal_Entry: true },
+      include: { Journal_Entry: true }
     });
     // validateJournal(res.locals.user, journals);
 
@@ -28,7 +27,7 @@ router.get("/:id", async (req, res, next) => {
 
     const journals = await prisma.journal.findUnique({
       where: { id },
-      include: { Journal_Entry: true },
+      include: { Journal_Entry: true }
     });
     // validateJournal(res.locals.user, journals);
 
@@ -38,15 +37,15 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-/** Creates new journal to a userID */
-router.post("/:userId", async (req, res, next) => {
+/** Creates new journal for the logged in user */
+router.post("/", async (req, res, next) => {
   try {
-    const userId = req.params.userId;
+    const userId = res.locals.user.id;
 
     const journal = await prisma.journal.create({
       data: {
-        user: { connect: { id: +userId } },
-      },
+        user: { connect: { id: +userId } }
+      }
     });
     res.json(journal);
   } catch (err) {
@@ -60,7 +59,7 @@ router.delete("/:id", async (req, res, next) => {
     const id = +req.params.id;
 
     await prisma.journal.delete({
-      where: { id },
+      where: { id }
     });
     res.sendStatus(204);
   } catch (err) {

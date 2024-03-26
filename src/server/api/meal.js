@@ -8,7 +8,7 @@ module.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const meals = await prisma.meal.findMany({
-      include: { Meal_Food_Items: { include: { food_item: true } } },
+      include: { Meal_Food_Items: { include: { food_item: true } } }
     });
 
     res.json(meals);
@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-/** Gets list of a single meal*/
+/** Gets a single meal*/
 router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
@@ -25,7 +25,7 @@ router.get("/:id", async (req, res, next) => {
     const meals = await prisma.meal.findUnique({
       // where: { userId: res.locals.user.id },
       where: { id },
-      include: { Meal_Food_Items: { include: { food_item: true } } },
+      include: { Meal_Food_Items: { include: { food_item: true } } }
     });
 
     res.json(meals);
@@ -45,7 +45,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const meals = await prisma.meal.update({
       where: { id },
-      data: { mealNum: +mealNum },
+      data: { mealNum: +mealNum }
     });
     res.json(meals);
   } catch (err) {
@@ -54,16 +54,15 @@ router.patch("/:id", async (req, res, next) => {
 });
 
 /** Add meal entry  */
-router.post("/:mealId", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const { mealId } = req.params;
     const { mealNum } = req.body;
 
     const meal = await prisma.meal.create({
       data: {
         mealNum: +mealNum,
-        user: { connect: { id: +mealId } },
-      },
+        user: { connect: { id: +res.locals.user.id } }
+      }
     });
     res.json(meal);
   } catch (err) {
@@ -72,15 +71,11 @@ router.post("/:mealId", async (req, res, next) => {
 });
 
 /** Deletes meal entry by id */
-router.delete("/:mealId/:userId", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
-    const { mealId } = req.params;
+    const { id } = req.params;
 
-    const meal = await prisma.meal.findFirst({
-      where: { userId: +mealId },
-    });
-
-    const deleted_meal = await prisma.meal.delete({ where: { id: meal.id } });
+    const deleted_meal = await prisma.meal.delete({ where: { id } });
     res.json(deleted_meal);
   } catch (err) {
     next(err);

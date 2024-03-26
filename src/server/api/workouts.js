@@ -15,11 +15,11 @@ const validateWorkouts = (user, workout) => {
   }
 };
 
-/** Gets user workouts by difficulty (beginner)*/
+/** Gets all workouts*/
 router.get("/", async (req, res, next) => {
   try {
     const workouts = await prisma.workouts.findMany({
-      include: { Workout_Exercises: { include: { exercises: true } } },
+      include: { Workout_Exercises: { include: { exercises: true } } }
     });
 
     res.json(workouts);
@@ -32,7 +32,7 @@ router.get("/", async (req, res, next) => {
 router.get("/beginner", async (req, res, next) => {
   try {
     const workout = await prisma.workouts.findMany({
-      where: { difficulty: "beginner" },
+      where: { difficulty: "beginner" }
     });
 
     res.json(workout);
@@ -45,7 +45,7 @@ router.get("/beginner", async (req, res, next) => {
 router.get("/intermediate", async (req, res, next) => {
   try {
     const workouts = await prisma.workouts.findMany({
-      where: { difficulty: "intermediate" },
+      where: { difficulty: "intermediate" }
     });
 
     res.json(workouts);
@@ -58,7 +58,7 @@ router.get("/intermediate", async (req, res, next) => {
 router.get("/advanced", async (req, res, next) => {
   try {
     const workouts = await prisma.workouts.findMany({
-      where: { difficulty: "advanced" },
+      where: { difficulty: "advanced" }
     });
 
     res.json(workouts);
@@ -67,14 +67,14 @@ router.get("/advanced", async (req, res, next) => {
   }
 });
 
-/** Gets a single user, one workout, by difficulty (beginner)*/
+/** Gets a single workout*/
 router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
     const workout = await prisma.workouts.findUnique({
       where: { id },
-      include: { Workout_Exercises: { include: { exercises: true } } },
+      include: { Workout_Exercises: { include: { exercises: true } } }
     });
 
     res.json(workout);
@@ -83,11 +83,9 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-/** Edit workout by exerciseID  */
+/** Edit workout by wokroutID  */
 router.patch("/:id", async (req, res, next) => {
   try {
-    // const id = +req.params.id;
-    // const { exerciseId } = req.body;
     const id = +req.params.id;
     const { name, description, category } = req.body;
 
@@ -96,7 +94,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const updatedExercise = await prisma.exercises.update({
       where: { id },
-      data: { name, description, category },
+      data: { name, description, category }
     });
 
     res.json(updatedExercise);
@@ -114,8 +112,8 @@ router.post("/", async (req, res, next) => {
       data: {
         name,
         difficulty,
-        user: { connect: { id: res.locals.user.id } },
-      },
+        user: { connect: { id: res.locals.user.id } }
+      }
     });
     res.json(workout);
   } catch (err) {
