@@ -3,6 +3,8 @@ const { faker } = require("@faker-js/faker");
 const prisma = require("../prisma");
 
 const seed = async () => {
+  const random = (n) => Math.floor(Math.random() * n) + 1;
+
   for (let i = 1; i <= 10; i++) {
     const randomUserName = faker.internet.userName();
     const randomPassword = faker.internet.password();
@@ -81,8 +83,6 @@ const seed = async () => {
   }
 
   for (let i = 1; i <= 10; i++) {
-    const random = (n) => Math.floor(Math.random() * n) + 1;
-
     await prisma.workout_Exercises.upsert({
       where: { id: i },
       update: {},
@@ -100,8 +100,6 @@ const seed = async () => {
   for (let i = 1; i <= 10; i++) {
     const randomFoodItem = faker.animal.type();
     const randomDescription = faker.lorem.word();
-
-    const random = (n) => Math.floor(Math.random() * n) + 1;
 
     await prisma.food_Item.upsert({
       where: { id: i },
@@ -127,7 +125,6 @@ const seed = async () => {
   }
 
   for (let i = 1; i <= 10; i++) {
-    const random = (n) => Math.floor(Math.random() * n) + 1;
     await prisma.meal.upsert({
       where: { id: i },
       update: {},
@@ -143,7 +140,7 @@ const seed = async () => {
       where: { id: i },
       update: {},
       create: {
-        mealId: random(20),
+        mealId: random(10),
         food_ItemId: i,
       },
     });
@@ -170,25 +167,10 @@ const seed = async () => {
         date: randomDate,
         note: randomJournalEntry,
         journalId: i,
-        /**journal: {
-          connect: i,
-        },
-        workoutsId: i,
-        workouts: {
-          connect: i,
-        },
-        exercisesId: i,
-        exercises: {
-          connect: i,
-        },
-        mealId: i,
-        meal: {
-          connect: i,
-        },
-        food_ItemId: i,
-        food_Item: {
-          connect: i,
-        },*/
+        workoutsId: random(10),
+        exercisesId: random(10),
+        mealId: random(10),
+        food_ItemId: random(10),
       },
     });
   }
