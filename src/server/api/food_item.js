@@ -53,6 +53,27 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+/** Add food_item entry  */
+router.post("/:mealId", async (req, res, next) => {
+  try {
+    const { mealId } = req.params;
+    const { name, description, calories } = req.body;
+
+    const food_items = await prisma.food_Item.create({
+      data: {
+        name,
+        description,
+        calories: +calories,
+        // mealId: +mealId,
+        user: { connect: { id: +mealId } },
+      },
+    });
+    res.json(food_items);
+  } catch (err) {
+    next(err);
+  }
+});
+
 /** Edit food_item entry by id */
 router.patch("/:id", async (req, res, next) => {
   try {
@@ -72,17 +93,23 @@ router.patch("/:id", async (req, res, next) => {
   }
 });
 
-/** Deletes food_item entry by id */
-router.delete("/:id", async (req, res, next) => {
-  try {
-    const id = +req.params.id;
-    // const { name, description, calories } = req.body;
-    // const exercises = await prisma.exercises.findUnique({ where: { id } });
-    // validateExercise(res.locals.user, exercises);
+// /** Deletes food_item entry by id */
+// router.delete("/:mealId/:userId", async (req, res, next) => {
+//   try {
+//     const { id } = req.params.id;
+//     // const { name, description, calories } = req.body;
+//     const food_item = await prisma.food_Item.findUnique({
+//       where: { id },
+//     });
 
-    await prisma.food_Item.delete({ where: { id } });
-    res.sendStatus(204);
-  } catch (err) {
-    next(err);
-  }
-});
+//     if (!food_item) {
+//       return res.status(404);
+//     }
+//     // validateExercise(res.locals.user, exercises);
+
+//     await prisma.food_Item.delete({ where: { id: +id } });
+//     res.sendStatus(204);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
