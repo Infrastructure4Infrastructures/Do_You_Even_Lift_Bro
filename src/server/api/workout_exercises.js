@@ -11,6 +11,10 @@ router.post("/:workoutId/:exerciseId", async (req, res, next) => {
     // console.log(req.params);
     const workout_exercise = await prisma.workout_Exercises.create({
       data: {
+        setsGoals: 3,
+        repsGoals: 3,
+        mySets: 1,
+        myReps: 3,
         workoutsId: +workoutId,
         exercisesId: +exerciseId,
       },
@@ -22,24 +26,24 @@ router.post("/:workoutId/:exerciseId", async (req, res, next) => {
 });
 
 //////////// POSSIBLY COMING BACK, NEED TO RESEARCH //////////////////////
-// /** Edit sets and reps in a workout */
-// router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
-//   try {
-//     // const id = +req.params.id;
-//     const { workoutId, exerciseId } = req.params;
+/** Edit sets and reps in a workout */
+router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
+  try {
+    // const id = +req.params.id;
+    const { workoutId, exerciseId } = req.params;
 
-//     const updated_workout_exercise = await prisma.workout_Exercises.update({
-//       where: {
-//         workoutsId: +workoutId,
-//         AND: { exercisesId: +exerciseId },
-//       },
-//       data: { setsGoals: 2, repsGoals: 12, mySets: 3, myReps: 30 },
-//     });
-//     res.json(updated_workout_exercise);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    const updated_workout_exercise = await prisma.workout_Exercises.update({
+      where: {
+        workoutsId: +workoutId,
+        AND: { exercisesId: +exerciseId },
+      },
+      data: { setsGoals: 2, repsGoals: 12, mySets: 3, myReps: 30 },
+    });
+    res.json(updated_workout_exercise);
+  } catch (err) {
+    next(err);
+  }
+});
 
 //////////////////////////////////////////////////////////////////////////////
 

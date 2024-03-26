@@ -17,18 +17,35 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-/** Adds a note to the journal entry*/
-router.post("/:id", async (req, res, next) => {
+// Returns single journal entry by journal_entryID
+router.get("/:id", async (req, res, next) => {
   try {
+    const id = +req.params.id;
+
+    const journalEntry = await prisma.journal_Entry.findUnique({
+      where: { id },
+    });
+
+    res.json(journalEntry);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Adds a note to the JournalID*/
+router.post("/:journalId", async (req, res, next) => {
+  try {
+    const { journalId } = req.params;
     const { note } = req.body;
-    if (!note) {
-      throw new ServerError(400, "Note required.");
-    }
+    // if (!note) {
+    //   throw new ServerError(400, "Note required.");
+    // }
 
     const journal_entry = await prisma.journal_Entry.create({
       data: {
-        note,
-        user: { connect: { id: res.locals.user.id } },
+        note: note,
+        journalId: +journalId,
+        // journal_entryId: +journal_entryId,
       },
     });
     res.json(journal_entry);
@@ -37,30 +54,33 @@ router.post("/:id", async (req, res, next) => {
   }
 });
 
-/** Edit Journal Entry, specifically, note  */
-router.patch("/:id", async (req, res, next) => {
+/** Edit Journal Entry by journal_entryID/JournalID, specifically, note  */
+router.patch("/:id/:journalId", async (req, res, next) => {
   try {
     const id = +req.params.id;
-    // ?????? date ????? string or dateTime
-    const { date, note, workoutsId, exercisesId, mealId, food_ItemId } =
-      req.body;
+
+    const { journalId } = req.params;
+    const { note } = req.body;
 
     //const journal_entry = await prisma.journal_entry.findUnique({ where: { id } });
     // validateExercise(res.locals.user, exercises);
 
-    const updated_journal_entry = await prisma.journal_Entry.update({
+    const update_journal_entry = await prisma.journal_Entry.update({
       where: { id },
-      // ?????? date ????? string or dateTime
-      data: { date, note, workoutsId, exercisesId, mealId, food_ItemId },
+      data: {
+        note: note,
+        journalId: +journalId,
+        // journal_entryId: +journal_entryId,
+      },
     });
-    res.json(updated_journal_entry);
+    res.json(update_journal_entry);
   } catch (err) {
     next(err);
   }
 });
 
 /** Deletes journal_entry by id */
-router.delete("/journal_entry/:journal_entryId", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 

@@ -5,15 +5,14 @@ const router = require("express").Router();
 module.exports = router;
 
 /** Add food with food data to a meal number entry */
-router.post("/meal_food_items/:mealId/:foodId", async (req, res, next) => {
+router.post("/:mealId/:food_ItemId", async (req, res, next) => {
   try {
-    const { mealId, foodId } = req.body;
+    const { mealId, food_ItemId } = req.params;
 
     const meal_food_item = await prisma.meal_Food_Items.create({
       data: {
-        mealId,
-        foodId,
-        user: { connect: { id: res.locals.user.id } },
+        mealId: +mealId,
+        food_ItemId: +food_ItemId,
       },
     });
     res.json(meal_food_item);
@@ -23,7 +22,7 @@ router.post("/meal_food_items/:mealId/:foodId", async (req, res, next) => {
 });
 
 //delete a food item from a meal number
-router.delete("/meal_food_items/:mealid/:foodId", async (req, res, next) => {
+router.delete("/:mealid/:foodId", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
