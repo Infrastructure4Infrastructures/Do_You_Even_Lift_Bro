@@ -17,7 +17,7 @@ export default function Tasks() {
 
   return (
     <div className="tasks">
-      <h1>Tasks</h1>
+      <h1>Do You Even Lift Bro</h1>
       <h2>Add New Task</h2>
       <NewTask />
       <h2>Your Tasks</h2>
