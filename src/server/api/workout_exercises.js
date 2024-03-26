@@ -26,19 +26,20 @@ router.post("/:workoutId/:exerciseId", async (req, res, next) => {
   }
 });
 
-//////////// POSSIBLY COMING BACK, NEED TO RESEARCH //////////////////////
 /** Edit sets and reps in a workout */
 router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
   try {
     // const id = +req.params.id;
     const { workoutId, exerciseId } = req.params;
-
-    const updated_workout_exercise = await prisma.workout_Exercises.update({
+    const workout_exercise = await prisma.workout_Exercises.findFirst({
       where: {
         workoutsId: +workoutId,
         AND: { exercisesId: +exerciseId },
       },
-      data: { setsGoals, repsGoals: 12, mySets: 3, myReps: 30 },
+    });
+    const updated_workout_exercise = await prisma.workout_Exercises.update({
+      where: { id: workout_exercise.id },
+      data: { setsGoals: 5, repsGoals: 12, mySets: 3, myReps: 30 },
     });
     res.json(updated_workout_exercise);
   } catch (err) {
@@ -46,23 +47,24 @@ router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
   }
 });
 
-//////////////////////////////////////////////////////////////////////////////
-
-//////////// DOUBLE CHECK DELETE THAT IT RETURNS THE NON-DELETED ITEMS ////////////////////////////////
-
 /** Deletes journal_entry by id */
 router.delete("/:workoutId/:exerciseId", async (req, res, next) => {
   try {
-    const id = +req.params.id;
-
+    // const id = +req.params.id;
+    const { workoutId, exerciseId } = req.params;
     // const exercises = await prisma.exercises.findUnique({ where: { id } });
     // validateExercise(res.locals.user, exercises);
-
-    const delete_workout_exercise = await prisma.workout_Exercises.delete({
-      where: { id },
-      data: { setsGoals, repsGoals, mySets, myReps },
+    const workout_exercise = await prisma.workout_Exercises.findFirst({
+      where: {
+        workoutsId: +workoutId,
+        AND: { exercisesId: +exerciseId },
+      },
     });
-    res.json(delete_workout_exercise);
+    const deleted_workout_exercises = await prisma.workout_Exercises.delete({
+      where: { id: workout_exercise.id },
+      // data: { setsGoals, repsGoals, mySets, myReps },
+    });
+    res.json(deleted_workout_exercises);
   } catch (err) {
     next(err);
   }
