@@ -75,23 +75,23 @@ router.get("/:id", async (req, res, next) => {
 //   }
 // });
 
-/** Edits single user by id */
-router.patch("/:id", async (req, res, next) => {
-  try {
-    const id = +req.params.id;
-    const { username, password } = req.body;
+// /** Edits single user by id */
+// router.patch("/:id", async (req, res, next) => {
+//   try {
+//     const id = +req.params.id;
+//     const { username, password } = req.body;
 
-    const users = await prisma.user.update({
-      where: { id },
-      data: { username, password },
-    });
-    // validateJournal(res.locals.user, users);
+//     const users = await prisma.user.update({
+//       where: { id },
+//       data: { username, password },
+//     });
+//     // validateJournal(res.locals.user, users);
 
-    res.json(users);
-  } catch (err) {
-    next(err);
-  }
-});
+//     res.json(users);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 /** Edits single user by id */
 router.delete("/:id", async (req, res, next) => {
@@ -118,13 +118,15 @@ const validateMeal = (user, meal) => {
   }
 };
 
-/** Sends single meal entry by id */
+/** Gets single user by id */
 router.get("/:id/meal", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    const meals = await prisma.meal.findUnique({ where: { id } });
-    validateMeal(res.locals.user, meals);
+    const meals = await prisma.meal.findUnique({
+      where: { id },
+    });
+    // validateJournal(res.locals.user, users);
 
     res.json(meals);
   } catch (err) {
