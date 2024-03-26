@@ -110,14 +110,26 @@ router.post("/", async (req, res, next) => {
   try {
     const { name, difficulty } = req.body;
 
-    const workout = await prisma.workout.create({
+    const workout = await prisma.workouts.create({
       data: {
         name,
         difficulty,
-        //user: { connect: { id: res.locals.user.id } },
+        user: { connect: { id: res.locals.user.id } },
       },
     });
     res.json(workout);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Deletes exercises user by id */
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+
+    await prisma.workouts.delete({ where: { id } });
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }

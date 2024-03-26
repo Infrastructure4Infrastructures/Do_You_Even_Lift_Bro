@@ -7,12 +7,13 @@ module.exports = router;
 /** Add food with food data to a meal number entry */
 router.post("/:mealId/:food_ItemId", async (req, res, next) => {
   try {
-    const { mealId, food_ItemId } = req.params;
+    const mealId = +req.params.mealId;
+    const food_ItemId = +req.params.food_ItemId;
 
     const meal_food_item = await prisma.meal_Food_Items.create({
       data: {
-        mealId: +mealId,
-        food_ItemId: +food_ItemId,
+        mealId,
+        food_ItemId,
       },
     });
     res.json(meal_food_item);

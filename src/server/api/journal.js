@@ -37,3 +37,33 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+/** Creates new journal to a userID */
+router.post("/:userId", async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    const journal = await prisma.journal.create({
+      data: {
+        user: { connect: { id: +userId } },
+      },
+    });
+    res.json(journal);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Delete journal */
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+
+    await prisma.journal.delete({
+      where: { id },
+    });
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});

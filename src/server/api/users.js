@@ -93,12 +93,12 @@ router.get("/:id", async (req, res, next) => {
 //   }
 // });
 
-/** Edits single user by id */
+/** Deletes single user by id */
 router.delete("/:id", async (req, res, next) => {
   try {
-    const id = +req.params.id;
+    const userId = +req.params.id;
 
-    await prisma.user.delete({ where: { id } });
+    await prisma.user.delete({ where: { id: userId } });
     // validateJournal(res.locals.user, users);
 
     res.sendStatus(204);
@@ -148,10 +148,10 @@ const validateJournal = (user, journal) => {
 /** Sends single journal entry by id */
 router.get("/:id/journal", async (req, res, next) => {
   try {
-    const id = +req.params.id;
+    const userId = +req.params.id;
 
-    const journals = await prisma.journal.findUnique({ where: { id } });
-    validateJournal(res.locals.user, journals);
+    const journals = await prisma.journal.findUnique({ where: { id: userId } });
+    // validateJournal(res.locals.user, journals);
 
     res.json(journals);
   } catch (err) {
@@ -176,7 +176,7 @@ router.get("/:id/workouts", async (req, res, next) => {
     const id = +req.params.id;
 
     const workout = await prisma.workouts.findUnique({ where: { id } });
-    validateWorkouts(res.locals.user, workout);
+    // validateWorkouts(res.locals.user, workout);
 
     res.json(workout);
   } catch (err) {
@@ -203,17 +203,17 @@ router.get("/:id/workouts", async (req, res, next) => {
 //   }
 // });
 
-// /** Deletes single task by id */
-// router.delete("/:id", async (req, res, next) => {
-//   try {
-//     const id = +req.params.id;
+/** Deletes single task by id */
+router.delete("/:id/journal", async (req, res, next) => {
+  try {
+    const journalId = +req.params.id;
 
-//     const task = await prisma.task.findUnique({ where: { id } });
-//     validateTask(res.locals.user, task);
+    // const task = await prisma.task.findUnique({ where: { id } });
+    // validateTask(res.locals.user, task);
 
-//     await prisma.task.delete({ where: { id } });
-//     res.sendStatus(204);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    await prisma.journal.delete({ where: { id: journalId } });
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});

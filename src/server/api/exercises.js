@@ -31,6 +31,26 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+/** Edit exercise  */
+router.patch("/:id", async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+
+    const { name, description, category } = req.body;
+
+    // const exercises = await prisma.exercises.findUnique({ where: { id } });
+    // validateExercise(res.locals.user, exercises);
+
+    const updatedExercises = await prisma.exercises.update({
+      where: { id },
+      data: { name, description, category },
+    });
+    res.json(updatedExercises);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // /** Adds a exercises*/
 // router.post("/exercise", async (req, res, next) => {
 
@@ -65,32 +85,10 @@ router.get("/:id", async (req, res, next) => {
 //   }
 // };
 
-// /** Edit exercise  */
-// router.patch("/exercises/:id", async (req, res, next) => {
-//   try {
-//     const id = +req.params.id;
-//     const { name, description, category } = req.body;
-
-//     const exercises = await prisma.exercises.findUnique({ where: { id } });
-//     // validateExercise(res.locals.user, exercises);
-
-//     const updatedExercises = await prisma.exercises.update({
-//       where: { id },
-//       data: { name, description, category },
-//     });
-//     res.json(updatedExercises);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
 // /** Deletes exercises user by id */
-// router.delete("/exercises/:id", async (req, res, next) => {
+// router.delete("/:id", async (req, res, next) => {
 //   try {
 //     const id = +req.params.id;
-
-//     const exercises = await prisma.exercises.findUnique({ where: { id } });
-//     validateExercise(res.locals.user, exercises);
 
 //     await prisma.exercises.delete({ where: { id } });
 //     res.sendStatus(204);

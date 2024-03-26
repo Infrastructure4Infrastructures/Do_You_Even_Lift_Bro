@@ -54,30 +54,26 @@ router.post("/:journalId", async (req, res, next) => {
   }
 });
 
-/** Edit Journal Entry by journal_entryID/JournalID, specifically, note  */
-router.patch("/:id/:journalId", async (req, res, next) => {
-  try {
-    const id = +req.params.id;
+// /** Edit Journal Entry by journal_entryID/JournalID, specifically, note  */
+// router.patch("/:id/:journalId", async (req, res, next) => {
+//   try {
+//     const journal_entryId = +req.params.id;
 
-    const { journalId } = req.params;
-    const { note } = req.body;
+//     const journalId = req.params;
+//     const { note } = req.body;
 
-    //const journal_entry = await prisma.journal_entry.findUnique({ where: { id } });
-    // validateExercise(res.locals.user, exercises);
+//     //const journal_entry = await prisma.journal_entry.findUnique({ where: { id } });
+//     // validateExercise(res.locals.user, exercises);
 
-    const update_journal_entry = await prisma.journal_Entry.update({
-      where: { id },
-      data: {
-        note: note,
-        journalId: +journalId,
-        // journal_entryId: +journal_entryId,
-      },
-    });
-    res.json(update_journal_entry);
-  } catch (err) {
-    next(err);
-  }
-});
+//     const update_journal_entry = await prisma.journal_Entry.update({
+//       where: { id: journal_entryId, journalId },
+//       data: { note },
+//     });
+//     res.json(update_journal_entry);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 /** Deletes journal_entry by id */
 router.delete("/:id", async (req, res, next) => {
