@@ -54,7 +54,7 @@ const seed = async () => {
 
   for (let i = 1; i <= 10; i++) {
     const randomName = faker.lorem.words();
-    const randomWorkout = faker.lorem.word();
+    // const randomWorkout = faker.lorem.word();
 
     const array = ["beginner", "intermediate", "advanced"];
 
@@ -127,11 +127,12 @@ const seed = async () => {
   }
 
   for (let i = 1; i <= 10; i++) {
+    const random = (n) => Math.floor(Math.random() * n) + 1;
     await prisma.meal.upsert({
       where: { id: i },
       update: {},
       create: {
-        mealNum: i,
+        mealNum: random(200),
         userId: i,
       },
     });
@@ -142,7 +143,7 @@ const seed = async () => {
       where: { id: i },
       update: {},
       create: {
-        mealId: i,
+        mealId: random(20),
         food_ItemId: i,
       },
     });

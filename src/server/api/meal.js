@@ -5,13 +5,27 @@ const router = require("express").Router();
 module.exports = router;
 
 /** Gets list of all meals*/
+router.get("/", async (req, res, next) => {
+  try {
+    const meals = await prisma.meal.findMany({
+      include: { Meal_Food_Items: { include: { food_item: true } } },
+    });
+
+    res.json(meals);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Gets list of a single meal*/
 router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    const meals = await prisma.meal.findMany({
+    const meals = await prisma.meal.findUnique({
       // where: { userId: res.locals.user.id },
       where: { id },
+      include: { Meal_Food_Items: { include: { food_item: true } } },
     });
 
     res.json(meals);
@@ -20,26 +34,27 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-/** Add meal entry  */
-router.post("/:id", async (req, res, next) => {
-  try {
-    const userId = +req.params.userId;
-    // const id = +req.params.id;
-    const mealNum = +req.body.mealNum;
+// /** Add meal entry  */
+// router.post("/:mealId", async (req, res, next) => {
+//   try {
+//     // const { mealId } = req.params;
+//     const { id } = +req.params.id;
+//     const { mealNum } = req.body;
 
-    const meals = await prisma.meal.create({
-      where: { id },
-      data: {
-        mealNum,
-        userId,
-        //   user: { connect: { id } },
-      },
-    });
-    res.json(meals);
-  } catch (err) {
-    next(err);
-  }
-});
+//     const meals = await prisma.meal.create({
+//       // where: { id: +id },
+//       data: {
+//         mealNum: +mealNum,
+//         // mealId: +mealId,
+//         // user: ,
+//         user: { connect: { id: +id } },
+//       },
+//     });
+//     res.json(meals);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 /** Edit meal entry by id */
 router.patch("/:id", async (req, res, next) => {
@@ -52,7 +67,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const meals = await prisma.meal.update({
       where: { id },
-      data: { mealNum },
+      data: { mealNum: +mealNum },
     });
     res.json(meals);
   } catch (err) {
@@ -63,8 +78,8 @@ router.patch("/:id", async (req, res, next) => {
 /** Deletes meal entry by id */
 router.delete("/:id", async (req, res, next) => {
   try {
-    const id = +req.params.id;
-
+    // const { mealId } = +req.params.id;
+    const { id } = +req.params.id;
     // const exercises = await prisma.exercises.findUnique({ where: { id } });
     // validateExercise(res.locals.user, exercises);
 

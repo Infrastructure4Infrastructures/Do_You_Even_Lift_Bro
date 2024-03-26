@@ -72,7 +72,10 @@ router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    const workout = await prisma.workouts.findUnique({ where: { id } });
+    const workout = await prisma.workouts.findUnique({
+      where: { id },
+      include: { Workout_Exercises: { include: { exercises: true } } },
+    });
 
     res.json(workout);
   } catch (err) {
@@ -80,47 +83,42 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-//   /** Edit workout  */
-//   router.patch("/exercises/:id", async (req, res, next) => {
-//     try {
-//       const id = +req.params.id;
-//       // const { exerciseId } = req.body;
+/** Edit workout by exerciseID  */
+router.patch("/:id", async (req, res, next) => {
+  try {
+    // const id = +req.params.id;
+    // const { exerciseId } = req.body;
+    const id = +req.params.id;
+    const { name, description, category } = req.body;
 
-//       const exercises = await prisma.exercises.findUnique({ where: { id } });
-//       validateExercise(res.locals.exercise, exercises);
+    // const exercises = await prisma.exercises.findUnique({ where: { id } });
+    // validateExercise(res.locals.exercise, exercises);
 
-//       const updatedExercises = await prisma.exercises.update({
-//         where: { id },
-//         data: { exercises, id },
-//       });
-//       res.json(updatedExercises);
-//     } catch (err) {
-//       next(err);
-//     }
-//   });
+    const updatedExercise = await prisma.exercises.update({
+      where: { id },
+      data: { name, description, category },
+    });
 
-// /** Creates new workout and sends it */
-// router.post("/workouts", async (req, res, next) => {
-//   const beginner = req.body.beginner;
-//   const intermediate = req.body.intermediate;
-//   const advanced = req.body.advanced;
-//   const name = req.body.name;
+    res.json(updatedExercise);
+  } catch (err) {
+    next(err);
+  }
+});
 
-//   try {
-//     const { name, difficulty } = req.body;
-//     if (!difficulty) {
-//       throw new ServerError(400, "Difficulty required.");
-//     }
+/** Creates new workout and sends it */
+router.post("/", async (req, res, next) => {
+  try {
+    const { name, difficulty } = req.body;
 
-//     const workout = await prisma.workout.create({
-//       data: {
-//         name,
-//         difficulty,
-//         //user: { connect: { id: res.locals.user.id } },
-//       },
-//     });
-//     res.json(workout);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    const workout = await prisma.workout.create({
+      data: {
+        name,
+        difficulty,
+        //user: { connect: { id: res.locals.user.id } },
+      },
+    });
+    res.json(workout);
+  } catch (err) {
+    next(err);
+  }
+});
