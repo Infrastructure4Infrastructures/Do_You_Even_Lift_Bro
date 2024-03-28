@@ -23,18 +23,42 @@ export default function Navbar() {
     <nav className="top">
       <h1>Do You Even Lift Bro</h1>
       <menu>
-        <li>
-          <NavLink to="/">Home</NavLink>
+      <li>
+          <NavLink to="/">Welcome Page</NavLink>
         </li>
-        {token ? (
+
+        <li>
+          <NavLink to="/register">Register</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/workout/beginner">Beginner</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/workout/intermediate">Intermediate</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/workout/advanced">Advanced</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/">Food journal</NavLink>
+        </li>
+
+        <li>
+          <NavLink to="/puppies">Puppies</NavLink>
+        </li>
+
           <li>
             <a onClick={handleLogout}>Log Out</a>
           </li>
-        ) : (
+
           <li>
             <NavLink to="/login">Log In</NavLink>
           </li>
-        )}
+
       </menu>
     </nav>
   );
