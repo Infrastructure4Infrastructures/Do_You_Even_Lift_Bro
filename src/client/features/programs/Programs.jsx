@@ -16,31 +16,26 @@ export default function Programs() {
   // }
 
   return (
-    <div className="programs">
+    <div>
       <h2>Select a Workout Difficulty</h2>
-      <li>
-        <h3>Beginner Workout</h3>
-        <button type="button" onClick="/workouts/beginner">
-          Select Workout
-        </button>
-      </li>
 
-      <li>
-        <h3>Intermediate Workout</h3>
-        <button type="button" onClick="/workout/intermediate">
-          Select Workout
-        </button>
-      </li>
+      <h3>Beginner Workout</h3>
+      <a href='/workouts/beginner'>
+        <button>Select Workout</button>
+      </a>
 
-      <li>
-        <h3>Advanced Workout</h3>
-        <button type="button" onClick="/workout/advanced">
-          Select Workout
-        </button>
-      </li>
+      <h3>Intermediate Workout</h3>
+      <a href='/workouts/intermediate'>
+        <button>Select Workout</button>
+      </a>
+
+      <h3>Advanced Workout</h3>
+      <a href='/workouts/advanced'>
+        <button>Select Workout</button>
+      </a>
 
       <footer>
-        <NavLink to="/meals">Visit Food Journal</NavLink>
+        <NavLink to='/meals'>Visit Food Journal</NavLink>
       </footer>
     </div>
   );
