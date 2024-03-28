@@ -33,20 +33,20 @@ const mealsApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Meal"],
     }),
-    addToJournal: builder.mutation({
-      query: (/journal) => ({
-        url: "/journal",
-        method: "POST",
-        body: journal,
-      }),
-      const JournalSlice = createSlice({
-        name: "Journal",
-        initialState, 
-        reducers: {
-          /** Adds a number to the bank */
-          addToJournal: (state, { payload }) => {
-            state.bank.push(payload);
-          }}
+    // addToJournal: builder.mutation({
+    //   query: (journal) => ({
+    //     url: "/journal",
+    //     method: "POST",
+    //     body: journal,
+    //   }),
+    // const JournalSlice = createSlice({
+    //   name: "Journal",
+    //   initialState,
+    //   reducers: {
+    //     /** Adds a number to the bank */
+    //     addToJournal: (state, { payload }) => {
+    //       state.bank.push(payload);
+    //     }}
   }),
 });
 
@@ -56,5 +56,4 @@ export const {
   useCreateMealMutation,
   useEditMealMutation,
   useDeleteMealMutation,
-  addToJournal
 } = mealsApi;
