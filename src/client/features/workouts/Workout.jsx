@@ -26,24 +26,28 @@ export default function Workout({ workout }) {
   };
 
   return (
-    <li>
-      <form onSubmit={save}>
-        <input
-          type='checkbox'
-          checked={workout.done}
-          onChange={toggleWorkout}
-        />
-        <input
-          type='text'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <button>Save</button>
-        <button onClick={onDelete} aria-label='delete'>
-          🞪
-        </button>
-      </form>
-    </li>
+    <div>
+      <Exercises />
+    </div>
   );
+  //   <li>
+  //     <form onSubmit={save}>
+  //       <input
+  //         type='checkbox'
+  //         checked={workout.done}
+  //         onChange={toggleWorkout}
+  //       />
+  //       <input
+  //         type='text'
+  //         value={description}
+  //         onChange={(e) => setDescription(e.target.value)}
+  //         required
+  //       />
+  //       <button>Save</button>
+  //       <button onClick={onDelete} aria-label='delete'>
+  //         🞪
+  //       </button>
+  //     </form>
+  //   </li>
+  // );
 }

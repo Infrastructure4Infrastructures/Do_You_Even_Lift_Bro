@@ -34,9 +34,9 @@ export default function Programs() {
         <button>Select Workout</button>
       </a>
 
-      <footer>
+      <>
         <NavLink to='/meals'>Visit Food Journal</NavLink>
-      </footer>
+      </>
     </div>
   );
 }
