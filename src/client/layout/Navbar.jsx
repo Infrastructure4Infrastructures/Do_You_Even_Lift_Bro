@@ -32,10 +32,6 @@ export default function Navbar() {
           <li>
             <NavLink to='/foodJournal'>Food journal</NavLink>
           </li>
-        ) : location.pathname === "/" ? (
-          <li>
-            <NavLink to='/register'>Register</NavLink>
-          </li>
         ) : null}
         {token ? (
           <li>
