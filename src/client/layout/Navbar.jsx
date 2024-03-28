@@ -1,16 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logout, selectToken } from "../features/auth/authSlice";
 
 import "./Navbar.less";
 
-/**
- * A simple navigation bar that displays "Log In" if the user is not logged in,
- * and "Log Out" if the user is logged in.
- */
 export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const token = useSelector(selectToken);
 
@@ -20,45 +17,34 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="top">
+    <nav className='Navbar'>
       <h1>Do You Even Lift Bro</h1>
       <menu>
-      <li>
-          <NavLink to="/">Welcome Page</NavLink>
-        </li>
-
+        {location.pathname === "/login" || location.pathname === "/register" ? (
+          <li>
+            <NavLink to='/'>Welcome Page</NavLink>
+          </li>
+        ) : location.pathname === "/foodJournal" ? (
+          <li>
+            <NavLink to='/programs'>Workout Programs</NavLink>
+          </li>
+        ) : location.pathname === "/programs" ? (
+          <li>
+            <NavLink to='/foodJournal'>Food journal</NavLink>
+          </li>
+        ) : null}
         <li>
-          <NavLink to="/register">Register</NavLink>
+          <NavLink to='/register'>Register</NavLink>
         </li>
-
-        <li>
-          <NavLink to="/workout/beginner">Beginner</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/workout/intermediate">Intermediate</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/workout/advanced">Advanced</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/">Food journal</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/puppies">Puppies</NavLink>
-        </li>
-
+        {token ? (
           <li>
             <a onClick={handleLogout}>Log Out</a>
           </li>
-
+        ) : (
           <li>
-            <NavLink to="/login">Log In</NavLink>
+            <NavLink to='/login'>Log In</NavLink>
           </li>
-
+        )}
       </menu>
     </nav>
   );
