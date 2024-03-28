@@ -1,29 +1,29 @@
-import { useState } from "react";
-import {
-  useEditWorkoutsMutation,
-  useDeleteWorkoutsMutation,
-} from "./workoutsSlice";
-
+// import { useState } from "react";
+// import {
+//   useEditWorkoutsMutation,
+//   useDeleteWorkoutsMutation,
+// } from "./workoutsSlice";
+import Exercises from "../exercises/Exercises";
 export default function Workout({ workout }) {
-  const [editWorkout] = useEditWorkoutsMutation();
-  const [deleteWorkout] = useDeleteWorkoutsMutation();
+  // const [editWorkout] = useEditWorkoutsMutation();
+  // const [deleteWorkout] = useDeleteWorkoutsMutation();
 
-  const [description, setDescription] = useState(workout.description);
+  // const [description, setDescription] = useState(workout.description);
 
-  const toggleWorkout = async (evt) => {
-    const done = evt.target.checked;
-    editWorkout({ ...workout, done });
-  };
+  // const toggleWorkout = async (evt) => {
+  //   const done = evt.target.checked;
+  //   editWorkout({ ...workout, done });
+  // };
 
-  const save = async (evt) => {
-    evt.preventDefault();
-    editWorkout({ ...workout, description });
-  };
+  // const save = async (evt) => {
+  //   evt.preventDefault();
+  //   editWorkout({ ...workout, description });
+  // };
 
-  const onDelete = async (evt) => {
-    evt.preventDefault();
-    deleteWorkout(workout.id);
-  };
+  // const onDelete = async (evt) => {
+  //   evt.preventDefault();
+  //   deleteWorkout(workout.id);
+  // };
 
   return (
     <div>
