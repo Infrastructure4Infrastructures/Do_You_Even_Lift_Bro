@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import AuthForm from "./features/auth/AuthForm";
-import Tasks from "./features/tasks/Tasks";
+import Programs from "./features/programs/Programs";
 import Root from "./layout/Root.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -16,18 +16,18 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     children: [
-      { path: "/", element: <Tasks /> },
-      { path: "/tasks", element: <Tasks /> },
+      //{ path: "/", element: <Programs /> },
+      //{ path: "/tasks", element: <Tasks /> },
       { path: "/login", element: <AuthForm /> },
-      { path: "/", element: <Home /> },
-      { path: "/programs", element: <ProgramHome /> },
-      { path: "/login", element: <AuthForm /> },
-      { path: "/account", element: <Account /> },
-      { path: "/workouts/beginner", element: <BeginnerWorkouts /> },
-      { path: "/workouts/intermediate", element: <IntermediateWorkouts /> },
-      { path: "/workouts/advanced", element: <AdvancedWorkouts /> },
-      { path: "/journal", element: <Journal /> },
-      { path: "/foodJournal", element: <FoodJournal /> },
+      // { path: "/", element: <Home /> },
+      { path: "/programs", element: <Programs /> },
+      // { path: "/login", element: <AuthForm /> },
+      // { path: "/account", element: <Account /> },
+      // { path: "/workouts/beginner", element: <BeginnerWorkouts /> },
+      // { path: "/workouts/intermediate", element: <IntermediateWorkouts /> },
+      // { path: "/workouts/advanced", element: <AdvancedWorkouts /> },
+      // { path: "/journal", element: <Journal /> },
+      // { path: "/foodJournal", element: <FoodJournal /> },
     ],
   },
 ]);
