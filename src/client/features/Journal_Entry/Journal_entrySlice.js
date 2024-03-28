@@ -2,33 +2,33 @@ import api from "../../store/api";
 
 const journalEntryApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getjournalEntry: builder.query({
-      query: () => "/Journal",
+    getJournalEntry: builder.query({
+      query: () => "/journal_entry",
       providesTags: ["Journals"],
     }),
-    getjournalEntryById: builder.query({
-      query: (id) => `/Journal/${id}`,
+    getJournalEntryById: builder.query({
+      query: (id) => `/journal_entry/${id}`,
       providesTags: ["Journals"],
     }),
-    createjournalEntry: builder.mutation({
+    createJournalEntry: builder.mutation({
       query: (journalEntry) => ({
-        url: "/Journal",
+        url: "/journal_entry",
         method: "POST",
-        body: journal,
+        body: journalEntry,
       }),
       invalidatesTags: ["Journals"],
     }),
-    editjournalEntry: builder.mutation({
+    editJournalEntry: builder.mutation({
       query: (journalEntry) => ({
-        url: `/journal/${journal.id}`,
+        url: `/journal_entry/${journal_entry.id}`,
         method: "PATCH",
         body: journalEntry,
       }),
       invalidatesTags: ["Journals"],
     }),
-    deletejournalEntry: builder.mutation({
+    deleteJournalEntry: builder.mutation({
       query: (id) => ({
-        url: `/journalEntry/${id}`,
+        url: `/journal_entry/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["journalEntry"],
@@ -37,9 +37,9 @@ const journalEntryApi = api.injectEndpoints({
 });
 
 export const {
-  usejournalEntryQuery,
-  usejournalEntryByIdQuery,
-  usejournalEntryMutation,
-  useEditjournalEntryMutation,
-  useDeletejournalEntryMutation,
-} = exercisesApi;
+  useGetJournalEntryQuery,
+  useGetJournalEntryByIdQuery,
+  useEditJournalEntryMutation,
+  useCreateJournalEntryMutation,
+  useDeleteJournalEntryMutation,
+} = journalEntryApi;
