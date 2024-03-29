@@ -24,7 +24,9 @@ export default function Navbar() {
           <li>
             <NavLink to='/'>Welcome Page</NavLink>
           </li>
-        ) : location.pathname === "/meals" ? (
+        ) : location.pathname === "/meals" ||
+          location.pathname === "/workouts" ||
+          location.pathname !== "/" ? (
           <li>
             <NavLink to='/programs'>Workout Programs</NavLink>
           </li>

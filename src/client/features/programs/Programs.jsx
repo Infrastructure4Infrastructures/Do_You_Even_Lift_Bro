@@ -11,9 +11,9 @@ export default function Programs() {
   const token = useSelector(selectToken);
   //   const { data: programs, isLoading } = useGetProgramsQuery();
 
-  // if (!token) {
-  //   return <p>You must be logged in to see your Programs.</p>;
-  // }
+  if (!token) {
+    return <p>You must be logged in to see your Programs.</p>;
+  }
 
   return (
     <div>
@@ -34,9 +34,9 @@ export default function Programs() {
         <button>Select Workout</button>
       </a>
 
-      <>
+      <section>
         <NavLink to='/meals'>Visit Food Journal</NavLink>
-      </>
+      </section>
     </div>
   );
 }
