@@ -41,7 +41,7 @@ export default function Navbar() {
           </li>
         ) : (
           <li>
-            <NavLink to='/login'>Log In</NavLink>
+            <NavLink to='/login'>Log In / Register</NavLink>
           </li>
         )}
       </menu>
