@@ -12,26 +12,26 @@ export default function Programs() {
   //   const { data: programs, isLoading } = useGetProgramsQuery();
 
   if (!token) {
-    return <p>You must be logged in to see your Programs.</p>;
+    return <p>You must be logged in to see the Programs.</p>;
   }
 
   return (
     <div>
       <h2>Select a Workout Difficulty</h2>
 
-      <h3>Beginner Workout</h3>
+      <h3></h3>
       <a href='/workouts/beginner'>
-        <button>Select Workout</button>
+        <button>Beginner Workout</button>
       </a>
 
-      <h3>Intermediate Workout</h3>
+      <h3></h3>
       <a href='/workouts/intermediate'>
-        <button>Select Workout</button>
+        <button>Intermediate Workout</button>
       </a>
 
-      <h3>Advanced Workout</h3>
+      <h3></h3>
       <a href='/workouts/advanced'>
-        <button>Select Workout</button>
+        <button>Advanced Workout</button>
       </a>
 
       <section>
