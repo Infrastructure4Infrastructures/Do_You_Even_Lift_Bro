@@ -19,7 +19,7 @@ const validateWorkouts = (user, workout) => {
 router.get("/", async (req, res, next) => {
   try {
     const workouts = await prisma.workouts.findMany({
-      include: { Workout_Exercises: { include: { exercises: true } } }
+      include: { Workout_Exercises: { include: { exercises: true } } },
     });
 
     res.json(workouts);
@@ -32,7 +32,8 @@ router.get("/", async (req, res, next) => {
 router.get("/beginner", async (req, res, next) => {
   try {
     const workout = await prisma.workouts.findMany({
-      where: { difficulty: "beginner" }
+      where: { difficulty: "beginner" },
+      include: { Workout_Exercises: { include: { exercises: true } } },
     });
 
     res.json(workout);
@@ -45,7 +46,8 @@ router.get("/beginner", async (req, res, next) => {
 router.get("/intermediate", async (req, res, next) => {
   try {
     const workouts = await prisma.workouts.findMany({
-      where: { difficulty: "intermediate" }
+      where: { difficulty: "intermediate" },
+      include: { Workout_Exercises: { include: { exercises: true } } },
     });
 
     res.json(workouts);
@@ -58,7 +60,8 @@ router.get("/intermediate", async (req, res, next) => {
 router.get("/advanced", async (req, res, next) => {
   try {
     const workouts = await prisma.workouts.findMany({
-      where: { difficulty: "advanced" }
+      where: { difficulty: "advanced" },
+      include: { Workout_Exercises: { include: { exercises: true } } },
     });
 
     res.json(workouts);
@@ -74,7 +77,7 @@ router.get("/:id", async (req, res, next) => {
 
     const workout = await prisma.workouts.findUnique({
       where: { id },
-      include: { Workout_Exercises: { include: { exercises: true } } }
+      include: { Workout_Exercises: { include: { exercises: true } } },
     });
 
     res.json(workout);
@@ -94,7 +97,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const updatedExercise = await prisma.exercises.update({
       where: { id },
-      data: { name, description, category }
+      data: { name, description, category },
     });
 
     res.json(updatedExercise);
@@ -112,8 +115,8 @@ router.post("/", async (req, res, next) => {
       data: {
         name,
         difficulty,
-        user: { connect: { id: res.locals.user.id } }
-      }
+        user: { connect: { id: res.locals.user.id } },
+      },
     });
     res.json(workout);
   } catch (err) {

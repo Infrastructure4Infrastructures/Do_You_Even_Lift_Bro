@@ -1,8 +1,12 @@
-import { useGetWorkoutsBeginnerByIdQuery } from "../workouts/workoutsSlice";
+import {
+  useGetWorkoutsBeginnerQuery,
+  // useGetWorkoutsIntermediateQuery,
+  // useGetWorkoutsAdvancedQuery,
+} from "../workouts/workoutsSlice";
 
-export default function Exercise({ id }) {
-  const { data: workouts, isLoading } = useGetWorkoutsBeginnerByIdQuery(id);
-  console.log(workouts);
+export default function Exercise({}) {
+  const { data: workouts, isLoading } = useGetWorkoutsBeginnerQuery();
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -10,7 +14,7 @@ export default function Exercise({ id }) {
   if (!workouts) {
     return <div>No workouts available</div>;
   }
-
+  console.log(workouts);
   return (
     <div>
       <h2>Description of Exercise here</h2>
@@ -33,13 +37,13 @@ export default function Exercise({ id }) {
               <td>{workout.repsGoals}</td>
               <td>
                 {/* My Sets input box */}
-                <label htmlFor='sets'>
+                <label name='sets'>
                   <input type='number' id='sets' />
                 </label>
               </td>
               <td>
                 {/* My Reps input box */}
-                <label htmlFor='reps'>
+                <label name='reps'>
                   <input type='number' id='reps' />
                 </label>
               </td>
