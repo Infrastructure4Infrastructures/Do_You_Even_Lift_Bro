@@ -28,24 +28,22 @@ export default function Exercises({ difficulty }) {
     return <div>Loading...</div>;
   }
 
-  console.log(workouts);
+  // console.log(workouts);
 
-  const previousExercise = async (evt) => {
-    evt.preventDefault();
-    previousExercise({ CHANGECODEHERETOGOTOPREVIOUSEXERCISE });
-  };
+  // const previousExercise = async (evt) => {
+  //   evt.preventDefault();
+  //   previousExercise({ CHANGECODEHERETOGOTOPREVIOUSEXERCISE });
+  // };
 
-  const nextExercise = async (evt) => {
-    evt.preventDefault();
-    nextExercise({ CHANGECODEHEREFORGOINGTONEXTEXERCISE });
-  };
+  // const nextExercise = async (evt) => {
+  //   evt.preventDefault();
+  //   nextExercise({ CHANGECODEHEREFORGOINGTONEXTEXERCISE });
+  // };
 
   const exercise = workouts.find((ele) => ele);
-  console.log(exercise);
+  // console.log(exercise);
 
-  // const result = workouts.Workout_Exercises.map(
-  //   (Workout_Exercises, index) => Workout_Exercises[index]
-  // );
+  const result = workouts[0].Workout_Exercises[0].exercises.description;
 
   // console.log(result);
 
@@ -64,7 +62,7 @@ export default function Exercises({ difficulty }) {
         <br /> {/** Remove this before Lester see's it */}
         <iframe src='URL'></iframe>
       </main>
-      <h2>Description of Exercise here</h2>
+      <h2>{result}</h2>
       <table>
         <thead>
           <tr>
