@@ -4,10 +4,12 @@ const exercisesApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getExercises: builder.query({
       query: () => "/exercises",
+      transformResponse: (response) => response.exercises,
       providesTags: ["Exercises"],
     }),
     getExercisesById: builder.query({
       query: (id) => `/exercises/${id}`,
+      transformResponse: (response) => response.exercises,
       providesTags: ["Exercises"],
     }),
     createExercises: builder.mutation({
@@ -27,8 +29,8 @@ const exercisesApi = api.injectEndpoints({
       invalidatesTags: ["Exercises"],
     }),
     deleteExercises: builder.mutation({
-      query: (id) => ({
-        url: `/exercises/${id}`,
+      query: (exerciseId) => ({
+        url: `/exercises/${exerciseId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Exercises"],

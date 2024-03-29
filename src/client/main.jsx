@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import "./index.less";
 
 import { Provider } from "react-redux";
@@ -12,8 +11,10 @@ import Root from "./layout/Root.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Meals from "./features/meals/Meals.jsx";
-import Workout from "./features/workouts/Workout.jsx";
-import Exercises from "./features/exercises/Exercises.jsx";
+import WorkoutBeginner from "./features/workouts/WorkoutBeginner.jsx";
+import WorkoutIntermediate from "./features/workouts/WorkoutIntermediate.jsx";
+import WorkoutAdvanced from "./features/workouts/WorkoutAdvanced.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,11 +25,9 @@ const router = createBrowserRouter([
       { path: "/login", element: <AuthForm /> },
       // { path: "/", element: <Home /> },
       { path: "/programs", element: <Programs /> },
-      // { path: "/login", element: <AuthForm /> },
-      { path: "/workouts", element: <Exercises /> },
-      // { path: "/workouts/beginner", element: <BeginnerWorkouts /> },
-      // { path: "/workouts/intermediate", element: <IntermediateWorkouts /> },
-      // { path: "/workouts/advanced", element: <AdvancedWorkouts /> },
+      { path: "/workouts/beginner", element: <WorkoutBeginner /> },
+      { path: "/workouts/intermediate", element: <WorkoutIntermediate /> },
+      { path: "/workouts/advanced", element: <WorkoutAdvanced /> },
       { path: "/meals", element: <Meals /> },
       // { path: "/foodJournal", element: <FoodJournal /> },
     ],

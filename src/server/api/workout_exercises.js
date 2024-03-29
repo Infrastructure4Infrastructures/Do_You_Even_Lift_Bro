@@ -17,8 +17,8 @@ router.post("/:workoutId/:exerciseId", async (req, res, next) => {
         mySets: +mySets,
         myReps: +myReps,
         workoutsId: +workoutId,
-        exercisesId: +exerciseId
-      }
+        exercisesId: +exerciseId,
+      },
     });
 
     res.json(workout_exercise);
@@ -38,17 +38,26 @@ router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
     if (setsGoals) {
       dataToSendToDB.setsGoals = +setsGoals;
     }
+    if (repsGoals) {
+      dataToSendToDB.repsGoals = +repsGoals;
+    }
+    if (mySets) {
+      dataToSendToDB.mySets = +mySets;
+    }
+    if (myReps) {
+      dataToSendToDB.myReps = +myReps;
+    }
     // Keep writing if statements for each property coming in through the BODY
 
     const workout_exercise = await prisma.workout_Exercises.findFirst({
       where: {
         workoutsId: +workoutId,
-        AND: { exercisesId: +exerciseId }
-      }
+        AND: { exercisesId: +exerciseId },
+      },
     });
     const updated_workout_exercise = await prisma.workout_Exercises.update({
       where: { id: workout_exercise.id },
-      data: dataToSendToDB
+      data: dataToSendToDB,
     });
     res.json(updated_workout_exercise);
   } catch (err) {
@@ -66,11 +75,11 @@ router.delete("/:workoutId/:exerciseId", async (req, res, next) => {
     const workout_exercise = await prisma.workout_Exercises.findFirst({
       where: {
         workoutsId: +workoutId,
-        AND: { exercisesId: +exerciseId }
-      }
+        AND: { exercisesId: +exerciseId },
+      },
     });
     const deleted_workout_exercises = await prisma.workout_Exercises.delete({
-      where: { id: workout_exercise.id }
+      where: { id: workout_exercise.id },
       // data: { setsGoals, repsGoals, mySets, myReps },
     });
     res.json(deleted_workout_exercises);

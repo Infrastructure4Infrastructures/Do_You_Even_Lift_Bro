@@ -23,14 +23,13 @@ export default function Exercises() {
   return (
     <div className='exercises'>
       <main>
-        <h1>Workout Program Here</h1>
         <a>
           <button>Previous</button>
         </a>
         <a>
           <button>Next</button>
         </a>
-        <br /> /** Remove this before Lester see's it */
+        <br /> {/** Remove this before Lester see's it */}
         <iframe src='URL'></iframe>
         <>
           <Exercise />

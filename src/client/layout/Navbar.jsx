@@ -24,13 +24,15 @@ export default function Navbar() {
           <li>
             <NavLink to='/'>Welcome Page</NavLink>
           </li>
-        ) : location.pathname === "/foodJournal" ? (
+        ) : location.pathname === "/meals" ||
+          location.pathname === "/workouts" ||
+          location.pathname !== "/" ? (
           <li>
             <NavLink to='/programs'>Workout Programs</NavLink>
           </li>
         ) : location.pathname === "/programs" ? (
           <li>
-            <NavLink to='/foodJournal'>Food journal</NavLink>
+            <NavLink to='/meals'>Food journal</NavLink>
           </li>
         ) : null}
         {token ? (
