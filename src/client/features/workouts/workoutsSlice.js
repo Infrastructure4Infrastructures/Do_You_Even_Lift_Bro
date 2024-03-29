@@ -10,6 +10,18 @@ const workoutsApi = api.injectEndpoints({
       query: (id) => `/workouts/${id}`,
       providesTags: ["Workouts"],
     }),
+    getWorkoutsBeginnerById: builder.query({
+      query: (id) => `/workouts/beginner/${id}`,
+      providesTags: ["Workouts"],
+    }),
+    getWorkoutsIntermediateById: builder.query({
+      query: (id) => `/workouts/intermediate/${id}`,
+      providesTags: ["Workouts"],
+    }),
+    getWorkoutsAdvancedById: builder.query({
+      query: (id) => `/workouts/advanced/${id}`,
+      providesTags: ["Workouts"],
+    }),
     createWorkouts: builder.mutation({
       query: (workouts) => ({
         url: "/workouts",
@@ -39,6 +51,9 @@ const workoutsApi = api.injectEndpoints({
 export const {
   useGetWorkoutsQuery,
   useGetWorkoutsByIdQuery,
+  useGetWorkoutsBeginnerByIdQuery,
+  useGetWorkoutsIntermediateByIdQuery,
+  useGetWorkoutsAdvancedByIdQuery,
   useCreateWorkoutsMutation,
   useEditWorkoutsMutation,
   useDeleteWorkoutsMutation,
