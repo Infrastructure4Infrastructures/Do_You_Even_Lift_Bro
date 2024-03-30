@@ -35,6 +35,7 @@ model Exercises {
   name              String
   description       String
   category          String
+  video             String
   Workout_Exercises Workout_Exercises[]
   Journal_Entry     Journal_Entry[]
 }
