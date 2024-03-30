@@ -1,20 +1,16 @@
 import React, { Fragment } from "react";
 
-import {
-  useGetWorkoutsBeginnerQuery,
-  useGetWorkoutsIntermediateQuery,
-  useGetWorkoutsAdvancedQuery,
-} from "../workouts/workoutsSlice";
+import { useGetWorkoutsQuery } from "../workouts/workoutsSlice";
 
 export default function Exercises({ difficulty }) {
   let selectedDifficulty = null;
 
   if (difficulty === "beginner") {
-    selectedDifficulty = useGetWorkoutsBeginnerQuery();
+    selectedDifficulty = useGetWorkoutsQuery();
   } else if (difficulty === "intermediate") {
-    selectedDifficulty = useGetWorkoutsIntermediateQuery();
+    selectedDifficulty = useGetWorkoutsQuery();
   } else if (difficulty === "advanced") {
-    selectedDifficulty = useGetWorkoutsAdvancedQuery();
+    selectedDifficulty = useGetWorkoutsQuery();
   } else {
     return <div>No workouts available</div>;
   }
@@ -28,8 +24,6 @@ export default function Exercises({ difficulty }) {
     return <div>Loading...</div>;
   }
 
-  // console.log(workouts);
-
   // const previousExercise = async (evt) => {
   //   evt.preventDefault();
   //   previousExercise({ CHANGECODEHERETOGOTOPREVIOUSEXERCISE });
@@ -41,11 +35,12 @@ export default function Exercises({ difficulty }) {
   // };
 
   const exercise = workouts.find((ele) => ele);
-  // console.log(exercise);
 
-  const result = workouts[0].Workout_Exercises[0].exercises.description;
+  let exerciseDescription = exercise.Workout_Exercises[0].exercises.description;
+  let exerciseVideo = exercise.Workout_Exercises[0].exercises.video;
 
-  // console.log(result);
+  console.log(exerciseDescription);
+  console.log(exerciseVideo);
 
   return (
     <div>
@@ -60,9 +55,17 @@ export default function Exercises({ difficulty }) {
           {exercise.name.charAt(0).toUpperCase() + exercise.name.slice(1)}
         </h3>
         <br /> {/** Remove this before Lester see's it */}
-        <iframe src='URL'></iframe>
+        <iframe
+          width='560'
+          height='315'
+          src={exerciseVideo}
+          title='{exercise.name} Video'
+          frameborder='0'
+          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+          allowfullscreen
+        ></iframe>
       </main>
-      <h2>{result}</h2>
+      <h2>{exerciseDescription}</h2>
       <table>
         <thead>
           <tr>
