@@ -1,16 +1,20 @@
 import React, { Fragment } from "react";
 
-import { useGetWorkoutsQuery } from "../workouts/workoutsSlice";
+import {
+  useGetWorkoutsBeginnerQuery,
+  useGetWorkoutsIntermediateQuery,
+  useGetWorkoutsAdvancedQuery,
+} from "../workouts/workoutsSlice";
 
 export default function Exercises({ difficulty }) {
   let selectedDifficulty = null;
 
   if (difficulty === "beginner") {
-    selectedDifficulty = useGetWorkoutsQuery();
+    selectedDifficulty = useGetWorkoutsBeginnerQuery();
   } else if (difficulty === "intermediate") {
-    selectedDifficulty = useGetWorkoutsQuery();
+    selectedDifficulty = useGetWorkoutsIntermediateQuery();
   } else if (difficulty === "advanced") {
-    selectedDifficulty = useGetWorkoutsQuery();
+    selectedDifficulty = useGetWorkoutsAdvancedQuery();
   } else {
     return <div>No workouts available</div>;
   }
