@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import {
   useGetWorkoutsBeginnerQuery,
@@ -42,10 +42,27 @@ export default function Exercises({ difficulty }) {
 
   let exerciseDescription = exercise.Workout_Exercises[0].exercises.description;
   let exerciseVideo = exercise.Workout_Exercises[0].exercises.video;
+  let exerciseName = exercise.name;
+  let exerciseSetsGoal = exercise.Workout_Exercises[0].setsGoals;
+  let exerciseRepsGoal = exercise.Workout_Exercises[0].repsGoals;
 
   console.log(exerciseDescription);
   console.log(exerciseVideo);
+  // const [inputFields, setInputFields] = useState([
+  //   exerciseName,
+  //   exerciseSetsGoal,
+  //   exerciseRepsGoal,
+  // ]);
 
+  // const handleFormChange = () => {};
+  // const addAnotherSet = () => {
+  //   let newSet = {
+  //     exerciseName,
+  //     exerciseSetsGoal,
+  //     exerciseRepsGoal,
+  //   };
+  //   setInputSet([...inputFields, newSet]);
+  // };
   return (
     <div>
       <main>
@@ -82,7 +99,13 @@ export default function Exercises({ difficulty }) {
           </tr>
         </thead>
         <tbody>
-          {workouts.map((workout) => (
+          <tr>
+            <td>{exerciseName}</td>
+
+            <td>{exerciseSetsGoal}</td>
+            <td>{exerciseRepsGoal}</td>
+
+            {/* {workouts.map((workout) => (
             <tr key={workout.id}>
               <td>{workout.name}</td>
               {workout.Workout_Exercises.map((Workout_Exercise, index) => (
@@ -90,33 +113,32 @@ export default function Exercises({ difficulty }) {
                   <td>{Workout_Exercise.setsGoals}</td>
                   <td>{Workout_Exercise.repsGoals}</td>
                 </Fragment>
-              ))}
-              <td>
-                {/* My Sets input box */}
-                <label name='sets'>
-                  <input type='number' id='sets' />
-                </label>
-              </td>
-              <td>
-                {/* My Reps input box */}
-                <label name='reps'>
-                  <input type='number' id='reps' />
-                </label>
-              </td>
-              <td>
-                <button
-                  onClick='/exercise'
-                  method='DELETE'
-                  name='deleteExercise'
-                >
-                  X
-                </button>
-              </td>
-            </tr>
-          ))}
+              ))} */}
+            <td>
+              {/* My Sets input box */}
+              <label name='sets'>
+                <input type='number' id='sets' />
+              </label>
+            </td>
+            <td>
+              {/* My Reps input box */}
+              <label name='reps'>
+                <input type='number' id='reps' />
+              </label>
+            </td>
+            <td>
+              <button onClick='/exercise' method='DELETE' name='deleteExercise'>
+                X
+              </button>
+            </td>
+          </tr>
+          {/* ))} */}
         </tbody>
       </table>
-      <button id='addBtn'>Submit Workout</button>
+      <tr>
+        <button id='addBtn'>Add Another Set</button>
+        <button id='addBtn'>Submit Workout</button>
+      </tr>
     </div>
   );
 }
