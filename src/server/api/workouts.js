@@ -32,7 +32,7 @@ router.get("/", async (req, res, next) => {
 router.get("/beginner", async (req, res, next) => {
   try {
     const workout = await prisma.workouts.findMany({
-      where: { difficulty: "beginner" },
+      where: { difficulty: "Beginner" },
       include: { Workout_Exercises: { include: { exercises: true } } },
     });
 
@@ -46,7 +46,7 @@ router.get("/beginner", async (req, res, next) => {
 router.get("/intermediate", async (req, res, next) => {
   try {
     const workouts = await prisma.workouts.findMany({
-      where: { difficulty: "intermediate" },
+      where: { difficulty: "Intermediate" },
       include: { Workout_Exercises: { include: { exercises: true } } },
     });
 
@@ -60,7 +60,7 @@ router.get("/intermediate", async (req, res, next) => {
 router.get("/advanced", async (req, res, next) => {
   try {
     const workouts = await prisma.workouts.findMany({
-      where: { difficulty: "advanced" },
+      where: { difficulty: "Advanced" },
       include: { Workout_Exercises: { include: { exercises: true } } },
     });
 
