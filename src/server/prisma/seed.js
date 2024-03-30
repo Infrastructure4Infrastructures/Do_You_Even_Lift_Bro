@@ -1,137 +1,64 @@
 const prisma = require("../prisma");
 const { faker } = require("@faker-js/faker");
 
-const {
-  beginnerExercises,
-  intermediateExercises,
-  advancedExercises,
-} = require("./exercise_Data");
+const { exampleExercises } = require("./exercise_Data");
 
 const seed = async () => {
-  const randomUserName = faker.internet.userName();
-  const randomPassword = faker.internet.password();
-
   const random = (n) => Math.floor(Math.random() * n) + 1;
+  const storedUserIds = [];
 
-  for (let i = 0; i < beginnerExercises.length; i++) {
-    const { category, description, video } = beginnerExercises[i];
-    await prisma.exercises.upsert({
+  for (let i = 0; i < exampleExercises.length; i++) {
+    const randomUserName = faker.internet.userName();
+    const randomPassword = faker.internet.password();
+
+    const user = await prisma.user.upsert({
       where: { id: i + 1 },
       update: {},
       create: {
-        name: "Beginner Workout",
-        description,
-        category,
-        video,
+        username: randomUserName,
+        password: randomPassword,
       },
     });
+    storedUserIds.push(user.id);
   }
-  for (let i = 0; i < beginnerExercises.length; i++) {
-    const { setsGoals, repsGoals } = beginnerExercises[i];
+
+  for (let i = 0; i < exampleExercises.length; i++) {
+    const {
+      setsGoals,
+      repsGoals,
+      name,
+      category,
+      description,
+      video,
+      difficulty,
+    } = exampleExercises[i];
+
     await prisma.workout_Exercises.upsert({
       where: { id: i + 1 },
       update: {},
       create: {
         setsGoals: +setsGoals,
         repsGoals: +repsGoals,
-      },
-    });
-  }
-  for (let i = 0; i < beginnerExercises.length; i++) {
-    const { name } = beginnerExercises[i];
-    await prisma.workouts.upsert({
-      where: { id: i + 1 },
-      update: {},
-      create: {
-        name,
-        difficulty: "Beginner",
-      },
-    });
-  }
-  for (let i = 0; i < intermediateExercises.length; i++) {
-    const { category, description, video } = intermediateExercises[i];
-    await prisma.exercises.upsert({
-      where: { id: i + 1 },
-      update: {},
-      create: {
-        name: "Intermediate Workout",
-        description,
-        category,
-        video,
-      },
-    });
-  }
-  for (let i = 0; i < intermediateExercises.length; i++) {
-    const { setsGoals, repsGoals } = intermediateExercises[i];
-    await prisma.workout_Exercises.upsert({
-      where: { id: i + 1 },
-      update: {},
-      create: {
-        setsGoals: +setsGoals,
-        repsGoals: +repsGoals,
-      },
-    });
-  }
-  for (let i = 0; i < intermediateExercises.length; i++) {
-    const { name } = intermediateExercises[i];
-    await prisma.workouts.upsert({
-      where: { id: i + 1 },
-      update: {},
-      create: {
-        name,
-        difficulty: "Intermediate",
-      },
-    });
-  }
-  for (let i = 0; i < advancedExercises.length; i++) {
-    const { category, description, video } = advancedExercises[i];
-    await prisma.exercises.upsert({
-      where: { id: i + 1 },
-      update: {},
-      create: {
-        name: "Advanced Workout",
-        description,
-        category,
-        video,
-      },
-    });
-  }
-  for (let i = 0; i < advancedExercises.length; i++) {
-    const { setsGoals, repsGoals } = advancedExercises[i];
-    await prisma.workout_Exercises.upsert({
-      where: { id: i + 1 },
-      update: {},
-      create: {
-        setsGoals: +setsGoals,
-        repsGoals: +repsGoals,
-      },
-    });
-  }
-  for (let i = 0; i < advancedExercises.length; i++) {
-    const { name } = advancedExercises[i];
-    await prisma.workouts.upsert({
-      where: { id: i + 1 },
-      update: {},
-      create: {
-        name,
-        difficulty: "Advanced",
-      },
-    });
-  }
-  for (let i = 0; i < 15; i++) {
-    await prisma.user.upsert({
-      connectOrCreate: {
-        where: { id: i + 1 },
-        update: {},
-        create: {
-          username: randomUserName,
-          password: randomPassword,
+        workouts: {
+          create: {
+            name,
+            difficulty,
+            user: { connect: { id: storedUserIds[i] } },
+          },
+        },
+        exercises: {
+          create: {
+            name,
+            description,
+            category,
+            video,
+          },
         },
       },
     });
   }
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= exampleExercises.length; i++) {
     const randomFoodItem = faker.animal.type();
     const randomDescription = faker.lorem.word();
 
@@ -145,18 +72,18 @@ const seed = async () => {
       },
     });
   }
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= exampleExercises.length; i++) {
     await prisma.meal.upsert({
       where: { id: i },
       update: {},
       create: {
         mealNum: random(200),
-        userId: i,
+        user: { connect: { id: i } },
       },
     });
   }
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= exampleExercises.length; i++) {
     await prisma.meal_Food_Items.upsert({
       where: { id: i },
       update: {},
@@ -167,7 +94,7 @@ const seed = async () => {
     });
   }
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= exampleExercises.length; i++) {
     await prisma.journal.upsert({
       where: { id: i },
       update: {},
@@ -177,7 +104,7 @@ const seed = async () => {
     });
   }
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= exampleExercises.length; i++) {
     const randomJournalEntry = faker.lorem.words();
     const randomDate = faker.date.anytime();
 
