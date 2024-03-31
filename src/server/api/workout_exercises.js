@@ -65,7 +65,7 @@ router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
   }
 });
 
-/** Deletes and exercise from a workout*/
+/** Deletes an exercise from a workout*/
 router.delete("/:workoutId/:exerciseId", async (req, res, next) => {
   try {
     // const id = +req.params.id;
