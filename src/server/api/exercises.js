@@ -43,7 +43,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const updatedExercises = await prisma.exercises.update({
       where: { id },
-      data: { name, description, category }
+      data: { name, description, category },
     });
     res.json(updatedExercises);
   } catch (err) {
@@ -64,8 +64,8 @@ router.post("/", async (req, res, next) => {
         name,
         description,
         category,
-        user: { connect: { id: res.locals.user.id } }
-      }
+        user: { connect: { id: res.locals.user.id } },
+      },
     });
     res.json(exercise);
   } catch (err) {
@@ -87,9 +87,9 @@ router.post("/", async (req, res, next) => {
 /** Deletes exercise by id */
 router.delete("/:id", async (req, res, next) => {
   try {
-    const id = +req.params.id;
+    const id = req.params.id;
 
-    await prisma.exercises.delete({ where: { id } });
+    await prisma.exercises.delete({ where: { id: +id } });
     res.sendStatus(204);
   } catch (err) {
     next(err);

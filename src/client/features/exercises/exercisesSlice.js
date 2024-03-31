@@ -28,9 +28,9 @@ const exercisesApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Exercises"],
     }),
-    deleteExercises: builder.mutation({
-      query: (exerciseId) => ({
-        url: `/exercises/${exerciseId}`,
+    deleteExercisesById: builder.mutation({
+      query: (id) => ({
+        url: `/workout_exercises/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Exercises"],
@@ -43,5 +43,5 @@ export const {
   useGetExercisesByIdQuery,
   useCreateExercisesMutation,
   useEditExercisesMutation,
-  useDeleteExercisesMutation,
+  useDeleteExercisesByIdMutation,
 } = exercisesApi;

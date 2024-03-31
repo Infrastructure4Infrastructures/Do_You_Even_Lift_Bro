@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { useDeleteExercisesMutation } from "./exercisesSlice";
+import { useDeleteExercisesByIdMutation } from "./exercisesSlice";
 import {
   useGetWorkoutsBeginnerQuery,
   useGetWorkoutsIntermediateQuery,
@@ -8,7 +8,7 @@ import {
 
 export default function Exercises({ difficulty }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [deleteExercise] = useDeleteExercisesMutation();
+  const [deleteExercise] = useDeleteExercisesByIdMutation();
 
   let selectedDifficulty = null;
 
@@ -85,7 +85,7 @@ export default function Exercises({ difficulty }) {
     // Push every iteration of setsGoal to the empty array of rows
     rows.push(setsGoal);
   }
-
+  console.log(workouts);
   return (
     <div>
       <main>
