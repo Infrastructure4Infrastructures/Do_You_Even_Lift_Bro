@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
 import { useState } from "react";
 import Meal from "./Meal.jsx";
-import { useCreateMealMutation, useGetMealsQuery } from "./mealSlice";
+import { useCreateMealMutation } from "./mealSlice";
 
 export default function Meals() {
   const token = useSelector(selectToken);
-  const { data: meals } = useGetMealsQuery();
-  const [foodEntry, setFoodEntry] = useState("");
+
+  const [name, setName] = useState("");
   const [calories, setCalories] = useState("");
   const [date, setDate] = useState("");
 
@@ -15,14 +15,10 @@ export default function Meals() {
 
   const addFood = (event) => {
     event.preventDefault();
-    createMeal({ foodEntry, calories, date });
-    setFoodEntry("");
+    createMeal({ name, calories, date });
+    setName("");
     setCalories("");
     setDate("");
-  };
-
-  const handleDateChange = (e) => {
-    setDate(e.target.value);
   };
 
   if (!token) {
@@ -35,16 +31,16 @@ export default function Meals() {
         entry.
       </h3>
       <form onSubmit={addFood}>
-        <label for='foodEntry'>
+        <label htmlFor='name'>
           Food Entry:
           <input
             type='text'
-            value={foodEntry}
-            onChange={(e) => setFoodEntry(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </label>
 
-        <label for='Calories'>
+        <label htmlFor='Calories'>
           Calories:
           <input
             type='number'
@@ -53,7 +49,7 @@ export default function Meals() {
           />
         </label>
 
-        <label for='dateTime'>
+        <label htmlFor='dateTime'>
           Date/Time:
           <input
             type='date'
@@ -64,7 +60,7 @@ export default function Meals() {
 
         <button type='submit'>Add Food</button>
       </form>
-      <Meal meals={meals} newMeal={{ foodEntry, calories, date }} />
+      <Meal />
     </div>
   );
 }

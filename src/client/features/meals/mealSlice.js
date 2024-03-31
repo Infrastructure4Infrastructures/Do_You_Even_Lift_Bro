@@ -14,7 +14,7 @@ const mealsApi = api.injectEndpoints({
       query: (meal) => ({
         url: "/meal",
         method: "POST",
-        body: meal,
+        body: { meal },
       }),
       invalidatesTags: ["Meal"],
     }),

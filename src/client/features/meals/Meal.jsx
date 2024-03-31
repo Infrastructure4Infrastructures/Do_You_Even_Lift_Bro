@@ -1,23 +1,20 @@
-import { Fragment } from "react";
 import { useDeleteMealMutation, useGetMealsQuery } from "./mealSlice";
-
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectToken } from "../auth/authSlice";
 /** Allows user to read, update, and delete a meal */
-export default function Meal({}) {
+export default function Meal({ meal }) {
   const { data: meals } = useGetMealsQuery();
   const [deleteMeal] = useDeleteMealMutation();
+  const token = useSelector(selectToken);
+  const navigate = useNavigate();
+
+  if (!token) {
+    return "Must be logged in to view Meal Entries!";
+  }
+
   console.log(meals);
-  // const token = useSelector(selectToken);
-
-  // const [editMeal] = useEditMealMutation();
-  // const [deleteMeal] = useDeleteMealMutation();
-
   // const [description, setDescription] = useState(meal.description);
-
-  // /** Updates the meal's `done` status */
-  // const toggleMeal = async (evt) => {
-  //   const done = evt.target.checked;
-  //   editMeal({ ...meal, done });
-  // };
 
   // /** Saves the food meal */
   // const save = async (evt) => {
@@ -26,9 +23,10 @@ export default function Meal({}) {
   // };
 
   /** Deletes the meal */
-  const onDelete = async (mealId, evt) => {
+  const onDelete = async (evt) => {
     evt.preventDefault();
-    deleteMeal(mealId);
+    deleteMeal(meal.id);
+    navigate("/meals");
   };
 
   return (
@@ -47,15 +45,17 @@ export default function Meal({}) {
           {meals &&
             meals.map((meal) =>
               meal.Meal_Food_Items.map((Meal_Food_Items, index) => (
-                <tr>
-                  <Fragment key={index}>
+                <tr key={index}>
+                  <>
                     <td>{meal.date}</td>
                     <td>{Meal_Food_Items.food_item.description}</td>
                     <td>{Meal_Food_Items.food_item.calories}</td>
                     <td>
-                      <button onClick={onDelete}>X</button>
+                      <button onClick={onDelete} aria-label='delete'>
+                        X
+                      </button>
                     </td>
-                  </Fragment>
+                  </>
                 </tr>
               ))
             )}

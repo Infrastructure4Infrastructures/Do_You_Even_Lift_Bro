@@ -75,8 +75,13 @@ router.post("/", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
+    await prisma.meal_Food_Items.deleteMany({
+      where: {
+        mealId: +id,
+      },
+    });
 
-    const deleted_meal = await prisma.meal.delete({ where: { id } });
+    const deleted_meal = await prisma.meal.delete({ where: { id: +id } });
     res.json(deleted_meal);
   } catch (err) {
     next(err);
