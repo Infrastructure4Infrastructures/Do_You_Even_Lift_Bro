@@ -1,11 +1,5 @@
-// import { useState } from "react";
-// import { useDeleteMealMutation, useEditMealMutation } from "./mealSlice";
-// import { meal } from "../../../server/prisma";
-
-// import { useSelector } from "react-redux";
 import { Fragment } from "react";
 import { useDeleteMealMutation, useGetMealsQuery } from "./mealSlice";
-// import { selectToken } from "../auth/authSlice";
 
 /** Allows user to read, update, and delete a meal */
 export default function Meal({}) {
@@ -40,26 +34,33 @@ export default function Meal({}) {
   return (
     <div className='meals_container'>
       <h2>Food Journal</h2>
-      <tr>
-        <th>Date/Time</th>
-        <th>Food Entry</th>
-        <th>Calories</th>
-        <th>Remove Entry</th>
-      </tr>
-      {meals.map((meal) => (
-        <tr key={meal.id}>
-          {meal.Meal_Food_Items.map((Meal_Food_Items, index) => (
-            <Fragment key={index}>
-              <td>{Meal_Food_Items.food_item.date}</td>
-              <td>{Meal_Food_Items.food_item.foodEntry}</td>
-              <td>{Meal_Food_Items.food_item.calories}</td>
-            </Fragment>
-          ))}
-          <td>
-            <button onClick={onDelete}>X</button>
-          </td>
-        </tr>
-      ))}
+      <table>
+        <thead>
+          <tr>
+            <th>Date/Time</th>
+            <th>Food Entry</th>
+            <th>Calories</th>
+            <th>Remove Entry</th>
+          </tr>
+        </thead>
+        <tbody>
+          {meals &&
+            meals.map((meal) =>
+              meal.Meal_Food_Items.map((Meal_Food_Items, index) => (
+                <tr>
+                  <Fragment key={index}>
+                    <td>{meal.date}</td>
+                    <td>{Meal_Food_Items.food_item.description}</td>
+                    <td>{Meal_Food_Items.food_item.calories}</td>
+                    <td>
+                      <button onClick={onDelete}>X</button>
+                    </td>
+                  </Fragment>
+                </tr>
+              ))
+            )}
+        </tbody>
+      </table>
     </div>
   );
 }

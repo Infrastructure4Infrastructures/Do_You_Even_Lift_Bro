@@ -2,17 +2,16 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
 import { useState } from "react";
 import Meal from "./Meal.jsx";
-import { useCreateMealMutation } from "./mealSlice";
+import { useCreateMealMutation, useGetMealsQuery } from "./mealSlice";
 
 export default function Meals() {
   const token = useSelector(selectToken);
+  const { data: meals } = useGetMealsQuery();
   const [foodEntry, setFoodEntry] = useState("");
   const [calories, setCalories] = useState("");
   const [date, setDate] = useState("");
 
   const [createMeal] = useCreateMealMutation();
-
-  // const dispatch = useDispatch();
 
   const addFood = (event) => {
     event.preventDefault();
@@ -21,6 +20,11 @@ export default function Meals() {
     setCalories("");
     setDate("");
   };
+
+  const handleDateChange = (e) => {
+    setDate(e.target.value);
+  };
+
   if (!token) {
     return <p>You must be logged in to see meals.</p>;
   }
@@ -43,7 +47,7 @@ export default function Meals() {
         <label for='Calories'>
           Calories:
           <input
-            type='text'
+            type='number'
             value={calories}
             onChange={(e) => setCalories(e.target.value)}
           />
@@ -52,17 +56,15 @@ export default function Meals() {
         <label for='dateTime'>
           Date/Time:
           <input
-            type='dateTime'
+            type='date'
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
         </label>
 
-        <button onClick='/food_item' method='POST'>
-          Add Food
-        </button>
+        <button type='submit'>Add Food</button>
       </form>
-      <Meal />
+      <Meal meals={meals} newMeal={{ foodEntry, calories, date }} />
     </div>
   );
 }

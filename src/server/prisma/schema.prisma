@@ -54,6 +54,7 @@ model Workout_Exercises {
 
 model Meal {
   id              Int               @id @default(autoincrement())
+  date            DateTime
   mealNum         Int
   user            User              @relation(fields: [userId], references: [id])
   userId          Int

@@ -6,7 +6,7 @@ const mealsApi = api.injectEndpoints({
       query: () => "/meal",
       providesTags: ["meal"],
     }),
-    getMeal: builder.query({
+    getMealById: builder.query({
       query: (id) => `/meal/${id}`,
       providesTags: ["meal"],
     }),
@@ -19,8 +19,8 @@ const mealsApi = api.injectEndpoints({
       invalidatesTags: ["Meal"],
     }),
     editMeal: builder.mutation({
-      query: (meal) => ({
-        url: `/meal/${food_Item.id}`,
+      query: (id) => ({
+        url: `/meal/${id}`,
         method: "PATCH",
         body: meal,
       }),
@@ -52,7 +52,7 @@ const mealsApi = api.injectEndpoints({
 
 export const {
   useGetMealsQuery,
-  useGetMealQuery,
+  useGetMealByIdQuery,
   useCreateMealMutation,
   useEditMealMutation,
   useDeleteMealMutation,

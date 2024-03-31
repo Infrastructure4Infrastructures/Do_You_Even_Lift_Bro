@@ -8,7 +8,7 @@ module.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const meals = await prisma.meal.findMany({
-      include: { Meal_Food_Items: { include: { food_item: true } } }
+      include: { Meal_Food_Items: { include: { food_item: true } } },
     });
 
     res.json(meals);
@@ -25,7 +25,7 @@ router.get("/:id", async (req, res, next) => {
     const meals = await prisma.meal.findUnique({
       // where: { userId: res.locals.user.id },
       where: { id },
-      include: { Meal_Food_Items: { include: { food_item: true } } }
+      include: { Meal_Food_Items: { include: { food_item: true } } },
     });
 
     res.json(meals);
@@ -45,7 +45,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const meals = await prisma.meal.update({
       where: { id },
-      data: { mealNum: +mealNum }
+      data: { mealNum: +mealNum },
     });
     res.json(meals);
   } catch (err) {
@@ -56,13 +56,14 @@ router.patch("/:id", async (req, res, next) => {
 /** Add meal entry  */
 router.post("/", async (req, res, next) => {
   try {
-    const { mealNum } = req.body;
+    const { date, mealNum } = req.body;
 
     const meal = await prisma.meal.create({
       data: {
+        date,
         mealNum: +mealNum,
-        user: { connect: { id: +res.locals.user.id } }
-      }
+        user: { connect: { id: +res.locals.user.id } },
+      },
     });
     res.json(meal);
   } catch (err) {
