@@ -1,47 +1,66 @@
-import { useState } from "react";
-import { useDeleteMealMutation, useEditMealMutation } from "./mealSlice";
-// import { meal } from "../../../server/prisma";
-
+import { useDeleteMealMutation, useGetMealsQuery } from "./mealSlice";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectToken } from "../auth/authSlice";
 /** Allows user to read, update, and delete a meal */
 export default function Meal({ meal }) {
-  const [editMeal] = useEditMealMutation();
+  const { data: meals } = useGetMealsQuery();
   const [deleteMeal] = useDeleteMealMutation();
+  const token = useSelector(selectToken);
+  const navigate = useNavigate();
 
-  const [description, setDescription] = useState(meal.description);
+  if (!token) {
+    return "Must be logged in to view Meal Entries!";
+  }
 
-  /** Updates the meal's `done` status */
-  const toggleMeal = async (evt) => {
-    const done = evt.target.checked;
-    editMeal({ ...meal, done });
-  };
+  console.log(meals);
+  // const [description, setDescription] = useState(meal.description);
 
-  /** Saves the food meal */
-  const save = async (evt) => {
-    evt.preventDefault();
-    editMeal({ ...meal, description });
-  };
+  // /** Saves the food meal */
+  // const save = async (evt) => {
+  //   evt.preventDefault();
+  //   editMeal({ ...meal, description });
+  // };
 
   /** Deletes the meal */
   const onDelete = async (evt) => {
     evt.preventDefault();
     deleteMeal(meal.id);
+    navigate("/meals");
   };
 
   return (
-    <li>
-      <form onSubmit={save}>
-        <input type='checkbox' checked={meal.done} onChange={toggleMeal} />
-        <input
-          type='text'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <button>Save</button>
-        <button onClick={onDelete} aria-label='delete'>
-          🞪
-        </button>
-      </form>
-    </li>
+    <div className='meals_container'>
+      <h2>Food Journal</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date/Time</th>
+            <th>Food Entry</th>
+            <th>Calories</th>
+            <th>Remove Entry</th>
+          </tr>
+        </thead>
+        <tbody>
+          {meals &&
+            meals.map((meal) =>
+              meal.Meal_Food_Items.map((Meal_Food_Items, index) => (
+                <tr key={index}>
+                  <>
+                    <td>{meal.date}</td>
+                    <td>{Meal_Food_Items.food_item.description}</td>
+                    <td>{Meal_Food_Items.food_item.calories}</td>
+                    <td>
+                      <button onClick={onDelete} aria-label='delete'>
+                        X
+                      </button>
+                    </td>
+                  </>
+                </tr>
+              ))
+            )}
+        </tbody>
+      </table>
+    </div>
   );
 }

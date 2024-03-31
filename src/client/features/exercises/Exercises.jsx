@@ -132,7 +132,6 @@ export default function Exercises({ difficulty }) {
               </button>
             </td>
           </tr>
-          {/* ))} */}
         </tbody>
       </table>
       <tr>

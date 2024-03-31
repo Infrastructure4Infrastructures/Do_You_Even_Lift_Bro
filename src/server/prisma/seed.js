@@ -73,10 +73,12 @@ const seed = async () => {
     });
   }
   for (let i = 1; i <= exampleExercises.length; i++) {
+    const randomDate = faker.date.anytime();
     await prisma.meal.upsert({
       where: { id: i },
       update: {},
       create: {
+        date: randomDate,
         mealNum: random(200),
         user: { connect: { id: i } },
       },
