@@ -3,6 +3,8 @@ import { selectToken } from "../auth/authSlice";
 import Exercises from "../exercises/Exercises";
 import { NavLink } from "react-router-dom";
 
+import "./workouts.css";
+
 export default function WorkoutBeginner({}) {
   const token = useSelector(selectToken);
   const difficulty = "beginner";
@@ -13,7 +15,7 @@ export default function WorkoutBeginner({}) {
 
   return (
     <div>
-      <h1>Beginner Workout</h1>
+      <h1 class="workoutDifTitle">Beginner Workout</h1>
       <Exercises difficulty={difficulty} />
       <section>
         <NavLink to='/meals'>Visit Food Journal</NavLink>

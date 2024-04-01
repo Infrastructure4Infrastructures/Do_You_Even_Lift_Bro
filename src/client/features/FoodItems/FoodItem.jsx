@@ -7,7 +7,7 @@ export default function FoodItem({ foodItem }) {
   const [editFoodItem] = useEditFoodItemMutation();
   const [deleteFoodItem] = useDeleteFoodItemMutation();
 
-  const [description, setDescription] = useState(.description);
+  const [description, setDescription] = useState(description);
 
   /** Updates the food item's `done` status */
   const toggleFoodItem = async (evt) => {
@@ -28,7 +28,7 @@ export default function FoodItem({ foodItem }) {
   };
 
   return (
-    <li>
+    <li class="foodForms">
       <form onSubmit={save}>
         <input type="checkbox" checked={foodItem.done} onChange={toggleFoodItem} />
         <input

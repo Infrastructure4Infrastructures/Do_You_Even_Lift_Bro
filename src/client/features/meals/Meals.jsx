@@ -3,6 +3,7 @@ import { selectToken } from "../auth/authSlice";
 import { useState } from "react";
 import Meal from "./Meal.jsx";
 import { useCreateMealMutation } from "./mealSlice";
+import "./meals.css"
 
 export default function Meals() {
   const token = useSelector(selectToken);
@@ -26,11 +27,14 @@ export default function Meals() {
   }
   return (
     <div>
-      <h3>
+      <section class="inputInfo">
+      <h3 >
         Track your meals in the input below. Click "Add Meal" to add a new meal
         entry.
       </h3>
-      <form onSubmit={addFood}>
+      </section>
+
+      <form class="foodForms" onSubmit={addFood}>
         <label htmlFor='name'>
           Food Entry:
           <input

@@ -18,30 +18,30 @@ export default function Navbar() {
 
   return (
     <nav className='Navbar'>
-      <h1>Do You Even Lift Bro</h1>
+      <h1 class="logo" >Do You Even Lift Bro</h1>
       <menu>
         {location.pathname === "/login" || location.pathname === "/register" ? (
           <li>
-            <NavLink to='/'>Welcome Page</NavLink>
+            <NavLink class="navlink" to='/'>Welcome Page</NavLink>
           </li>
         ) : location.pathname === "/meals" ||
           location.pathname === "/workouts" ||
           location.pathname !== "/" ? (
           <li>
-            <NavLink to='/programs'>Workout Programs</NavLink>
+            <NavLink class="navlink" to='/programs'>Workout Programs</NavLink>
           </li>
         ) : location.pathname === "/programs" ? (
           <li>
-            <NavLink to='/meals'>Food journal</NavLink>
+            <NavLink class="navlink" to='/meals'>Food journal</NavLink>
           </li>
         ) : null}
         {token ? (
           <li>
-            <a onClick={handleLogout}>Log Out</a>
+            <a class="navlink" onClick={handleLogout}>Log Out</a>
           </li>
         ) : (
           <li>
-            <NavLink to='/login'>Log In / Register</NavLink>
+            <NavLink class="navlink" to='/login'>Log In / Register</NavLink>
           </li>
         )}
       </menu>
