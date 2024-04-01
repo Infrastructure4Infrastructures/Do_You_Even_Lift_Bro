@@ -1,0 +1,25 @@
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+    display: flex;
+    flex-direction: column;
+    background-color: antiquewhite;
+    }
+    h2 {
+      text-align: center;
+      color:cornflowerblue
+    }
+    .difbutton {
+        padding-top: 1.25rem;
+        padding-bottom: 1rem;
+        text-align: center;
+
+    }
+    section {
+        text-align: center;
+        padding-top: 2rem;
+        padding-bottom: 1.5rem;
+    }

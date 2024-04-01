@@ -33,7 +33,9 @@
     font-size: 1rem;
     color: navy;
     text-align: center;
-    margin-top: -.9rem;
+
+    margin-top: -1rem;
+
   }
   /* .tbodyex {
     justify-content: space-around;
@@ -53,5 +55,9 @@
         border-bottom: 15px solid transparent;
         color:black;
         background-clip: padding-box;
+
         
+
+        justify-content: center;
+
      } */

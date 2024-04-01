@@ -22,7 +22,9 @@ export default function Navbar() {
       <menu>
         {location.pathname === "/login" || location.pathname === "/register" ? (
           <li>
+
             <NavLink class="navlink" id="welcomeid" to='/'>Welcome Page</NavLink>
+
           </li>
         ) : location.pathname === "/meals" ||
           location.pathname === "/workouts" ||

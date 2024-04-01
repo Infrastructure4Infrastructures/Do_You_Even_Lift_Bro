@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 // import NewTask from "./NewTask";
 // import { useGetTasksQuery } from "./taskSlice";
 
-// import "./Tasks.less";
+import "./programs.css";
 
 /** Main interface for user to interact with their tasks */
 export default function Programs() {
@@ -16,27 +16,27 @@ export default function Programs() {
   }
 
   return (
-    <div>
+    <body>
       <h2>Select a Workout Difficulty</h2>
 
       <h3></h3>
-      <a href='/workouts/beginner'>
+      <a class="difbutton" href='/workouts/beginner'>
         <button>Beginner Workout</button>
       </a>
 
       <h3></h3>
-      <a href='/workouts/intermediate'>
+      <a class="difbutton" href='/workouts/intermediate'>
         <button>Intermediate Workout</button>
       </a>
 
       <h3></h3>
-      <a href='/workouts/advanced'>
+      <a class="difbutton" href='/workouts/advanced'>
         <button>Advanced Workout</button>
       </a>
 
       <section>
-        <NavLink to='/meals'>Visit Food Journal</NavLink>
+        <NavLink class="profjbutton" to='/meals'>Visit Food Journal</NavLink>
       </section>
-    </div>
+    </body>
   );
 }

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
 /** Allows user to read, update, and delete a meal */
+import "./meals.css";
+
 export default function Meal({ meal }) {
   const { data: meals } = useGetMealsQuery();
   const [deleteMeal] = useDeleteMealMutation();
@@ -31,14 +33,14 @@ export default function Meal({ meal }) {
 
   return (
     <div className='meals_container'>
-      <h2>Food Journal</h2>
-      <table>
+      <h2 class="fjTitle">Food Journal</h2>
+      <table class="foodFormName">
         <thead>
-          <tr>
-            <th>Date/Time</th>
-            <th>Food Entry</th>
-            <th>Calories</th>
-            <th>Remove Entry</th>
+          <tr >
+            <th class="ftInpLab">Date/Time</th>
+            <th class="ftInpLab">Food Entry</th>
+            <th class="ftInpLab">Calories</th>
+            <th class="ftInpLab">Remove Entry</th>
           </tr>
         </thead>
         <tbody>

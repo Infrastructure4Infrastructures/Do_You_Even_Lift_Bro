@@ -15,6 +15,8 @@ import WorkoutBeginner from "./features/workouts/WorkoutBeginner.jsx";
 import WorkoutIntermediate from "./features/workouts/WorkoutIntermediate.jsx";
 import WorkoutAdvanced from "./features/workouts/WorkoutAdvanced.jsx";
 
+// import "features/programs.css";
+
 const router = createBrowserRouter([
   {
     path: "/",
