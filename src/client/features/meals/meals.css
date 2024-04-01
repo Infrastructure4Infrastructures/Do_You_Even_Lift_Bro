@@ -1,0 +1,27 @@
+    table { 
+    width: 100%;
+    border-spacing: .25rem;
+     border-collapse:
+      collapse; 
+    } 
+    th { 
+        text-align: left;
+    }
+    th, td { 
+        padding: 10px;
+        border-bottom: 15px solid transparent;
+        color: rgb(0, 0, 0);
+        background-clip: padding-box;
+        justify-content: center;
+    } 
+    .inputInfo {
+        text-align: center;
+        color: slategrey;
+        margin-bottom: -.5rem;
+        margin-top: -.75rem;
+    }
+    .foodForms {
+        margin-top: -1rem;
+        margin-bottom: .5rem;
+        display: flex;
+    }
