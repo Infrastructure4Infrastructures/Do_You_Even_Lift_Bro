@@ -87,7 +87,6 @@ export default function Exercises({ difficulty }) {
     // Push every iteration of setsGoal to the empty array of rows
     rows.push(setsGoal);
   }
-  console.log(workouts);
   return (
     <div>
       <main>
