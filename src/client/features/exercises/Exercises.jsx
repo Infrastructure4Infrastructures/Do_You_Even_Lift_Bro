@@ -6,6 +6,8 @@ import {
   useGetWorkoutsAdvancedQuery,
 } from "../workouts/workoutsSlice";
 
+import "./exercises.css";
+
 export default function Exercises({ difficulty }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [deleteExercise] = useDeleteExercisesByIdMutation();
@@ -89,17 +91,24 @@ export default function Exercises({ difficulty }) {
   return (
     <div>
       <main>
-        <a>
-          <button onClick={handlePrevious}>Previous</button>
-        </a>
-        <a>
-          <button onClick={handleNext}>Next</button>
-        </a>
-        <h3>
-          {exercise.name.charAt(0).toUpperCase() + exercise.name.slice(1)}
-        </h3>
 
-        <iframe
+        <section class="buttonsect">
+        <a id="">
+          <button class="prebut" onClick={handlePrevious}>Previous</button>
+        </a>
+        <a>
+          <button class="nextbut" onClick={handleNext}>Next</button>
+        </a>
+        </section>
+
+        <section class="exnamesec">
+        <h2 class="exname">
+          {exercise.name.charAt(0).toUpperCase() + exercise.name.slice(1)}
+        </h2>
+        </section>
+
+        <section class="video">
+        <iframe 
           width='560'
           height='315'
           src={exerciseVideo}
@@ -107,8 +116,10 @@ export default function Exercises({ difficulty }) {
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowFullScreen
         ></iframe>
+        </section>
+
       </main>
-      <h2>{exerciseDescription}</h2>
+      <h3 class="exdesc">{exerciseDescription}</h3>
       <table>
         <thead>
           <tr>
@@ -119,11 +130,11 @@ export default function Exercises({ difficulty }) {
             <th>Delete Entry</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="tbodyex">
           {/* Map over the rows array with two paramters, row and index */}
           {rows.map((row, index) => (
             // Pass in the current index as a prop
-            <tr key={index}>
+            <tr class="toprowtablerow" key={index}>
               {/* Render to the page the following table tags based of the setsGoal number */}
               <td>{exerciseName}</td>
               <td>{row}</td>
@@ -151,7 +162,7 @@ export default function Exercises({ difficulty }) {
       <table>
         <tbody>
           <tr>
-            <td>
+            <td class="bottomTabBut">
               {/* Need to add onClick Function to add a set */}
               <button id='addBtn'>Add Another Set</button>
             </td>
