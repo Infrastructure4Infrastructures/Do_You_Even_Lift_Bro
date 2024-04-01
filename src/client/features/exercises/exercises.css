@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .buttonsect {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -2rem;
+  }
+  .prebut {
+    margin-left: 1.5rem;
+  
+  }
+
+  .nextbut {
+    margin-right: 1.5rem;
+  }
+
+  .exnamesec {
+    
+    margin: -3rem;  
+  }
+  .exname {
+    color:slategray;
+  }
+  video {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .exdesc {
+    font-size: 1rem;
+    color: navy;
+    text-align: center;
+    margin-top: -.9rem;
+  }
+  /* .tbodyex {
+    justify-content: space-around;
+  }
+  .toprowtablerow {
+    
+  } */
+  /* table { 
+    width: 100%;
+
+     } 
+     .toptablerow { 
+        text-align: left;
+     } 
+     th, td { 
+        padding: 10px;
+        border-bottom: 15px solid transparent;
+        color:black;
+        background-clip: padding-box;
+        
+     } */
