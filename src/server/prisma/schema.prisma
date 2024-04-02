@@ -11,13 +11,24 @@ datasource db {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  username String     @unique
-  password String
-  Workouts Workouts[]
-  Meal     Meal[]
-  Journal  Journal[]
-  isAdmin  Boolean?
+  id             Int              @id @default(autoincrement())
+  username       String           @unique
+  password       String
+  Workouts       Workouts[]
+  Meal           Meal[]
+  Journal        Journal[]
+  isAdmin        Boolean?
+  User_Exercises User_Exercises[]
+}
+
+model User_Exercises {
+  id          Int       @id @default(autoincrement())
+  mySets      Int
+  myReps      Int
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  exercises   Exercises @relation(fields: [exercisesId], references: [id])
+  exercisesId Int
 }
 
 model Workouts {
@@ -38,14 +49,13 @@ model Exercises {
   video             String
   Workout_Exercises Workout_Exercises[]
   Journal_Entry     Journal_Entry[]
+  User_Exercises    User_Exercises[]
 }
 
 model Workout_Exercises {
   id          Int       @id @default(autoincrement())
-  setsGoals   Int?
-  repsGoals   Int?
-  mySets      Int?
-  myReps      Int?
+  setsGoals   Int
+  repsGoals   Int
   workouts    Workouts  @relation(fields: [workoutsId], references: [id])
   workoutsId  Int
   exercises   Exercises @relation(fields: [exercisesId], references: [id])
