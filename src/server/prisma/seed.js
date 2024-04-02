@@ -38,7 +38,7 @@ const seed = async () => {
       update: {},
       create: {
         setsGoals: +setsGoals,
-        repsGoals: +repsGoals,
+        repsGoals: +repsGoals | repsGoals,
         workouts: {
           create: {
             name,
@@ -46,6 +46,23 @@ const seed = async () => {
             user: { connect: { id: storedUserIds[i] } },
           },
         },
+        exercises: {
+          create: {
+            name,
+            description,
+            category,
+            video,
+          },
+        },
+      },
+    });
+    await prisma.user_Exercises.upsert({
+      where: { id: i + 1 },
+      update: {},
+      create: {
+        mySets: random(5),
+        myReps: random(20),
+        user: { connect: { id: storedUserIds[i] } },
         exercises: {
           create: {
             name,
