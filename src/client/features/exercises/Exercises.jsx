@@ -93,10 +93,10 @@ export default function Exercises({ difficulty }) {
 
         <section class="buttonsect">
         <a id="">
-          <button class="prebut" onClick={handlePrevious}>Previous</button>
+          <button id="prebut" onClick={handlePrevious}>Previous</button>
         </a>
         <a>
-          <button class="nextbut" onClick={handleNext}>Next</button>
+          <button id="nextbut" onClick={handleNext}>Next</button>
         </a>
         </section>
 
@@ -123,7 +123,7 @@ export default function Exercises({ difficulty }) {
         <thead>
           <tr>
             <th>Exercise</th>
-            <th>Sets Goal</th>
+            <th>Sets #</th>
             <th>Reps Goal</th>
             <th>My Reps</th>
             <th>Delete Entry</th>
@@ -145,14 +145,15 @@ export default function Exercises({ difficulty }) {
                 </label>
               </td>
               <td>
-                <button
+                {/* <button
                   id='addBtn'
                   onClick={onDelete}
                   method='DELETE'
                   name='deleteExercise'
                 >
                   X
-                </button>
+                </button> */}
+                <button class="button-24" role="button">Delete</button>
               </td>
             </tr>
           ))}
@@ -163,11 +164,11 @@ export default function Exercises({ difficulty }) {
           <tr>
             <td class="bottomTabBut">
               {/* Need to add onClick Function to add a set */}
-              <button id='addBtn'>Add Another Set</button>
+              <button class="button-91" role="button">Add Another Set</button>
             </td>
             <td>
               {/* Need to add onClick Function to submit workout */}
-              <button id='addBtn'>Submit Workout</button>
+              <button class="button-91" role="button">Submit Workout</button>
             </td>
           </tr>
         </tbody>

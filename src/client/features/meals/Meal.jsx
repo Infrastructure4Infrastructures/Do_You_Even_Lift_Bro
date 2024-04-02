@@ -53,9 +53,10 @@ export default function Meal({ meal }) {
                     <td>{Meal_Food_Items.food_item.description}</td>
                     <td>{Meal_Food_Items.food_item.calories}</td>
                     <td>
-                      <button onClick={onDelete} aria-label='delete'>
+                    <button class="button-24" role="button">Delete</button>
+                      {/* <button id="#deleteButtonMeals" onClick={onDelete} aria-label='delete'>
                         X
-                      </button>
+                      </button> */}
                     </td>
                   </>
                 </tr>
