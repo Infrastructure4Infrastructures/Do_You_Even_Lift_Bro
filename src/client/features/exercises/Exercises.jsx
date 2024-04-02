@@ -153,7 +153,12 @@ export default function Exercises({ difficulty }) {
                 >
                   X
                 </button> */}
-                <button class="button-24" role="button">Delete</button>
+                <button  id='addBtn'
+                  onClick={onDelete}
+                  method='DELETE'
+                  name='deleteExercise'
+                  class="button-24" 
+                  role="button">Delete</button>
               </td>
             </tr>
           ))}
@@ -164,12 +169,14 @@ export default function Exercises({ difficulty }) {
           <tr>
             <td class="bottomTabBut">
               {/* Need to add onClick Function to add a set */}
-              <button class="button-91" role="button">Add Another Set</button>
+              <button  class="button-91" role="button">Add Another Set</button>
             </td>
+            {/* onClick={addSet} method='POST' */}
             <td>
               {/* Need to add onClick Function to submit workout */}
               <button class="button-91" role="button">Submit Workout</button>
             </td>
+            {/* onClick={submitworkout} method='POST' */}
           </tr>
         </tbody>
       </table>
