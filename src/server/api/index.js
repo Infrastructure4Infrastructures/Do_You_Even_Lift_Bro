@@ -36,3 +36,4 @@ router.use("/food_item", require("./food_item"));
 router.use("/meal_food_items", require("./meal_food_items"));
 router.use("/journal", require("./journal"));
 router.use("/journal_entry", require("./journal_entry"));
+router.use("/user_exercises", require("./user_exercises"));

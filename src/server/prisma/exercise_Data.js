@@ -256,7 +256,7 @@ const exampleExercises = [
     description:
       "The plank is a classic exercise that strengthens your body from head to toe. In particular, the plank helps strengthen your core muscles, including your abdominal and lower back. Having a strong core is linked to reduced lower back pain, an improved ability to perform daily tasks, and enhanced athletic performance.",
     setsGoals: 1,
-    repsGoals: "60 Seconds",
+    repsGoals: 60,
     video: "https://www.youtube.com/embed/2kEnT-CdXyE",
   },
 ];
