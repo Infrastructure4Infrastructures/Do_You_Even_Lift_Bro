@@ -18,25 +18,27 @@ export default function Programs() {
   return (
     <body>
       <h2>Select a Workout Difficulty</h2>
-
+    
       <h3></h3>
       <a class="difbutton" href='/workouts/beginner'>
-        <button>Beginner Workout</button>
+        <button id="programbutton" >Beginner Workout</button>
       </a>
 
       <h3></h3>
       <a class="difbutton" href='/workouts/intermediate'>
-        <button>Intermediate Workout</button>
+        <button id="programbutton">Intermediate Workout</button>
       </a>
 
       <h3></h3>
       <a class="difbutton" href='/workouts/advanced'>
-        <button>Advanced Workout</button>
+        <button id="programbutton">Advanced Workout</button>
       </a>
 
-      <section>
-        <NavLink class="profjbutton" to='/meals'>Visit Food Journal</NavLink>
-      </section>
+      <footer >
+        <section class="journalbox">
+          <NavLink className="journallink" to='/meals'>Visit Food Journal</NavLink>
+        </section>
+      </footer>
     </body>
   );
 }

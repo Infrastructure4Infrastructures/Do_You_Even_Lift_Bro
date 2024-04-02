@@ -62,7 +62,7 @@ export default function Meals() {
           />
         </label>
 
-        <button type='submit'>Add Food</button>
+        <button id="addFoodButton" type='submit'>Add Food</button>
       </form>
       <Meal />
     </div>
