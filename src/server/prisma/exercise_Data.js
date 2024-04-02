@@ -1,4 +1,4 @@
-const exampleExercises = [
+exampleExercises = [
   {
     difficulty: "Beginner",
     category: "Legs",
