@@ -64,6 +64,7 @@ router.post("/", async (req, res, next) => {
         name,
         description,
         category,
+        video: "URL",
         user: { connect: { id: res.locals.user.id } },
       },
     });

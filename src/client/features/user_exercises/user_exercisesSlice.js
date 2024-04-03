@@ -27,8 +27,8 @@ const user_exercisesAPI = api.injectEndpoints({
       invalidatesTags: ["User_exercises"],
     }),
     deleteUsersExercise: builder.mutation({
-      query: (id) => ({
-        url: `/user_exercises/${id}`,
+      query: (exerciseId) => ({
+        url: `/user_exercises/${exerciseId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["User_exercises"],

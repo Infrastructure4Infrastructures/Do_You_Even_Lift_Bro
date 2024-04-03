@@ -15,12 +15,27 @@ router.get("/", async (req, res, next) => {
 });
 
 /** Gets sets and reps to a users workout*/
-router.get("/:userId/:exerciseId", async (req, res, next) => {
+router.get("/:userId", async (req, res, next) => {
   try {
     const { userId } = req.params;
 
+    const user_exercises = await prisma.user_Exercises.findMany({
+      where: { userId: +userId },
+    });
+
+    res.json(user_exercises);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/** Gets sets and reps to a users workout*/
+router.get("/:userId/:exerciseId", async (req, res, next) => {
+  try {
+    const { userId, exerciseId } = req.params;
+
     const user_exercises = await prisma.user_Exercises.findUnique({
-      where: { id: +userId },
+      where: { id: +userId, exercisesId: +exerciseId },
     });
 
     res.json(user_exercises);
@@ -91,24 +106,24 @@ router.patch("/:userId/:exerciseId", async (req, res, next) => {
 });
 
 /** Deletes an exercise from a users workout*/
-router.delete("/:userId/:exerciseId", async (req, res, next) => {
+router.delete("/:exercisesId", async (req, res, next) => {
   try {
-    // const id = +req.params.id;
-    const { userId, exerciseId } = req.params;
-    // const exercises = await prisma.exercises.findUnique({ where: { id } });
-    // validateExercise(res.locals.user, exercises);
-    const user_exercises = await prisma.user_Exercises.findFirst({
+    const exercisesId = +req.params.exercisesId;
+
+    const userExerciseToDelete = await prisma.user_Exercises.findFirst({
       where: {
-        userId: +userId,
-        AND: { exercisesId: +exerciseId },
+        exercisesId: exercisesId,
       },
     });
-    const deleted_user_exercises = await prisma.user_Exercises.delete({
-      where: { id: user_exercises.id },
-      // data: { setsGoals, repsGoals, mySets, myReps },
+    if (!userExerciseToDelete) {
+      return res.status(404).json({ error: "User exercise not found" });
+    }
+
+    const deleteUserExercise = await prisma.user_Exercises.delete({
+      where: { id: userExerciseToDelete.id },
     });
-    res.json(deleted_user_exercises);
-  } catch (err) {
-    next(err);
+    res.json(deleteUserExercise);
+  } catch (error) {
+    next(error);
   }
 });
