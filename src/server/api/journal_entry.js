@@ -34,6 +34,22 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+// Gets entries of a single journal by journalID
+router.get("/", async (req, res, next) => {
+  try {
+    // const id = +req.params.id;
+    // const { date, note } = req.params;
+    const journals = await prisma.journal.findFirst({
+      where: { userId: +res.locals.user.id },
+      include: { Journal_Entry: true },
+    });
+    // validateJournal(res.locals.user, journals);
+    res.json(journals);
+  } catch (err) {
+    next(err);
+  }
+});
+
 /** Adds a note to the JournalID*/
 router.post("/", async (req, res, next) => {
   try {
