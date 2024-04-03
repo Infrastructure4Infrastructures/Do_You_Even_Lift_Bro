@@ -8,11 +8,13 @@
     justify-content: space-between;
     /* margin-top: -2rem; */
   }
-  #prebut, #nextbut {
+   #prebut, #nextbut {
     margin-left: 1.5rem;
     display: inline-block;
     outline: 0;
     border: 0;
+   }
+/*     
     cursor: pointer;
     will-change: box-shadow,transform;
     background: radial-gradient( 100% 100% at 100% 0%, #89E5FF 0%, #5468FF 100% );
@@ -37,8 +39,8 @@
 
   #nextbut {
     margin-right: 2rem;
-  }
-/* 
+  } */
+/*  */
   .exnamesec {
     
     margin: -3rem;  
@@ -55,8 +57,8 @@
     font-size: 1rem;
     color: navy;
     text-align: center;
-/* 
-    margin-top: -1rem; */
+ 
+    margin-top: -1rem;
 
   }
   /* .tbodyex {
@@ -83,24 +85,81 @@
         justify-content: center;
 
      } */
-     .button-91 {
-       color: #fff;
-       padding: 15px 25px;
-       background-color: #0470ec;
-       background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
-       box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
-       border-radius: 14px;
-       font-weight: bold;
-       font-size: 16px;
+        #prebut, #nextbut, .button-91  {
+        color: #fff;
+        padding: 15px 25px;
+        background-color: #0470ec;
+        background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+        box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+        border-radius: 14px;
+        font-weight: bold;
+        font-size: 16px;
      
-       border: 0;
+        border: 0;
      
-       user-select: none;
-       -webkit-user-select: none;
-       touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
      
-       cursor: pointer;
-     }
+        cursor: pointer;
+        }
+       .button-91:hover,
+       .button-91:active {
+         background-color: rgb(0, 24, 163);
+         background-position: 0 0;
+         /* color: #FF4742; */
+       }
+       .button-91:active {
+         opacity: .5;
+       }
+        #prebut  {
+        color: #fff;
+        padding: 15px 25px;
+        background-color: #0470ec;
+        background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+        box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+        border-radius: 14px;
+        font-weight: bold;
+        font-size: 16px;
+        border: 0;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        cursor: pointer;
+      }
+       #prebut:hover,
+       #prebut:active {
+        background-color: rgb(0, 24, 163);
+        background-position: 0 0;
+        /* color: #FF4742; */
+      }
+    #prebut:active {
+      opacity: .5;
+    }
+      #nextbut  {
+      color: #fff;
+      padding: 15px 25px;
+      background-color: #0470ec;
+      background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+      box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 16px;
+      border: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      cursor: pointer;
+    }
+    #nextbut:hover,
+    #nextbut:active {
+      background-color: rgb(0, 24, 163);
+      background-position: 0 0;
+      /* color: #FF4742; */
+    }
+    #nextbut:active {
+    opacity: .5;
+    }
      .button-24 {
       background: #FF4742;
       border: 1px solid #FF4742;
@@ -124,11 +183,12 @@
       -webkit-user-select: none;
       touch-action: manipulation;
       vertical-align: middle;
+      transition-duration: 0.4s;
     }
     
     .button-24:hover,
     .button-24:active {
-      background-color: initial;
+      background-color: crimson;
       background-position: 0 0;
       color: #FF4742;
     }
