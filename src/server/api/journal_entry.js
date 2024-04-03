@@ -7,8 +7,10 @@ module.exports = router;
 // Gets all journal entries for a logged in user
 router.get("/", async (req, res, next) => {
   try {
+    // const id = +req.params.id;
+
     const journalEntry = await prisma.journal_Entry.findMany({
-      // where: { userId: +res.locals.user.id }
+      where: { userId: +res.locals.user.id },
     });
 
     res.json(journalEntry);
@@ -35,12 +37,15 @@ router.get("/:id", async (req, res, next) => {
 /** Adds a note to the JournalID*/
 router.post("/", async (req, res, next) => {
   try {
+    // const id = +req.params;
     const { note, journalId } = req.body;
+
     // if (!note) {
     //   throw new ServerError(400, "Note required.");
     // }
 
     const journal_entry = await prisma.journal_Entry.create({
+      // where: { userId: +res.locals.user.id },
       data: {
         note: note,
         journalId: +journalId,

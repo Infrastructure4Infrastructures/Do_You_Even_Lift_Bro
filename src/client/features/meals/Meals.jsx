@@ -2,17 +2,18 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
 import { useState } from "react";
 import Meal from "./Meal.jsx";
-import { useCreateMealMutation } from "./mealSlice";
-import "./meals.css"
+import { useCreateJournalEntryMutation } from "../journal_entry/journalEntrySlice.js";
+import "./meals.css";
+import { useGetJournalEntryQuery } from "../journal_entry/journalEntrySlice.js";
 
 export default function Meals() {
   const token = useSelector(selectToken);
-
+  const { data: journal_entry } = useGetJournalEntryQuery();
   const [name, setName] = useState("");
   const [calories, setCalories] = useState("");
   const [date, setDate] = useState("");
 
-  const [createMeal] = useCreateMealMutation();
+  const [createMeal] = useCreateJournalEntryMutation();
 
   const addFood = (event) => {
     event.preventDefault();
@@ -27,14 +28,14 @@ export default function Meals() {
   }
   return (
     <div>
-      <section class="inputInfo">
-      <h3 >
-        Track your meals in the input below. Click "Add Meal" to add a new meal
-        entry.
-      </h3>
+      <section class='inputInfo'>
+        <h3>
+          Track your meals in the input below. Click "Add Meal" to add a new
+          meal entry.
+        </h3>
       </section>
 
-      <form class="foodForms" onSubmit={addFood}>
+      <form class='foodForms' onSubmit={addFood}>
         <label htmlFor='name'>
           Food Entry:
           <input
@@ -62,9 +63,13 @@ export default function Meals() {
           />
         </label>
 
-        <button id="addFoodButton" type='submit'>Add Food</button>
+        <button id='addFoodButton' type='submit'>
+          Add Food
+        </button>
       </form>
-      <Meal />
+      {journal_entry?.map((journal) => (
+        <Meal key={journal.id} journal={journal} />
+      ))}
     </div>
   );
 }
