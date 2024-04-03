@@ -8,7 +8,7 @@ module.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const journalEntry = await prisma.journal_Entry.findMany({
-      where: { userId: +res.locals.user.id }
+      // where: { userId: +res.locals.user.id }
     });
 
     res.json(journalEntry);
@@ -23,7 +23,7 @@ router.get("/:id", async (req, res, next) => {
     const id = +req.params.id;
 
     const journalEntry = await prisma.journal_Entry.findUnique({
-      where: { id }
+      where: { id },
     });
 
     res.json(journalEntry);
@@ -43,9 +43,9 @@ router.post("/", async (req, res, next) => {
     const journal_entry = await prisma.journal_Entry.create({
       data: {
         note: note,
-        journalId: +journalId
+        journalId: +journalId,
         // journal_entryId: +journal_entryId,
-      }
+      },
     });
     res.json(journal_entry);
   } catch (err) {
@@ -65,7 +65,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const update_journal_entry = await prisma.journal_Entry.update({
       where: { id: journal_entryId },
-      data: { note }
+      data: { note },
     });
     res.json(update_journal_entry);
   } catch (err) {
