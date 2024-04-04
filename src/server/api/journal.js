@@ -19,6 +19,33 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+/** Gets journal entry of user */
+router.get("/", async (req, res, next) => {
+  try {
+    const userId = res.locals.user.id;
+
+    const journals = await prisma.journal.findMany({
+      where: { userId: userId },
+      include: {
+        Journal_Entry: {
+          select: {
+            id: true,
+            date: true,
+            note: true,
+            workouts: true,
+            exercises: true,
+            meal: true,
+            food_item: true,
+          },
+        },
+      },
+    });
+    res.json(journals);
+  } catch (err) {
+    next(err);
+  }
+});
+
 /** Creates new journal for the logged in user */
 router.post("/", async (req, res, next) => {
   try {

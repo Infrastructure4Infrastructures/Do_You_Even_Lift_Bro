@@ -17,7 +17,10 @@ router.get("/", async (req, res, next) => {
       },
       include: {
         journal: true,
-        food_item,
+        workouts: true,
+        exercises: true,
+        meal: true,
+        food_item: true,
       },
     });
 
@@ -31,7 +34,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const userId = res.locals.user.id;
-    const { date, note, workoutsId, exercisesId, mealId, foodItemId } =
+    const { date, note, workoutsId, exercisesId, mealId, food_itemId } =
       req.body;
 
     const journalEntry = await prisma.journal_Entry.create({
@@ -39,10 +42,10 @@ router.post("/", async (req, res, next) => {
         date: date || new Date(),
         note,
         journal: { connect: { id: userId } },
-        workoutsId: +workoutsId,
-        exercisesId: +exercisesId,
-        mealId: +mealId,
-        food_ItemId: +foodItemId,
+        workoutsId,
+        exercisesId,
+        mealId,
+        food_itemId,
       },
     });
 
@@ -65,7 +68,15 @@ router.patch("/:id", async (req, res, next) => {
 
     const update_journal_entry = await prisma.journal_Entry.update({
       where: { id: journal_entryId },
-      data: { note },
+      data: {
+        date: date || new Date(),
+        note,
+        journal: { connect: { id: userId } },
+        workoutsId,
+        exercisesId,
+        mealId,
+        food_itemId,
+      },
     });
     res.json(update_journal_entry);
   } catch (err) {

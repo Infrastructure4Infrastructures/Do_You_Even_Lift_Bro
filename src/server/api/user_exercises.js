@@ -51,19 +51,11 @@ router.post("/:userId/:exerciseId", async (req, res, next) => {
     const { mySets, myReps } = req.body;
 
     const user_exercises = await prisma.user_Exercises.create({
-      //   where: { id: +userId },
       data: {
         mySets: +mySets,
         myReps: +myReps,
         userId: +userId,
         exercisesId: +exerciseId,
-        // user: { connect: { id: res.locals.user.id } },
-        // exercises: {
-        //   create: {
-        //     mySets: +mySets,
-        //     myReps: +myReps,
-        //   },
-        // },
       },
     });
 
