@@ -11,7 +11,7 @@ export default function Journal() {
   const [deleteJournal_Entry] = useDeleteJournalEntryMutation();
 
   const token = useSelector(selectToken);
-  const navigate = useNavigate();
+  const navigate = useNavigate([]);
 
   const { id } = useParams();
 
@@ -30,9 +30,9 @@ export default function Journal() {
   // };
 
   /** Deletes the meal */
-  const onDelete = async (evt) => {
-    evt.preventDefault();
-    deleteJournal_Entry(meal.id);
+  const onDelete = async (id) => {
+    // evt.preventDefault();
+    await deleteJournal_Entry(id);
     navigate("/meals");
   };
   return (

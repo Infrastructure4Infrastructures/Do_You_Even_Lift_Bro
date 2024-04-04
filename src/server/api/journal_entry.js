@@ -39,7 +39,7 @@ router.post("/", async (req, res, next) => {
 
     const journalEntry = await prisma.journal_Entry.create({
       data: {
-        date: date || new Date(),
+        date,
         note,
         journal: { connect: { id: userId } },
         workoutsId,
@@ -88,9 +88,6 @@ router.patch("/:id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
-
-    // const exercises = await prisma.exercises.findUnique({ where: { id } });
-    // validateExercise(res.locals.user, exercises);
 
     await prisma.journal_Entry.delete({ where: { id } });
     res.sendStatus(204);

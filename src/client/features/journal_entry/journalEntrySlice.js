@@ -16,7 +16,7 @@ const journalEntryApi = api.injectEndpoints({
         method: "POST",
         body: journalEntry,
       }),
-      invalidatesTags: ["Journals"],
+      invalidatesTags: ["Journal"],
     }),
     editJournalEntry: builder.mutation({
       query: (journalEntry) => ({
@@ -24,14 +24,14 @@ const journalEntryApi = api.injectEndpoints({
         method: "PATCH",
         body: journalEntry,
       }),
-      invalidatesTags: ["Journals"],
+      invalidatesTags: ["Journal"],
     }),
     deleteJournalEntry: builder.mutation({
       query: (id) => ({
         url: `/journal_entry/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["journalEntry"],
+      invalidatesTags: ["Journal"],
     }),
   }),
 });
