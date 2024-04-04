@@ -1,15 +1,14 @@
-import { journal } from "../../../server/prisma";
 import api from "../../store/api";
 
 const journalApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getJournal: builder.query({
       query: () => "/journal",
-      providesTags: ["journal"],
+      providesTags: ["Journal"],
     }),
     getJournalById: builder.query({
       query: (id) => `/journal/${id}`,
-      providesTags: ["journal"],
+      providesTags: ["Journal"],
     }),
     createJournal: builder.mutation({
       query: (journal) => ({
@@ -39,8 +38,8 @@ const journalApi = api.injectEndpoints({
 
 export const {
   useGetJournalQuery,
-  useGetJournalEntryByIdQuery,
-  useCreateJournalEntryMutation,
-  useEditJournalEntryMutation,
-  useDeleteJournalEntryMutation,
-} = JournalApi;
+  useGetJournalByIdQuery,
+  useCreateJournalMutation,
+  useEditJournalMutation,
+  useDeleteJournalMutation,
+} = journalApi;

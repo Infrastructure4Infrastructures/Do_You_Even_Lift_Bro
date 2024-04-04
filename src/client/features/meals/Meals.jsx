@@ -1,14 +1,15 @@
 import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
 import { useState } from "react";
-import Meal from "./Meal.jsx";
+
 import { useCreateJournalEntryMutation } from "../journal_entry/journalEntrySlice.js";
-import "./meals.css";
-import { useGetJournalEntryQuery } from "../journal_entry/journalEntrySlice.js";
+
+import Journal from "../journal/Journal.jsx";
+import { useGetJournalQuery } from "../journal/journalSlice.js";
 
 export default function Meals() {
   const token = useSelector(selectToken);
-  const { data: journal_entry } = useGetJournalEntryQuery();
+  const { data: journal_entry } = useGetJournalQuery();
   const [name, setName] = useState("");
   const [calories, setCalories] = useState("");
   const [date, setDate] = useState("");
@@ -67,9 +68,7 @@ export default function Meals() {
           Add Food
         </button>
       </form>
-      {journal_entry?.map((journal) => (
-        <Meal key={journal.id} journal={journal} />
-      ))}
+      <Journal />
     </div>
   );
 }

@@ -49,24 +49,25 @@ export default function Meal() {
           </tr>
         </thead>
         <tbody>
-          {journal_entry.map((journal) => (
-            // journal.Meal_Food_Items.map((Meal_Food_Items, index) => (
-            <tr key={index}>
-              <>
-                <td>{journal.date}</td>
-                <td>{journal.food_item.description}</td>
-                <td>{journal.food_item.calories}</td>
-                <td>
-                  <button class='button-24' role='button'>
-                    Delete
-                  </button>
-                  {/* <button id="#deleteButtonMeals" onClick={onDelete} aria-label='delete'>
+          {journal_entry.map((journal) =>
+            journal.Meal_Food_Items.map((Meal_Food_Items, index) => (
+              <tr key={index}>
+                <>
+                  <td>{journal.date}</td>
+                  <td>{journal.food_item.description}</td>
+                  <td>{journal.food_item.calories}</td>
+                  <td>
+                    <button class='button-24' role='button'>
+                      Delete
+                    </button>
+                    {/* <button id="#deleteButtonMeals" onClick={onDelete} aria-label='delete'>
                         X
                       </button> */}
-                </td>
-              </>
-            </tr>
-          ))}
+                  </td>
+                </>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
