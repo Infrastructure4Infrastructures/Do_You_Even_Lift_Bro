@@ -1,0 +1,105 @@
+table {
+  width: 100%;
+  border-spacing: 0.25rem;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+}
+th,
+td {
+  padding: 10px;
+  border-bottom: 15px solid transparent;
+  color: rgb(0, 0, 0);
+  background-clip: padding-box;
+  justify-content: center;
+}
+.inputInfo {
+  text-align: center;
+  color: slategrey;
+  /* margin-bottom: -.5rem; */
+  /* margin-top: -.75rem; */
+}
+.foodForms {
+  /* margin-top: -1rem; */
+  margin-bottom: 0.5rem;
+  display: flex;
+}
+#addFoodButton {
+  color: #fff;
+  padding: 15px 25px;
+  background-color: #0470ec;
+  background-image: radial-gradient(
+      93% 87% at 87% 89%,
+      rgba(0, 0, 0, 0.23) 0%,
+      transparent 86.18%
+    ),
+    radial-gradient(
+      66% 66% at 26% 20%,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0) 69.79%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow:
+    inset -3px -3px 9px rgba(255, 255, 255, 0.25),
+    inset 0px 3px 9px rgba(255, 255, 255, 0.3),
+    inset 0px 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0px -8px 36px rgba(0, 0, 0, 0.3),
+    inset 0px 1px 5px rgba(255, 255, 255, 0.6),
+    2px 19px 31px rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  font-weight: bold;
+  font-size: 16px;
+
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  cursor: pointer;
+}
+#addFoodButton:hover,
+#addFoodButton:active {
+  background-color: rgb(0, 24, 163);
+  background-position: 0 0;
+  /* color: #FF4742; */
+}
+#addFoodButton:active {
+  opacity: 0.5;
+}
+.button-24 {
+  background: #ff4742;
+  border: 1px solid #ff4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+.button-24:hover,
+.button-24:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #ff4742;
+}
+
+.button-24:active {
+  opacity: 0.5;
+}

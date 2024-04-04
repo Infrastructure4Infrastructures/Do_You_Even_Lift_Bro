@@ -1,29 +1,26 @@
-import { useDeleteMealMutation, useGetMealsQuery } from "./mealSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
-import { useGetJournalEntryByIdQuery } from "../journal_entry/journalEntrySlice";
-/** Allows user to read, update, and delete a meal */
-import "./meals.css";
-import { journal_Entry } from "../../../server/prisma";
+import "./journal.css";
+
+import { useGetJournalQuery } from "./journalSlice";
+import { useDeleteJournalEntryMutation } from "../journal_entry/journalEntrySlice";
 
 export default function Journal() {
-  const { data: journal_entry } = useGetJournalByIdQuery();
+  const { data: journal_entry } = useGetJournalQuery();
   const [deleteJournal_Entry] = useDeleteJournalEntryMutation();
-  const [addJournal_Entry] = useCreateJournalEntryMutation()
-  const [editJournal_Entry] = useEditJournalEntryMutation()
+
   const token = useSelector(selectToken);
   const navigate = useNavigate();
 
   const { id } = useParams();
-  console.log(journal_entry);
 
   const journal = journal_entry?.find((journal) => journal._id === id);
-  // console.log(meal);
+  console.log(journal);
   if (!token) {
     return "Must be logged in to view JournaL Entries!";
   }
-}
+
   // const [description, setDescription] = useState(meal.description);
 
   // /** Saves the food meal */
@@ -32,12 +29,12 @@ export default function Journal() {
   //   editMeal({ ...meal, description });
   // };
 
-  // /** Deletes the meal */
-  // const onDelete = async (evt) => {
-  //   evt.preventDefault();
-  //   deleteMeal(meal.id);
-  //   navigate("/meals");
-  // };
+  /** Deletes the meal */
+  const onDelete = async (evt) => {
+    evt.preventDefault();
+    deleteJournal_Entry(meal.id);
+    navigate("/meals");
+  };
   return (
     <div className='journal_entry_container'>
       <h2 class='fjTitle'>Food Journal</h2>
@@ -51,26 +48,33 @@ export default function Journal() {
           </tr>
         </thead>
         <tbody>
-          {journal.journal_Entry.map((journal, index) => (
-            // { journal.journal_Entry.map((journal, index) => ( }
-            <tr key={index}>
-              <>
-                <td>{journal_Entry.date}</td>
-                <td>{journal_Entry.food_item.description}</td>
-                <td>{journal_Entry.food_item.calories}</td>
-                <td>
-                  <button class='button-24' role='button' onClick={onDelete} aria-label='DELETE'>
-                    Delete
-                  </button>
-                  {/* <button id="#deleteButtonMeals" onClick={onDelete} aria-label='delete'>
-                        X
-                      </button> */}
-                </td>
-              </>
-            </tr>
-          ))}
-                  
+          {journal_entry &&
+            (() => {
+              const journalEntries = [];
+              for (let i = 0; i < journal_entry.length; i++) {
+                const entry = journal_entry[i];
+                journalEntries.push(
+                  <tr key={i}>
+                    <td>{entry.date}</td>
+                    {/* <td>{entry.food_item.description}</td>
+                    <td>{entry.food_item.calories}</td> */}
+                    <td>
+                      <button
+                        onClick={() => onDelete(entry.id)}
+                        className='button-24'
+                        role='button'
+                        aria-label='DELETE'
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              }
+              return journalEntries;
+            })()}
         </tbody>
       </table>
     </div>
-  )
+  );
+}

@@ -4,33 +4,15 @@ const prisma = require("../prisma");
 const router = require("express").Router();
 module.exports = router;
 
-/** Gets all journals */
-// Is this some sort of admin route?
+/** Gets journal entry of user */
 router.get("/", async (req, res, next) => {
   try {
+    const userId = res.locals.user.id;
+
     const journals = await prisma.journal.findMany({
+      where: { userId: userId },
       include: { Journal_Entry: true },
     });
-    // validateJournal(res.locals.user, journals);
-
-    res.json(journals);
-  } catch (err) {
-    next(err);
-  }
-});
-
-/** Gets entries of a single journal by journalID */
-router.get("/:id", async (req, res, next) => {
-  try {
-    const id = +req.params.id;
-    // const { date, note } = req.params;
-
-    const journals = await prisma.journal.findUnique({
-      where: { id },
-      include: { Journal_Entry: true },
-    });
-    // validateJournal(res.locals.user, journals);
-
     res.json(journals);
   } catch (err) {
     next(err);

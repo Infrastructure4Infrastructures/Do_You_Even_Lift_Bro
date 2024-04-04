@@ -4,47 +4,24 @@ const prisma = require("../prisma");
 const router = require("express").Router();
 module.exports = router;
 
-// Gets all journal entries for a logged in user
-router.get("/", async (req, res, next) => {
-  try {
-    // const id = +req.params.id;
-
-    const journalEntry = await prisma.journal_Entry.findMany({
-      where: { userId: +res.locals.user.id },
-    });
-
-    res.json(journalEntry);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// Returns single journal entry by journal_entryID
-router.get("/:id", async (req, res, next) => {
-  try {
-    const id = +req.params.id;
-
-    const journalEntry = await prisma.journal_Entry.findUnique({
-      where: { id },
-    });
-
-    res.json(journalEntry);
-  } catch (err) {
-    next(err);
-  }
-});
-
 // Gets entries of a single journal by journalID
 router.get("/", async (req, res, next) => {
   try {
-    // const id = +req.params.id;
-    // const { date, note } = req.params;
-    const journals = await prisma.journal.findFirst({
-      where: { userId: +res.locals.user.id },
-      include: { Journal_Entry: true },
+    const userId = res.locals.user.id;
+
+    const userJournals = await prisma.journal_Entry.findMany({
+      where: {
+        journal: {
+          userId: userId,
+        },
+      },
+      include: {
+        journal: true,
+        food_item,
+      },
     });
-    // validateJournal(res.locals.user, journals);
-    res.json(journals);
+
+    res.json(userJournals);
   } catch (err) {
     next(err);
   }
@@ -53,22 +30,24 @@ router.get("/", async (req, res, next) => {
 /** Adds a note to the JournalID*/
 router.post("/", async (req, res, next) => {
   try {
-    // const id = +req.params;
-    const { note, journalId } = req.body;
+    const userId = res.locals.user.id;
+    const { date, note, workoutsId, exercisesId, mealId, foodItemId } =
+      req.body;
 
-    // if (!note) {
-    //   throw new ServerError(400, "Note required.");
-    // }
-
-    const journal_entry = await prisma.journal_Entry.create({
-      // where: { userId: +res.locals.user.id },
+    const journalEntry = await prisma.journal_Entry.create({
       data: {
-        note: note,
-        journalId: +journalId,
-        // journal_entryId: +journal_entryId,
+        date: date || new Date(),
+        note,
+        journal: { connect: { id: userId } },
+        workoutsId: +workoutsId,
+        exercisesId: +exercisesId,
+        mealId: +mealId,
+        food_ItemId: +foodItemId,
       },
     });
-    res.json(journal_entry);
+
+    // Respond with the created journal entry
+    res.json(journalEntry);
   } catch (err) {
     next(err);
   }
