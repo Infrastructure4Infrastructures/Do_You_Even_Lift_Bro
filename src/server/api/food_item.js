@@ -21,7 +21,7 @@ router.get("/:id", async (req, res, next) => {
     const id = +req.params.id;
 
     const food_items = await prisma.food_Item.findUnique({
-      where: { id }
+      where: { id },
     });
     res.json(food_items);
   } catch (err) {
@@ -39,9 +39,9 @@ router.post("/", async (req, res, next) => {
       data: {
         name,
         description,
-        calories: +calories
+        calories: +calories,
         // user: { connect: { id: res.locals.user.id } },
-      }
+      },
     });
     res.json(food_items);
   } catch (err) {
@@ -60,7 +60,7 @@ router.patch("/:id", async (req, res, next) => {
 
     const food_items = await prisma.food_Item.update({
       where: { id },
-      data: { name, description, calories: +calories }
+      data: { name, description, calories: +calories },
     });
     res.json(food_items);
   } catch (err) {
@@ -74,7 +74,7 @@ router.delete("/:id", async (req, res, next) => {
     const { id } = req.params.id;
     // const { name, description, calories } = req.body;
     const food_item = await prisma.food_Item.findUnique({
-      where: { id }
+      where: { id },
     });
 
     if (!food_item) {

@@ -46,14 +46,14 @@ export default function Meals() {
           />
         </label>
 
-        <label htmlFor='Calories'>
+        {/* <label htmlFor='Calories'>
           Calories:
           <input
             type='number'
             value={calories}
             onChange={(e) => setCalories(e.target.value)}
           />
-        </label>
+        </label> */}
 
         <label htmlFor='dateTime'>
           Date/Time:
