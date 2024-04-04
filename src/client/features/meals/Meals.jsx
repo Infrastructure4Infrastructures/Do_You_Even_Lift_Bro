@@ -5,22 +5,21 @@ import { useState } from "react";
 import { useCreateJournalEntryMutation } from "../journal_entry/journalEntrySlice.js";
 
 import Journal from "../journal/Journal.jsx";
-import { useGetJournalQuery } from "../journal/journalSlice.js";
+// import { useGetJournalQuery } from "../journal/journalSlice.js";
 
 export default function Meals() {
   const token = useSelector(selectToken);
-  const { data: journal_entry } = useGetJournalQuery();
-  const [name, setName] = useState("");
-  const [calories, setCalories] = useState("");
+  // const { data: journal_entry } = useGetJournalQuery();
+  // const [calories, setCalories] = useState("");
+  const [note, setNote] = useState("");
   const [date, setDate] = useState("");
 
   const [createMeal] = useCreateJournalEntryMutation();
 
-  const addFood = (event) => {
-    event.preventDefault();
-    createMeal({ name, calories, date });
-    setName("");
-    setCalories("");
+  const addFood = () => {
+    // event.preventDefault();
+    createMeal({ note, date });
+    setNote("");
     setDate("");
   };
 
@@ -41,8 +40,8 @@ export default function Meals() {
           Food Entry:
           <input
             type='text'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
           />
         </label>
 
@@ -55,10 +54,10 @@ export default function Meals() {
           />
         </label> */}
 
-        <label htmlFor='dateTime'>
+        <label>
           Date/Time:
           <input
-            type='date'
+            type='text'
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
