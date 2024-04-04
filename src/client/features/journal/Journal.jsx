@@ -7,7 +7,7 @@ import { useGetJournalQuery } from "./journalSlice";
 import { useDeleteJournalEntryMutation } from "../journal_entry/journalEntrySlice";
 
 export default function Journal() {
-  const { data: journal_entry } = useGetJournalQuery();
+  const { data: journal } = useGetJournalQuery();
   const [deleteJournal_Entry] = useDeleteJournalEntryMutation();
 
   const token = useSelector(selectToken);
@@ -15,7 +15,7 @@ export default function Journal() {
 
   const { id } = useParams();
 
-  const journal = journal_entry?.find((journal) => journal._id === id);
+  // const journal = journal_entry?.find((journal) => journal._id === id);
   console.log(journal);
   if (!token) {
     return "Must be logged in to view JournaL Entries!";
@@ -43,36 +43,39 @@ export default function Journal() {
           <tr>
             <th class='ftInpLab'>Date/Time</th>
             <th class='ftInpLab'>Food Entry</th>
-            <th class='ftInpLab'>Calories</th>
+            {/* <th class='ftInpLab'>Calories</th> */}
             <th class='ftInpLab'>Remove Entry</th>
           </tr>
         </thead>
         <tbody>
-          {journal_entry &&
+          {/* {journal_entry &&
             (() => {
               const journalEntries = [];
               for (let i = 0; i < journal_entry.length; i++) {
                 const entry = journal_entry[i];
-                journalEntries.push(
-                  <tr key={i}>
-                    <td>{entry.date}</td>
-                    {/* <td>{entry.food_item.description}</td>
+                journalEntries.push( */}
+          {journal?.[0]?.Journal_Entry.map((entry, i) => (
+            <tr key={i}>
+              <td>{entry.date}</td>
+              <td>{entry.note}</td>
+              {/* <td>{entry.food_item.description}</td>
                     <td>{entry.food_item.calories}</td> */}
-                    <td>
-                      <button
-                        onClick={() => onDelete(entry.id)}
-                        className='button-24'
-                        role='button'
-                        aria-label='DELETE'
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
+              <td>
+                <button
+                  onClick={() => onDelete(entry.id)}
+                  className='button-24'
+                  role='button'
+                  aria-label='DELETE'
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+          {/* );
               }
               return journalEntries;
-            })()}
+            })()} */}
         </tbody>
       </table>
     </div>
