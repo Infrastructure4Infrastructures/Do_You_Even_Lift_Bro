@@ -95,9 +95,16 @@ export default function Exercises({ difficulty }) {
   console.log(repsGoal);
 
   // Create a async function that takes a parameter (exerciseId)
-  const onDelete = async (exerciseId) => {
+  const onDelete = async (index) => {
     // Execute the deleteExercise function using the useDeleteExerciseMutation hook on exerciseId
-    deleteExercise(exerciseId);
+    // for (const ele of rows) {
+    //   let newSetsGoal = [];
+    //   if (setsGoal >= exerciseSetsGoal) {
+    deleteExercise(index);
+    //     newSetsGoal.push(ele);
+    //   }
+    // }
+    // return newSetsGoal;
   };
 
   return (
