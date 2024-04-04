@@ -13,12 +13,12 @@ export default function Meals() {
   // const [calories, setCalories] = useState("");
   const [note, setNote] = useState("");
   const [date, setDate] = useState("");
-
   const [createMeal] = useCreateJournalEntryMutation();
 
-  const addFood = () => {
-    // event.preventDefault();
-    createMeal({ note, date });
+  const addFood = (event) => {
+    event.preventDefault();
+    const dateString = new Date(date).toISOString();
+    createMeal({ note, date: dateString });
     setNote("");
     setDate("");
   };
@@ -57,7 +57,7 @@ export default function Meals() {
         <label>
           Date/Time:
           <input
-            type='text'
+            type='datetime-local'
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
