@@ -8,14 +8,14 @@ module.exports = router;
 router.post("/:workoutId/:exerciseId", async (req, res, next) => {
   try {
     const { workoutId, exerciseId } = req.params;
-    const { setsGoals, repsGoals, mySets, myReps } = req.body;
+    const { setsGoals, repsGoals } = req.body;
 
     const workout_exercise = await prisma.workout_Exercises.create({
       data: {
         setsGoals: +setsGoals,
         repsGoals: +repsGoals,
-        mySets: +mySets,
-        myReps: +myReps,
+        // mySets: +mySets,
+        // myReps: +myReps,
         workoutsId: +workoutId,
         exercisesId: +exerciseId,
       },
@@ -41,12 +41,12 @@ router.patch("/:workoutId/:exerciseId", async (req, res, next) => {
     if (repsGoals) {
       dataToSendToDB.repsGoals = +repsGoals;
     }
-    if (mySets) {
-      dataToSendToDB.mySets = +mySets;
-    }
-    if (myReps) {
-      dataToSendToDB.myReps = +myReps;
-    }
+    // if (mySets) {
+    //   dataToSendToDB.mySets = +mySets;
+    // }
+    // if (myReps) {
+    //   dataToSendToDB.myReps = +myReps;
+    // }
     // Keep writing if statements for each property coming in through the BODY
 
     const workout_exercise = await prisma.workout_Exercises.findFirst({
