@@ -160,7 +160,7 @@ export default function Exercises({ difficulty }) {
       </main>
       <h3 class='exdesc'>{exerciseDescription}</h3>
       <form onSubmit={submitWorkout}>
-        <table class="tablelabel>
+        <table class='tablelabel'>
           <thead>
             <tr>
               <th>Exercise</th>
@@ -215,7 +215,7 @@ export default function Exercises({ difficulty }) {
           </tbody>
         </table>
         <tbody>
-          <tr class="tablebuttons">
+          <tr class='tablebuttons'>
             <td class='bottomTabBut'>
               {/* Need to add onClick Function to add a set */}
               <button class='button-91' role='button'>
@@ -223,7 +223,7 @@ export default function Exercises({ difficulty }) {
               </button>
             </td>
             {/* onClick={addSet} method='POST' */}
-            <td class="bottomTabBut">
+            <td class='bottomTabBut'>
               {/* Need to add onClick Function to submit workout */}
               <button type='submit' class='button-91' role='button'>
                 Submit Workout
