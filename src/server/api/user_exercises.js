@@ -54,8 +54,8 @@ router.post("/:userId/:exerciseId", async (req, res, next) => {
       data: {
         mySets: +mySets,
         myReps: +myReps,
-        userId: +userId,
         exercisesId: +exerciseId,
+        userId: +userId,
       },
     });
 
@@ -66,7 +66,7 @@ router.post("/:userId/:exerciseId", async (req, res, next) => {
 });
 
 /** Edit sets and reps in a users workout */
-router.patch("/:exerciseId", async (req, res, next) => {
+router.patch("/:userId/:exerciseId", async (req, res, next) => {
   try {
     // const userId = res.locals.user.id;
 

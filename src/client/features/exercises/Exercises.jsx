@@ -7,13 +7,14 @@ import {
   useGetWorkoutsAdvancedQuery,
 } from "../workouts/workoutsSlice";
 import { useCreateUsersExerciseMutation } from "../user_exercises/user_exercisesSlice";
-
+import ExerciseJournal from "./ExerciseJournal";
 import "./exercises.css";
 
 export default function Exercises({ difficulty }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [editExercise] = useEditUsersExerciseMutation();
   const [createExercise] = useCreateUsersExerciseMutation();
+  const [myReps, setMyReps] = useState([]);
 
   let selectedDifficulty = null;
 
@@ -94,28 +95,36 @@ export default function Exercises({ difficulty }) {
     repsGoal.push(updatedRows);
   }
 
+  // // Create a async function that takes a parameter (exerciseId)
+  // const onDelete = async (id) => {
+  //   // Execute the deleteExercise function using the useDeleteExerciseMutation hook on exerciseexerciseexercise
+  //   // for (const ele of rows) {
+  //   //   let newSetsGoal = [];
+  //   //   if (setsGoal >= exerciseSetsGoal) {
+  //   // e.preventDefault();
+  //   editExercise(id);
+  //   console.log(id);
+  // };
+
   console.log(rows);
   console.log(repsGoal);
 
-  // Create a async function that takes a parameter (exerciseId)
-  const onDelete = async (e, userId) => {
-    // Execute the deleteExercise function using the useDeleteExerciseMutation hook on exerciseexerciseuserId
-    // for (const ele of rows) {
-    //   let newSetsGoal = [];
-    //   if (setsGoal >= exerciseSetsGoal) {
-    e.preventDefault();
-    editExercise(userId);
-    console.log(userId);
-  };
-
   const submitWorkout = async (e) => {
     e.preventDefault();
-    createExercise({
-      mySets: rows.length,
-      myReps: repsGoal.reduce((acc, cur) => acc + cur, 0),
-    });
-  };
+    console.log("Button Clicked");
 
+    const { id: exerciseId } = exercise;
+
+    createExercise({
+      exerciseId,
+      mySets: rows.length,
+      myReps: myReps,
+    });
+    setMyReps([]);
+    // console.log(totalReps);
+  };
+  console.log(exercise.id);
+  console.log(exercise);
   return (
     <div>
       <main>
@@ -150,33 +159,39 @@ export default function Exercises({ difficulty }) {
         </div>
       </main>
       <h3 class='exdesc'>{exerciseDescription}</h3>
-      <table>
-        <thead>
-          <tr class="tablelabels">
-            <th>Exercise</th>
-            <th>Sets #</th>
-            <th>Reps Goal</th>
-            <th>My Reps</th>
-            <th>Delete Entry</th>
-          </tr>
-        </thead>
-        <tbody class='tbodyex'>
-          {/* Map over the rows array with two paramters, row and index */}
-          {rows.map((row, index) => (
-            // Pass in the current index as a prop
-            <tr class='toprowtablerow' key={index}>
-              {/* Render to the page the following table tags based of the setsGoal number */}
-              <td>{exerciseName}</td>
-              <td>{row}</td>
-              <td>{exerciseRepsGoal}</td>
-              <td>
-                {/* My Reps input box */}
-                <label name='reps'>
-                  <input type='number' id='reps' />
-                </label>
-              </td>
-              <td>
-                {/* <button
+      <form onSubmit={submitWorkout}>
+        <table class="tablelabel>
+          <thead>
+            <tr>
+              <th>Exercise</th>
+              <th>Sets #</th>
+              <th>Reps Goal</th>
+              <th>My Reps</th>
+              {/* <th>Delete Entry</th> */}
+            </tr>
+          </thead>
+          <tbody class='tbodyex'>
+            {/* Map over the rows array with two paramters, row and index */}
+            {rows.map((row, index) => (
+              // Pass in the current index as a prop
+              <tr class='toprowtablerow' key={index}>
+                {/* Render to the page the following table tags based of the setsGoal number */}
+                <td>{exerciseName}</td>
+                <td>{row}</td>
+                <td>{exerciseRepsGoal}</td>
+                <td>
+                  {/* My Reps input box */}
+                  <label name='reps'>
+                    <input
+                      type='number'
+                      value={myReps}
+                      onChange={(e) => setMyReps(e.target.value)}
+                      id='reps'
+                    />
+                  </label>
+                </td>
+                <td>
+                  {/* <button
                   id='addBtn'
                   onClick={onDelete}
                   method='DELETE'
@@ -184,41 +199,42 @@ export default function Exercises({ difficulty }) {
                 >
                   X
                 </button> */}
-                <button
-                  id='addBtn'
-                  onClick={onDelete}
-                  method='DELETE'
-                  name='deleteExercise'
-                  class='button-24'
-                  role='button'
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <table>
+                  {/* <button
+                    id='addBtn'
+                    onClick={() => onDelete(exercise.id)}
+                    method='DELETE'
+                    name='deleteExercise'
+                    class='button-24'
+                    role='button'
+                  >
+                    Delete
+                  </button> */}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <tbody>
           <tr class="tablebuttons">
             <td class='bottomTabBut'>
               {/* Need to add onClick Function to add a set */}
-              <button onClick={submitWorkout} class='button-91' role='button'>
+              <button class='button-91' role='button'>
                 Add Another Set
               </button>
             </td>
             {/* onClick={addSet} method='POST' */}
             <td class="bottomTabBut">
               {/* Need to add onClick Function to submit workout */}
-              <button class='button-91' role='button'>
+              <button type='submit' class='button-91' role='button'>
                 Submit Workout
               </button>
             </td>
             {/* onClick={submitworkout} method='POST' */}
           </tr>
         </tbody>
-      </table>
+      </form>
+
+      <ExerciseJournal />
     </div>
   );
 }
