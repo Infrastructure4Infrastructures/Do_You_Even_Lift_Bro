@@ -48,19 +48,19 @@ export default function AuthForm() {
         <label>
           Username
           <input
-            type="text"
+            type='text'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            autoComplete="username"
+            autoComplete='username'
           />
         </label>
         <label>
           Password
           <input
-            type="password"
+            type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
+            autoComplete='current-password'
           />
         </label>
         <button>{authAction}</button>
@@ -68,17 +68,17 @@ export default function AuthForm() {
       <a onClick={() => setIsLogin(!isLogin)}>{altCopy}</a>
 
       {(loginLoading || registerLoading) && <p>Please wait...</p>}
-      {loginError && <p role="alert">{loginError}</p>}
-      {registerError && <p role="alert">{registerError}</p>}
+      {loginError && <p role='alert'>{loginError}</p>}
+      {registerError && <p role='alert'>{registerError}</p>}
       <div>
         <body>
           <h1> Let's Get Swole!</h1>
           <section>
             <img
-              src="https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2019/07/Hands-Clapping-Chaulk-Kettlebell.jpg?quality=86&strip=all"
-              height="500"
-              width="800"
-              alt="Workout Image"
+              src='https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2019/07/Hands-Clapping-Chaulk-Kettlebell.jpg?quality=86&strip=all'
+              height='500'
+              width='800'
+              alt='Workout Image'
             />
           </section>
         </body>
@@ -87,4 +87,3 @@ export default function AuthForm() {
     </>
   );
 }
-cd;
