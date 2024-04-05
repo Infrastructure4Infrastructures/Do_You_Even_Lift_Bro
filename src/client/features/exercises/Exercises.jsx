@@ -133,12 +133,12 @@ export default function Exercises({ difficulty }) {
         </section>
 
         <section class='exnamesec'>
-          <h2 class='exname'>
+          <h2 id='exname'>
             {exercise.name.charAt(0).toUpperCase() + exercise.name.slice(1)}
           </h2>
         </section>
 
-        <section class='video'>
+        <div class='video'>
           <iframe
             width='560'
             height='315'
@@ -147,12 +147,12 @@ export default function Exercises({ difficulty }) {
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
           ></iframe>
-        </section>
+        </div>
       </main>
       <h3 class='exdesc'>{exerciseDescription}</h3>
       <table>
         <thead>
-          <tr>
+          <tr class="tablelabels">
             <th>Exercise</th>
             <th>Sets #</th>
             <th>Reps Goal</th>
@@ -201,7 +201,7 @@ export default function Exercises({ difficulty }) {
       </table>
       <table>
         <tbody>
-          <tr>
+          <tr class="tablebuttons">
             <td class='bottomTabBut'>
               {/* Need to add onClick Function to add a set */}
               <button onClick={submitWorkout} class='button-91' role='button'>
@@ -209,7 +209,7 @@ export default function Exercises({ difficulty }) {
               </button>
             </td>
             {/* onClick={addSet} method='POST' */}
-            <td>
+            <td class="bottomTabBut">
               {/* Need to add onClick Function to submit workout */}
               <button class='button-91' role='button'>
                 Submit Workout

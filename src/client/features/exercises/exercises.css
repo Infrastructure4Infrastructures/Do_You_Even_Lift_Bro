@@ -42,23 +42,31 @@
   } */
 /*  */
   .exnamesec {
+    padding-bottom: .5rem;
+    color: white;
+    /* margin: -3rem;   */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  } 
+  /* #exname {
     
-    margin: -3rem;  
+    
   } */
-  .exname {
-    color:slategray;
-  }
-  video {
+  .video {
     text-align: center;
     justify-content: center;
   }
-
+  /* iframe {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  } */
   .exdesc {
     font-size: 1rem;
     color: navy;
     text-align: center;
  
-    margin-top: -1rem;
+    margin-top: .4rem;
+    margin-bottom: .4rem;
 
   }
   /* .tbodyex {
@@ -83,18 +91,26 @@
         
 
         justify-content: center;
-
+      
      } */
+
+        /* .tbodyex {
+          color:white;
+        } */
+        .tablebuttons {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+        }
         #prebut, #nextbut, .button-91  {
         color: #fff;
         padding: 15px 25px;
-        background-color: #0470ec;
+        background-color: #1cb5e0;
         background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
         box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
         border-radius: 14px;
         font-weight: bold;
         font-size: 16px;
-     
         border: 0;
      
         user-select: none;
@@ -105,7 +121,7 @@
         }
        .button-91:hover,
        .button-91:active {
-         background-color: rgb(0, 24, 163);
+         background-color: #0962ac;
          background-position: 0 0;
          /* color: #FF4742; */
        }
@@ -115,7 +131,7 @@
         #prebut  {
         color: #fff;
         padding: 15px 25px;
-        background-color: #0470ec;
+        background-color: #1cb5e0;
         background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
         box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
         border-radius: 14px;
@@ -129,7 +145,7 @@
       }
        #prebut:hover,
        #prebut:active {
-        background-color: rgb(0, 24, 163);
+        background-color: #0962ac;
         background-position: 0 0;
         /* color: #FF4742; */
       }
@@ -139,7 +155,7 @@
       #nextbut  {
       color: #fff;
       padding: 15px 25px;
-      background-color: #0470ec;
+      background-color: #1cb5e0;
       background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
       box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
       border-radius: 14px;
@@ -153,7 +169,7 @@
     }
     #nextbut:hover,
     #nextbut:active {
-      background-color: rgb(0, 24, 163);
+      background-color: #0962ac;
       background-position: 0 0;
       /* color: #FF4742; */
     }

@@ -17,8 +17,8 @@ export default function WorkoutIntermediate({}) {
     <div>
       <h1 class="workoutDifTitle">Intermediate Workout</h1>
       <Exercises difficulty={difficulty} />
-      <section>
-        <NavLink to='/meals'>Visit Food Journal</NavLink>
+      <section class="workoutFoodJournal">
+        <NavLink  to='/meals'>Visit Food Journal</NavLink>
       </section>
     </div>
   );

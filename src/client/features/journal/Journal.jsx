@@ -37,7 +37,7 @@ export default function Journal() {
   };
   return (
     <div className='journal_entry_container'>
-      <h2 class='fjTitle'>Food Journal</h2>
+      <h2 id='fjTitle'>Food Journal</h2>
       <table class='foodJournalFormName'>
         <thead>
           <tr>
