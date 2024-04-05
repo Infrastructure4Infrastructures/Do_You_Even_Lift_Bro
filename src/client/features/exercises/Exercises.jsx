@@ -1,16 +1,19 @@
 import React, { Fragment, useState } from "react";
-import { useDeleteExercisesByIdMutation } from "./exercisesSlice";
+// import { useDeleteExercisesByIdMutation } from "./exercisesSlice";
+import { useEditUsersExerciseMutation } from "../user_exercises/user_exercisesSlice";
 import {
   useGetWorkoutsBeginnerQuery,
   useGetWorkoutsIntermediateQuery,
   useGetWorkoutsAdvancedQuery,
 } from "../workouts/workoutsSlice";
+import { useCreateUsersExerciseMutation } from "../user_exercises/user_exercisesSlice";
 
 import "./exercises.css";
 
 export default function Exercises({ difficulty }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [deleteExercise] = useDeleteExercisesByIdMutation();
+  const [editExercise] = useEditUsersExerciseMutation();
+  const [createExercise] = useCreateUsersExerciseMutation();
 
   let selectedDifficulty = null;
 
@@ -95,16 +98,22 @@ export default function Exercises({ difficulty }) {
   console.log(repsGoal);
 
   // Create a async function that takes a parameter (exerciseId)
-  const onDelete = async (index) => {
-    // Execute the deleteExercise function using the useDeleteExerciseMutation hook on exerciseId
+  const onDelete = async (e, userId) => {
+    // Execute the deleteExercise function using the useDeleteExerciseMutation hook on exerciseexerciseuserId
     // for (const ele of rows) {
     //   let newSetsGoal = [];
     //   if (setsGoal >= exerciseSetsGoal) {
-    deleteExercise(index);
-    //     newSetsGoal.push(ele);
-    //   }
-    // }
-    // return newSetsGoal;
+    e.preventDefault();
+    editExercise(userId);
+    console.log(userId);
+  };
+
+  const submitWorkout = async (e) => {
+    e.preventDefault();
+    createExercise({
+      mySets: rows.length,
+      myReps: repsGoal.reduce((acc, cur) => acc + cur, 0),
+    });
   };
 
   return (
@@ -195,7 +204,7 @@ export default function Exercises({ difficulty }) {
           <tr>
             <td class='bottomTabBut'>
               {/* Need to add onClick Function to add a set */}
-              <button class='button-91' role='button'>
+              <button onClick={submitWorkout} class='button-91' role='button'>
                 Add Another Set
               </button>
             </td>

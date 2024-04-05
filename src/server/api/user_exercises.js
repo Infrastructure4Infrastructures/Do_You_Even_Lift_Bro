@@ -66,9 +66,11 @@ router.post("/:userId/:exerciseId", async (req, res, next) => {
 });
 
 /** Edit sets and reps in a users workout */
-router.patch("/:userId/:exerciseId", async (req, res, next) => {
+router.patch("/:exerciseId", async (req, res, next) => {
   try {
-    const { userId, exerciseId } = req.params;
+    // const userId = res.locals.user.id;
+
+    const { exerciseId } = req.params;
     const { mySets, myReps } = req.body;
     // if any values coming in from the body are null, we do NOT
     // want to send those values to the DB
@@ -83,8 +85,7 @@ router.patch("/:userId/:exerciseId", async (req, res, next) => {
 
     const user_exercises = await prisma.user_Exercises.findFirst({
       where: {
-        userId: +userId,
-        AND: { exercisesId: +exerciseId },
+        exercisesId: +exerciseId,
       },
     });
     const updated_user_exercises = await prisma.user_Exercises.update({
