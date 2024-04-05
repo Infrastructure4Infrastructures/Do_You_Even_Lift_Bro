@@ -47,15 +47,15 @@ router.get("/:userId/:exerciseId", async (req, res, next) => {
 /** Adds sets and reps to a users workout*/
 router.post("/:userId/:exerciseId", async (req, res, next) => {
   try {
-    const { userId, exerciseId } = req.params;
+    const { exerciseId } = req.params;
     const { mySets, myReps } = req.body;
 
     const user_exercises = await prisma.user_Exercises.create({
       data: {
         mySets: +mySets,
         myReps: +myReps,
-        exercisesId: +exerciseId,
-        userId: +userId,
+        exercises: { connect: { id: exerciseId } },
+        user: { connect: { id: res.locals.user.id } },
       },
     });
 
