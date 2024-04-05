@@ -17,8 +17,8 @@ export default function WorkoutAdvanced({}) {
     <div>
       <h1 class="workoutDifTitle">Advanced Workout</h1>
       <Exercises difficulty={difficulty} />
-      <section>
-        <NavLink to='/meals'>Visit Food Journal</NavLink>
+      <section class="workoutFoodJournal">
+        <NavLink  to='/meals'>Visit Food Journal</NavLink>
       </section>
     </div>
   );

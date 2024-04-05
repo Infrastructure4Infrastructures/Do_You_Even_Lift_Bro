@@ -1,6 +1,31 @@
 .workoutDifTitle {
     text-align: center;
-    color:cornflowerblue;
+    color:navy;
     margin-top: .8rem;
-    font-family: "copperplate", fantasy;
+    font-weight: bolder;
+    text-decoration: underline;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.workoutFoodJournal {
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;                  
+    box-sizing: border-box;
+    /* border: 1px black; */
+    background: #000046; 
+    background: -webkit-linear-gradient(
+    to left,
+    #1cb5e0,
+    #000046
+      ); 
+    background: linear-gradient(
+    to left,
+    #1cb5e0,
+    #000046
+    ); 
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 1.5rem;
+    }
+a {
+    font-size: 1.15rem;
+    }

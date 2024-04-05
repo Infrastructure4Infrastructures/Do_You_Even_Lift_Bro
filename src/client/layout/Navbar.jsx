@@ -52,7 +52,7 @@ export default function Navbar() {
 <label class="navbar-toggle" id="js-navbar-toggle" for="chkToggle">
         <i class="fa fa-bars"></i>
     </label>
-<a href="#" class="logo">Do You Even Lift Bro</a>
+<h1 class="logo" id="logo">Do You Even Lift Bro</h1>
 <input type="checkbox" id="chkToggle"></input>
 <ul class="main-nav" id="js-menu">
 {location.pathname === "/login" || location.pathname === "/register" ? (
