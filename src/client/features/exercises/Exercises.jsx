@@ -74,7 +74,7 @@ export default function Exercises({ difficulty }) {
       ele === exerciseRepsGoal[0] ? exerciseRepsGoal : 1 * exerciseRepsGoal;
     repsGoal.push(updatedRows);
   }
-
+  console.log(rows.length);
   const submitWorkout = async (e) => {
     e.preventDefault();
     console.log("Button Clicked");
@@ -96,13 +96,12 @@ export default function Exercises({ difficulty }) {
     createExercise({
       userId,
       exerciseId,
-      mySets: rows.length,
-
-      myReps: allReps.reduce((acc, cur) => acc + cur, 0),
+      mySets: +rows.length,
+      myReps: +allReps.reduce((acc, cur) => acc + cur, 0),
     });
     setMyReps();
   };
-  console.log(rows.length);
+
   return (
     <div>
       <main>

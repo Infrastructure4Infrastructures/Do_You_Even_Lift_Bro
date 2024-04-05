@@ -14,7 +14,7 @@ const user_exercisesAPI = api.injectEndpoints({
       query: ({ userId, exerciseId, user_exercises }) => ({
         url: `/user_exercises/${userId}/${exerciseId}`,
         method: "POST",
-        body: user_exercises,
+        body: { user_exercises },
       }),
       invalidatesTags: ["User_exercises"],
     }),

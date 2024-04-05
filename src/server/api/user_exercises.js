@@ -35,7 +35,7 @@ router.get("/:userId/:exerciseId", async (req, res, next) => {
     const { userId, exerciseId } = req.params;
 
     const user_exercises = await prisma.user_Exercises.findUnique({
-      where: { id: +userId, exercisesId: +exerciseId },
+      where: { id: +res.locals.user.id, exercisesId: +exerciseId },
     });
 
     res.json(user_exercises);
@@ -54,8 +54,8 @@ router.post("/:userId/:exerciseId", async (req, res, next) => {
       data: {
         mySets: +mySets,
         myReps: +myReps,
-        exercises: { connect: { id: exerciseId } },
-        user: { connect: { id: res.locals.user.id } },
+        exercises: { connect: { id: +exerciseId } },
+        user: { connect: { id: +res.locals.user.id } },
       },
     });
 
