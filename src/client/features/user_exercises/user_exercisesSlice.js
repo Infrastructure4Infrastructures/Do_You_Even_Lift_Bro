@@ -11,18 +11,18 @@ const user_exercisesAPI = api.injectEndpoints({
       providesTags: ["User_exercises"],
     }),
     createUsersExercise: builder.mutation({
-      query: (user_exercises) => ({
-        url: "/user_exercises",
+      query: (user_exercises, userId) => ({
+        url: `/user_exercises/${userId}`,
         method: "POST",
         body: { user_exercises },
       }),
       invalidatesTags: ["User_exercises"],
     }),
     editUsersExercise: builder.mutation({
-      query: (id) => ({
-        url: `/user_exercises/${id}`,
+      query: (user_exercises, exerciseId) => ({
+        url: `/user_exercises/${exerciseId}`,
         method: "PATCH",
-        body: { user_exercises },
+        body: user_exercises,
       }),
       invalidatesTags: ["User_exercises"],
     }),

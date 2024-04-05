@@ -31,6 +31,8 @@ router.get("/", async (req, res, next) => {
 /** Gets user workouts by difficulty (beginner)*/
 router.get("/beginner", async (req, res, next) => {
   try {
+    // const userId = res.locals.user.id;
+
     const workout = await prisma.workouts.findMany({
       where: { difficulty: "Beginner" },
       include: { Workout_Exercises: { include: { exercises: true } } },
