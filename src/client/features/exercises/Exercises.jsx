@@ -13,7 +13,7 @@ export default function Exercises({ difficulty }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [createExercise] = useCreateUsersExerciseMutation();
-  const [myReps, setMyReps] = useState([]);
+  const [myReps, setMyReps] = useState();
 
   let selectedDifficulty = null;
 
@@ -90,17 +90,19 @@ export default function Exercises({ difficulty }) {
     for (let i = 0; i < rows.length; i++) {
       const reps = prompt(`Enter reps for set ${i + 1}:`);
       allReps.push(reps);
+      console.log(allReps);
     }
 
     createExercise({
       userId,
       exerciseId,
       mySets: rows.length,
+
       myReps: allReps.reduce((acc, cur) => acc + cur, 0),
     });
-    setMyReps([]);
+    setMyReps();
   };
-
+  console.log(rows.length);
   return (
     <div>
       <main>
@@ -142,7 +144,7 @@ export default function Exercises({ difficulty }) {
               <th>Exercise</th>
               <th>Sets #</th>
               <th>Reps Goal</th>
-              <th>My Reps</th>
+              {/* <th>My Reps</th> */}
               {/* <th>Delete Entry</th> */}
             </tr>
           </thead>
@@ -155,7 +157,7 @@ export default function Exercises({ difficulty }) {
                 <td>{exerciseName}</td>
                 <td>{row}</td>
                 <td>{exerciseRepsGoal}</td>
-                <td>
+                {/* <td>
                   <label name='reps'>
                     <input
                       type='number'
@@ -165,7 +167,7 @@ export default function Exercises({ difficulty }) {
                       placeholder='Enter data in window prompt'
                     />
                   </label>
-                </td>
+                </td> */}
                 <td>
                   {/* <button
                     id='addBtn'
@@ -194,7 +196,7 @@ export default function Exercises({ difficulty }) {
             <td class='bottomTabBut'>
               {/* Need to add onClick Function to submit workout */}
               <button type='submit' class='button-91' role='button'>
-                Submit Workout
+                Add Set Reps
               </button>
             </td>
             {/* onClick={submitworkout} method='POST' */}
