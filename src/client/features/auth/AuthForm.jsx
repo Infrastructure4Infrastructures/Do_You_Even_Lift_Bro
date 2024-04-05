@@ -70,6 +70,21 @@ export default function AuthForm() {
       {(loginLoading || registerLoading) && <p>Please wait...</p>}
       {loginError && <p role="alert">{loginError}</p>}
       {registerError && <p role="alert">{registerError}</p>}
+      <div>
+        <body>
+          <h1> Let's Get Swole!</h1>
+          <section>
+            <img
+              src="https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2019/07/Hands-Clapping-Chaulk-Kettlebell.jpg?quality=86&strip=all"
+              height="500"
+              width="800"
+              alt="Workout Image"
+            />
+          </section>
+        </body>
+      </div>
+      <footer></footer>
     </>
   );
 }
+cd;
