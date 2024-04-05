@@ -14,6 +14,7 @@ import Meals from "./features/meals/Meals.jsx";
 import WorkoutBeginner from "./features/workouts/WorkoutBeginner.jsx";
 import WorkoutIntermediate from "./features/workouts/WorkoutIntermediate.jsx";
 import WorkoutAdvanced from "./features/workouts/WorkoutAdvanced.jsx";
+import Home from "./layout/Home.jsx";
 
 // import "features/programs.css";
 
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
       // { path: "/", element: <Programs /> },
       //{ path: "/tasks", element: <Tasks /> },
       { path: "/login", element: <AuthForm /> },
-      // { path: "/", element: <Home /> },
+      { path: "/", element: <Home /> },
       { path: "/programs", element: <Programs /> },
       { path: "/workouts/beginner", element: <WorkoutBeginner /> },
       { path: "/workouts/intermediate", element: <WorkoutIntermediate /> },
