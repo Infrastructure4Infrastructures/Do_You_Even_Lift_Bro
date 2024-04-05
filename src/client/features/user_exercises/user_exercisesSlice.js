@@ -11,10 +11,10 @@ const user_exercisesAPI = api.injectEndpoints({
       providesTags: ["User_exercises"],
     }),
     createUsersExercise: builder.mutation({
-      query: ({ userId, exerciseId, user_exercises }) => ({
+      query: ({ userId, exerciseId, mySets, myReps }) => ({
         url: `/user_exercises/${userId}/${exerciseId}`,
         method: "POST",
-        body: { user_exercises },
+        body: { mySets, myReps },
       }),
       invalidatesTags: ["User_exercises"],
     }),
