@@ -114,14 +114,26 @@ export default function Exercises({ difficulty }) {
     console.log("Button Clicked");
 
     const { id: exerciseId } = exercise;
+    const userId = "27";
+    if (!exercise) {
+      console.error("Exercise is undefined");
+      return;
+    }
+
+    const allReps = [];
+    for (let i = 0; i < rows.length; i++) {
+      const reps = prompt(`Enter reps for set ${i + 1}:`);
+      allReps.push(reps);
+    }
 
     createExercise({
+      userId,
       exerciseId,
       mySets: rows.length,
-      myReps: myReps,
+      myReps: allReps.reduce((acc, cur) => acc + cur, 0),
     });
     setMyReps([]);
-    // console.log(totalReps);
+    console.log(allReps);
   };
   console.log(exercise.id);
   console.log(exercise);
@@ -216,12 +228,12 @@ export default function Exercises({ difficulty }) {
         </table>
         <tbody>
           <tr class='tablebuttons'>
-            <td class='bottomTabBut'>
-              {/* Need to add onClick Function to add a set */}
+            {/* <td class='bottomTabBut'>
+              Need to add onClick Function to add a set
               <button class='button-91' role='button'>
                 Add Another Set
               </button>
-            </td>
+            </td> */}
             {/* onClick={addSet} method='POST' */}
             <td class='bottomTabBut'>
               {/* Need to add onClick Function to submit workout */}
