@@ -6,7 +6,9 @@ module.exports = router;
 /** Gets sets and reps to a users workout*/
 router.get("/", async (req, res, next) => {
   try {
-    const user_exercises = await prisma.user_Exercises.findMany({});
+    const user_exercises = await prisma.user_Exercises.findMany({      where: { userId: +res.locals.user.id },
+    });
+    
 
     res.json(user_exercises);
   } catch (err) {
