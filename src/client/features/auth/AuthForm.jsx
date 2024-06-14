@@ -71,7 +71,7 @@ export default function AuthForm() {
       {loginError && <p role='alert'>{loginError}</p>}
       {registerError && <p role='alert'>{registerError}</p>}
       <div>
-        <body>
+        <div>
           <h1> Let's Get Swole!</h1>
           <section>
             <img
@@ -81,7 +81,7 @@ export default function AuthForm() {
               alt='Workout Image'
             />
           </section>
-        </body>
+        </div>
       </div>
       <footer></footer>
     </>
