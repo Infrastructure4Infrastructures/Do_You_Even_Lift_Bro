@@ -3,14 +3,14 @@ import HomePic from "./images/muscular-sportsman-building-biceps-with-dumbbell_7
 export default function Home() {
   return (
     <>
-      <body>
+      <section>
         <header>
           <center>
             <h1>Welcome To Your Full Body Workout</h1>
           </center>
         </header>
         <img src={HomePic} className='center'></img>
-      </body>
+      </section>
     </>
   );
 }

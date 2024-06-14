@@ -16,7 +16,7 @@ export default function Programs() {
   }
 
   return (
-    <body>
+    <div>
       <h2>Select a Workout Difficulty</h2>
 
       <h3></h3>
@@ -41,6 +41,6 @@ export default function Programs() {
           </NavLink>
         </section>
       </footer>
-    </body>
+    </div>
   );
 }
