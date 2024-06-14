@@ -9,7 +9,7 @@ export default function Home() {
             <h1>Welcome To Your Full Body Workout</h1>
           </center>
         </header>
-        <img src={HomePic} class='center'></img>
+        <img src={HomePic} className='center'></img>
       </body>
     </>
   );
