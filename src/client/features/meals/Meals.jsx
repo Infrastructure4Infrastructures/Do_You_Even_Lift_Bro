@@ -1,16 +1,14 @@
 import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 import { useCreateJournalEntryMutation } from "../journal_entry/journalEntrySlice.js";
 
 import Journal from "../journal/Journal.jsx";
-// import { useGetJournalQuery } from "../journal/journalSlice.js";
 
 export default function Meals() {
   const token = useSelector(selectToken);
-  // const { data: journal_entry } = useGetJournalQuery();
-  // const [calories, setCalories] = useState("");
   const [note, setNote] = useState("");
   const [date, setDate] = useState("");
   const [createMeal] = useCreateJournalEntryMutation();
@@ -45,15 +43,6 @@ export default function Meals() {
           />
         </label>
 
-        {/* <label htmlFor='Calories'>
-          Calories:
-          <input
-            type='number'
-            value={calories}
-            onChange={(e) => setCalories(e.target.value)}
-          />
-        </label> */}
-
         <label>
           Date/Time:
           <input
@@ -68,6 +57,9 @@ export default function Meals() {
         </button>
       </form>
       <Journal />
+      <section className='workoutFoodJournal'>
+        <NavLink to='/programs'>Visit Workout Programs</NavLink>
+      </section>
     </div>
   );
 }
