@@ -29,19 +29,35 @@ export default function DropDownMenu({ setOpen }) {
         <menu>
           {currentPath === "/login" || currentPath === "/register" ? (
             <li>
-              <NavLink to='/' onClick={handleClick}>
+              <NavLink
+                to='/'
+                onClick={handleClick}
+                isActive={() =>
+                  ["/", "/login", "/register"].includes(currentPath)
+                }
+              >
                 Welcome Page
               </NavLink>
             </li>
           ) : currentPath === "/" ? (
             <li>
-              <NavLink to='/programs' onClick={handleClick}>
+              <NavLink
+                to='/programs'
+                onClick={handleClick}
+                isActive={() =>
+                  currentPath === "/" || currentPath === "/programs"
+                }
+              >
                 Workout Programs
               </NavLink>
             </li>
           ) : currentPath === "/programs" ? (
             <li>
-              <NavLink to='/meals' onClick={handleClick}>
+              <NavLink
+                to='/meals'
+                onClick={handleClick}
+                isActive={() => currentPath.startsWith("/meals")}
+              >
                 Food journal
               </NavLink>
             </li>
