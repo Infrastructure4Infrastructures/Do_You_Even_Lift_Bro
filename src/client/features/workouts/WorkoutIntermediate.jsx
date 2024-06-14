@@ -15,10 +15,10 @@ export default function WorkoutIntermediate({}) {
 
   return (
     <div>
-      <h1 class="workoutDifTitle">Intermediate Workout</h1>
+      <h1 className='workoutDifTitle'>Intermediate Workout</h1>
       <Exercises difficulty={difficulty} />
-      <section class="workoutFoodJournal">
-        <NavLink  to='/meals'>Visit Food Journal</NavLink>
+      <section className='workoutFoodJournal'>
+        <NavLink to='/meals'>Visit Food Journal</NavLink>
       </section>
     </div>
   );

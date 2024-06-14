@@ -28,14 +28,14 @@ export default function Meals() {
   }
   return (
     <div>
-      <section class='inputInfo'>
+      <section className='inputInfo'>
         <h3>
           Track your meals in the input below. Click "Add Meal" to add a new
           meal entry.
         </h3>
       </section>
 
-      <form class='foodForms' onSubmit={addFood}>
+      <form className='foodForms' onSubmit={addFood}>
         <label htmlFor='name'>
           Food Entry:
           <input
