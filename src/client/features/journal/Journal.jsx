@@ -38,13 +38,13 @@ export default function Journal() {
   return (
     <div className='journal_entry_container'>
       <h2 id='fjTitle'>Food Journal</h2>
-      <table class='foodJournalFormName'>
+      <table className='foodJournalFormName'>
         <thead>
           <tr>
-            <th class='ftInpLab'>Date/Time</th>
-            <th class='ftInpLab'>Food Entry</th>
-            {/* <th class='ftInpLab'>Calories</th> */}
-            <th class='ftInpLab'>Remove Entry</th>
+            <th className='ftInpLab'>Date/Time</th>
+            <th className='ftInpLab'>Food Entry</th>
+            {/* <th className='ftInpLab'>Calories</th> */}
+            <th className='ftInpLab'>Remove Entry</th>
           </tr>
         </thead>
         <tbody>
