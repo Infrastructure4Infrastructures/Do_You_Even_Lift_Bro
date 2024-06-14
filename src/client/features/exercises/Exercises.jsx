@@ -105,7 +105,7 @@ export default function Exercises({ difficulty }) {
   return (
     <div>
       <main>
-        <section class='buttonsect'>
+        <section className='buttonsect'>
           <a id=''>
             <button id='prebut' onClick={handlePrevious}>
               Previous
@@ -118,13 +118,13 @@ export default function Exercises({ difficulty }) {
           </a>
         </section>
 
-        <section class='exnamesec'>
+        <section className='exnamesec'>
           <h2 id='exname'>
             {exercise.name.charAt(0).toUpperCase() + exercise.name.slice(1)}
           </h2>
         </section>
 
-        <div class='video'>
+        <div className='video'>
           <iframe
             width='560'
             height='315'
@@ -135,9 +135,9 @@ export default function Exercises({ difficulty }) {
           ></iframe>
         </div>
       </main>
-      <h3 class='exdesc'>{exerciseDescription}</h3>
+      <h3 className='exdesc'>{exerciseDescription}</h3>
       <form onSubmit={submitWorkout}>
-        <table class='tablelabel'>
+        <table className='tablelabel'>
           <thead>
             <tr>
               <th>Exercise</th>
@@ -147,11 +147,11 @@ export default function Exercises({ difficulty }) {
               {/* <th>Delete Entry</th> */}
             </tr>
           </thead>
-          <tbody class='tbodyex'>
+          <tbody className='tbodyex'>
             {/* Map over the rows array with two parameters, row and index */}
             {rows.map((row, index) => (
               // Pass in the current index as a prop
-              <tr class='toprowtablerow' key={index}>
+              <tr className='toprowtablerow' key={index}>
                 {/* Render to the page the following table tags based of the setsGoal number */}
                 <td>{exerciseName}</td>
                 <td>{row}</td>
@@ -184,7 +184,7 @@ export default function Exercises({ difficulty }) {
           </tbody>
         </table>
         <tbody>
-          <tr class='tablebuttons'>
+          <tr className='tablebuttons'>
             {/* <td class='bottomTabBut'>
               Need to add onClick Function to add a set
               <button class='button-91' role='button'>
@@ -192,9 +192,9 @@ export default function Exercises({ difficulty }) {
               </button>
             </td> */}
             {/* onClick={addSet} method='POST' */}
-            <td class='bottomTabBut'>
+            <td className='bottomTabBut'>
               {/* Need to add onClick Function to submit workout */}
-              <button type='submit' class='button-91' role='button'>
+              <button type='submit' className='button-91' role='button'>
                 Add Set Reps
               </button>
             </td>

@@ -38,14 +38,14 @@ export default function Meal() {
 
   return (
     <div className='meals_container'>
-      <h2 class='fjTitle'>Food Journal</h2>
-      <table class='foodFormName'>
+      <h2 className='fjTitle'>Food Journal</h2>
+      <table className='foodFormName'>
         <thead>
           <tr>
-            <th class='ftInpLab'>Date/Time</th>
-            <th class='ftInpLab'>Food Entry</th>
-            <th class='ftInpLab'>Calories</th>
-            <th class='ftInpLab'>Remove Entry</th>
+            <th className='ftInpLab'>Date/Time</th>
+            <th className='ftInpLab'>Food Entry</th>
+            <th className='ftInpLab'>Calories</th>
+            <th className='ftInpLab'>Remove Entry</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@ export default function Meal() {
                   <td>{journal.food_item.description}</td>
                   <td>{journal.food_item.calories}</td>
                   <td>
-                    <button class='button-24' role='button'>
+                    <button className='button-24' role='button'>
                       Delete
                     </button>
                     {/* <button id="#deleteButtonMeals" onClick={onDelete} aria-label='delete'>

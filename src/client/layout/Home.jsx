@@ -1,3 +1,5 @@
+import HomePic from "./images/muscular-sportsman-building-biceps-with-dumbbell_7502-4744 (1).jpg";
+
 export default function Home() {
   return (
     <>
@@ -7,10 +9,7 @@ export default function Home() {
             <h1>Welcome To Your Full Body Workout</h1>
           </center>
         </header>
-        <img
-          src="src\client\layout\images\muscular-sportsman-building-biceps-with-dumbbell_7502-4744 (1).jpg"
-          class="center"
-        ></img>
+        <img src={HomePic} className='center'></img>
       </body>
     </>
   );

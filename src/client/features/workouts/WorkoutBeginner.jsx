@@ -15,10 +15,10 @@ export default function WorkoutBeginner({}) {
 
   return (
     <div>
-      <h1 class="workoutDifTitle">Beginner Workout</h1>
+      <h1 className='workoutDifTitle'>Beginner Workout</h1>
       <Exercises difficulty={difficulty} />
-      <section class="workoutFoodJournal">
-        <NavLink  to='/meals'>Visit Food Journal</NavLink>
+      <section className='workoutFoodJournal'>
+        <NavLink to='/meals'>Visit Food Journal</NavLink>
       </section>
     </div>
   );

@@ -18,25 +18,27 @@ export default function Programs() {
   return (
     <body>
       <h2>Select a Workout Difficulty</h2>
-    
+
       <h3></h3>
-      <a class="difbutton" href='/workouts/beginner'>
-        <button id="programbutton" >Beginner Workout</button>
+      <a className='difbutton' href='/workouts/beginner'>
+        <button id='programbutton'>Beginner Workout</button>
       </a>
 
       <h3></h3>
-      <a class="difbutton" href='/workouts/intermediate'>
-        <button id="programbutton">Intermediate Workout</button>
+      <a className='difbutton' href='/workouts/intermediate'>
+        <button id='programbutton'>Intermediate Workout</button>
       </a>
 
       <h3></h3>
-      <a class="difbutton" href='/workouts/advanced'>
-        <button id="programbutton">Advanced Workout</button>
+      <a className='difbutton' href='/workouts/advanced'>
+        <button id='programbutton'>Advanced Workout</button>
       </a>
 
-      <footer >
-        <section class="journalbox">
-          <NavLink className="journallink" to='/meals'>Visit Food Journal</NavLink>
+      <footer>
+        <section className='journalbox'>
+          <NavLink className='journallink' to='/meals'>
+            Visit Food Journal
+          </NavLink>
         </section>
       </footer>
     </body>
