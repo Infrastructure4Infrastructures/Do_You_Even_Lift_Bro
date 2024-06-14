@@ -43,7 +43,7 @@ export default function Journal() {
           <tr>
             <th className='ftInpLab'>Date/Time</th>
             <th className='ftInpLab'>Food Entry</th>
-            {/* <th class='ftInpLab'>Calories</th> */}
+            {/* <th className='ftInpLab'>Calories</th> */}
             <th className='ftInpLab'>Remove Entry</th>
           </tr>
         </thead>

@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useDeleteFoodItemMutation, useEditFoodItemMutation } from "./foodItemSlice";
+import {
+  useDeleteFoodItemMutation,
+  useEditFoodItemMutation,
+} from "./foodItemSlice";
 //import { food_Item } from "../../../server/prisma";
 
 /** Allows user to read, update, and delete a food item */
@@ -28,17 +31,21 @@ export default function FoodItem({ foodItem }) {
   };
 
   return (
-    <li class="foodForms">
+    <li className='foodForms'>
       <form onSubmit={save}>
-        <input type="checkbox" checked={foodItem.done} onChange={toggleFoodItem} />
         <input
-          type="text"
+          type='checkbox'
+          checked={foodItem.done}
+          onChange={toggleFoodItem}
+        />
+        <input
+          type='text'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
         <button>Save</button>
-        <button onClick={onDelete} aria-label="delete">
+        <button onClick={onDelete} aria-label='delete'>
           🞪
         </button>
       </form>
